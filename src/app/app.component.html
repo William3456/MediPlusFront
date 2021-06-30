@@ -1,54 +1,70 @@
-<div >
-  <h1 class="text-center text-uppercase  font-weight-bolder p-0 h1">MediPlus</h1>
-  <img class="wave" src="./assets/img/wave.png">
-  <div class="container">
-    <div class="img">
-      <img src="./assets/img/utec.png" style="max-width: 300px;">
+<body>
+<div class="container w-75 bg-primary rounded shadow mt-4">
+  <div class="row align-items-stretch">
+    <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
+
     </div>
-    <div class="login-content pb-5">
-      <form method="POST" action="">
-        <img src="./assets/img/default.png">
-        <h2 class="title">Inicio de sesión</h2>
-
-        <div class="input-div one">
-          <div class="i">
-            <i class="fas fa-user"></i>
-          </div>
-          <div class="div">
-            <h5 class="font-weight-bold">Usuario</h5>
-            <input type="text" class="input is-invalid " name="usuario" id="usuario" style="z-index: 1"
-                   required>
-          </div>
+    <div class="col bg-white p-5 rounded-end">
+      <div class="text-end">
+        <img src="assets/img/default.png" width="48" alt="logo">
+      </div>
+      <h2 class="fw-bold text-center py-4">Bienvenido a MediPlus</h2>
+      <!-- LOGIN -->
+      <form>
+        <div class="">
+          <label for="user" class="form-label">Usuario o email</label>
+          <input type="text" class="form-control" name="user">
         </div>
-        <div class="input-div pass">
-          <div class="i">
-            <i class="fas fa-lock"></i>
-          </div>
-          <div class="div">
-            <h5 class="font-weight-bold">Contraseña</h5>
-            <input type="password" class="input @error('password') is-invalid @enderror" name="password"
-                   style="z-index: 1" id="password"><i class="fas fa-eye" id="mostrarPass"
-                                                       onclick="mostrarPass('mostrarPass', 'password')"></i>
-
-          </div>
+        <div class="mb-3">
+          <label for="pass" class="form-label">Password</label>
+          <input type="password" class="form-control" name="pass">
         </div>
-        <div class="form-group row rem offset-4 pt-3">
-          <input class="form-check-input" type="checkbox" name="remember"
-                 id="remember">
-
-          <label class="form-check-label font-weight-bold" for="remember">
-            recuérdame
-          </label>
-
+        <div class="mb-2 form-check">
+          <input type="checkbox" id="recordar" name="recordar" class="form-check-input">
+          <label for="recordar" class="form-check-label">Mantener iniciada la sesión</label>
         </div>
-        <a href="password.request" target="_blank" class="font-weight-bold" style="text-decoration: none">¿Olvidaste tu
-          contraseña?</a>
-        <input type="submit" class="btn text-light" value="Login">
-
+        <div class="d-grid">
+          <button type="button" class="btn btn-primary">Iniciar sesión</button>
+        </div>
+        <div class="my-3">
+          <span>¿No tienes cuenta? <a href="#">Regístrate</a></span><br>
+          <span><a href="#">Perdí mi contraseña</a></span>
+        </div>
       </form>
+
+      <div class="container w-100 my-1">
+        <div class="row text-center">
+          <div class="col-12">O incia con:</div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button class="btn btn-outline-primary w-100 my-1">
+              <div class="row align-items-center">
+                <div class="col-2 d-none d-md d-md-block">
+                  <img src="assets/img/fb.png" width="32">
+                </div>
+                <div class="col-12 col-md-10 text-center">
+                  Facebook
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="col">
+            <button class="btn btn-outline-danger w-100 my-1">
+              <div class="row align-items-center">
+                <div class="col-2 d-none d-md d-md-block">
+                  <img src="assets/img/google.png" width="32">
+                </div>
+                <div class="col-12 col-md-10 text-center">
+                  Google
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
-
-  <script type="text/javascript" src="./assets/js/mainLogin.js"></script>
-
 </div>
+</body>
