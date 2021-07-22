@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {FormGroup} from "@angular/forms";
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
