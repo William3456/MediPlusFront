@@ -23,8 +23,8 @@ export class AuthService {
 
   }
 
-  logout(emailUsuario: any): Observable<any> {
-    return this.http.get<Usuario>(this.url + 'login/logout/' + emailUsuario);
+  logout(id: any): Observable<any> {
+    return this.http.get<Usuario>(this.url + 'login/logout/' + id);
   }
 
   getCurrentUser(idUsuario: any): Observable<Usuario> {

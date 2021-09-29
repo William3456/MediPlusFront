@@ -28,9 +28,10 @@ export class NavbarComponent implements OnInit {
 
   onLogout() {
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
-
-    this.authService.logout(this.usuario.nombre).subscribe((data) => {
+    console.log(this.usuario);
+    this.authService.logout(this.usuario.email).subscribe((data) => {
       if (data.codigo == 200) {
+        console.log(data);
         localStorage.clear();
         this.isLogged = false;
         this.route.navigate(['/login']);

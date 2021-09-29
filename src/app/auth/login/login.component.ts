@@ -43,14 +43,14 @@ export class LoginComponent implements OnInit {
       if(respuesta.codigo == 200){
         const userLocal = {
           id: respuesta.usuario.id,
-          nombre: respuesta.usuario.nombre,
-          apellido: respuesta.usuario.apellido,
-          recuerdame: respuesta.usuario.recordar,
-          tipo_usuario: respuesta.usuario.tipo_usuario,
-          estado: respuesta.usuario.estado
+          name: respuesta.usuario.name,
+          recuerdame: respuesta.usuario.remember,
+          tipo_usuario: respuesta.usuario.user_type,
+          estado: respuesta.usuario.status.id
         }
-        localStorage.setItem('usuario', JSON.stringify(userLocal));
-        this.userService.user.next(userLocal);
+        this.usuario = respuesta.usuario;
+        localStorage.setItem('usuario', JSON.stringify(this.usuario));
+        this.userService.user.next(this.usuario);
         this.router.navigate(['/home']);
       }else{
         Swal.fire({

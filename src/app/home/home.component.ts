@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
       this.router.navigate(['login']);
     }else{
       this.router.navigate(['home']);
-      this.nombreUsuario = this.usuario.nombre + ' ' + this.usuario.apellido;
+      this.nombreUsuario = this.usuario.name;
     }
   }
 
