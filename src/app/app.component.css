@@ -1,0 +1,11 @@
+body{
+  /*height: 100vh;
+  background: #ffe259;
+  background: linear-gradient(to right, #ffa751, #ffe259);*/
+}
+
+.bg{
+  background-image: url(../assets/img/utec.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
