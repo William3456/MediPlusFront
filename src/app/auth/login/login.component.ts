@@ -51,7 +51,9 @@ export class LoginComponent implements OnInit {
         this.usuario = respuesta.usuario;
         localStorage.setItem('usuario', JSON.stringify(this.usuario));
         this.userService.user.next(this.usuario);
-        this.router.navigate(['/home']);
+        //this.router.navigate(['/home']);
+
+        this.router.navigate(['/patient/record/new']);
       }else{
         Swal.fire({
           icon: 'error',

@@ -6,17 +6,22 @@ import { AppComponent } from './app.component';
 import {NavbarComponent} from "./shared/navbar/navbar.component";
 import {FormsModule,ReactiveFormsModule} from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
+import { PatientModule } from './patient/patient.module';
+import { HomeModule } from './home/home.module';
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    PatientModule,
+    HomeModule
+
   ],
   providers: [],
   exports: [
