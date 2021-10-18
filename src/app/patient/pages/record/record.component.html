@@ -1,0 +1,91 @@
+<div class="card col-9 m-auto">
+  <h5 class="card-header text-center">Nuevo expediente clínico</h5>
+  <div class="card-body">
+    <h6 class="card-title">Bienvenido, para comenzar, por favor complete el siguiente formulario</h6>
+    <div class="col">
+      <form  [formGroup] ="recordForm">
+        <div class="row g-3">
+          <div class="col-sm-6">
+            <label for="firstName" class="form-label">Nombres</label>
+            <input type="text" class="form-control" formControlName="fName" placeholder="" value="" required="">
+
+          </div>
+
+          <div class="col-sm-6">
+            <label for="lastName" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+
+          </div>
+
+          <div class="col-12">
+            <label for="address2" class="form-label">Dirección </label>
+            <input type="text" class="form-control"  placeholder="Dirección completa">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="firstName" class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="fNacimiento" formControlName="fNacimiento" (change)="calculaEdad()" required="">
+          </div>
+          <div class="col-sm-2">
+            <label for="firstName" class="form-label">Edad</label>
+            <input type="text" class="form-control" formControlName="edadActual" required="" readonly>
+          </div>
+
+          <div class="col-sm-3">
+            <label for="lastName" class="form-label">Credencial</label>
+            <select class="form-select" id="state" required="">
+              <option value="">Escoger...</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <label for="" class="form-label">Número de credencial</label>
+            <input type="text" class="form-control"  value="" required="">
+          </div>
+
+          <div class="col-md-3">
+            <label for="country" class="form-label">Peso (LB)</label>
+            <input type="number" class="form-control" step="0.01" min="1" value="" required="">
+          </div>
+
+          <div class="col-md-3">
+            <label for="country" class="form-label">Altura (cm)</label>
+            <input type="number" class="form-control" step="0.01" min="1" value="" required="">
+          </div>
+
+          <div class="col-md-3">
+            <label for="lastName" class="form-label">Género</label>
+            <select class="form-select" id="state" required="">
+              <option value="">Escoger...</option>
+              <option>Masculino</option>
+              <option>Femenino</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="country" class="form-label">Profesión</label>
+            <input type="text" class="form-control" value="" required="">
+          </div>
+        </div>
+        <hr class="my-4">
+
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="same-address">
+          <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
+        </div>
+
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" id="save-info">
+          <label class="form-check-label" for="save-info">Save this information for next time</label>
+        </div>
+
+        <hr class="my-4">
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Enviar mi información</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+      $( "#fNacimiento" ).datepicker({ maxDate: '+0d' });
+  });
+</script>

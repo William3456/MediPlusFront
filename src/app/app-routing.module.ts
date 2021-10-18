@@ -4,6 +4,7 @@ import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
+import { RecordComponent } from './patient/pages/record/record.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,12 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule)
-  }];
+  },
+  {
+    path: 'patient/record/new',
+    component: RecordComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
