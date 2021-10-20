@@ -1,7 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Usuario} from "../auth/dao/usuario";
 import {Router} from "@angular/router";
-import {Chart} from 'chart.js';
+import { Label } from 'ng2-charts';
+import { ChartOptions, ChartType } from 'chart.js';
+import { ChartDataSets } from 'chart.js';
+
+
 
 @Component({
   selector: 'app-home',
@@ -12,13 +16,49 @@ export class HomeComponent implements OnInit {
   nombreUsuario: string = "";
   usuario: Usuario = new Usuario();
 
-  public canvas : any;
-  public ctx : any;
-  public chart: [] = [];
-  public chartEmail: any;
-  public chartHours: any;
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
 
-  public yAxes: any;
+  };
+
+
+
+
+  public barChartLabels: Label[] = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO'];
+  public barChartType: ChartType = 'bar';
+  public barChartLegend = true;
+//  public barChartPlugins = [pluginDataLabels];
+
+// events
+public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  console.log(event, active);
+}
+
+public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
+  console.log(event, active);
+}
+
+public randomize(): void {
+  // Only Change 3 values
+  this.barChartData[0].data = [
+    Math.round(Math.random() * 100),
+    59,
+    80,
+    (Math.random() * 100),
+    56,
+    (Math.random() * 100),
+    40 ];
+}
+
+
+
+
+
+public barChartData: ChartDataSets[] = [
+  { data: [65, 59, 80, 81, 56, 55, 40], label: 'Tomas de Glucosa' },
+ // { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+];
 
 
 
@@ -37,50 +77,8 @@ export class HomeComponent implements OnInit {
 
 
 
-      this.canvas = document.getElementById("chartHours");
-      this.ctx = this.canvas.getContext("2d");
 
 
 
-
-
-      var speedCanvas = document.getElementById("speedChart");
-
-      var dataFirst = {
-        data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
-        fill: false,
-        borderColor: '#fbc658',
-        backgroundColor: 'transparent',
-        pointBorderColor: '#fbc658',
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8,
-      };
-
-      var dataSecond = {
-        data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
-        fill: false,
-        borderColor: '#51CACF',
-        backgroundColor: 'transparent',
-        pointBorderColor: '#51CACF',
-        pointRadius: 4,
-        pointHoverRadius: 4,
-        pointBorderWidth: 8
-      };
-
-      var speedData = {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [dataFirst, dataSecond]
-      };
-
-      var chartOptions = {
-        legend: {
-          display: false,
-          position: 'top'
-        }
-      };
-
-
-    }
-
+  }
 }
