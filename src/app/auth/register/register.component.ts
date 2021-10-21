@@ -1,6 +1,7 @@
 import {Component, OnInit, ElementRef} from '@angular/core';
 import {FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { Usuario } from '../dao/usuario';
 import { RegisterService } from './register.service';
@@ -23,7 +24,8 @@ export class RegisterComponent implements OnInit {
   public usuario: Usuario = new Usuario();
 
   constructor(private registerService: RegisterService,
-    private router: Router, private formBuilder: FormBuilder, private el: ElementRef) {
+    private router: Router, private formBuilder: FormBuilder, private el: ElementRef,
+    private toastr: ToastrService) {
 
   }
 
@@ -82,19 +84,12 @@ export class RegisterComponent implements OnInit {
         console.log(response);
         if(response.status === 200){
           this.usuario = response.body;
-          Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Usuario ' + this.usuario.name + ' Creado',
-          });
+          this.toastr.success('Usuario creado', 'Operación exitosa');
           this.router.navigate(['/login']);
           this.registerForm.reset();
         }else{
-          Swal.fire({
-            icon: 'error',
-            title: 'Error...',
-            text: 'No se pudo crear el usuario, intente más tarde',
-          });
+          this.toastr.error('Error al crear el usuario', 'Error');
+          console.log(response);
         }
       });
     }

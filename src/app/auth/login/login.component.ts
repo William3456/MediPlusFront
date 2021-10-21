@@ -5,7 +5,7 @@ import {Usuario} from "../dao/usuario";
 import {Router} from "@angular/router";
 import {NavbarComponent} from "../../shared/navbar/navbar.component";
 import Swal from 'sweetalert2';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,10 +19,12 @@ export class LoginComponent implements OnInit {
   });
   private usuario: Usuario = new Usuario();
 
-  constructor(public userService: AuthService, private router: Router) {
+  constructor(public userService: AuthService, private router: Router,
+    private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
+
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
     if (localStorage.getItem('usuario') == undefined) {
       this.router.navigate(['login']);
@@ -55,11 +57,8 @@ export class LoginComponent implements OnInit {
 
         this.router.navigate(['/patient/record/new']);
       }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Error...',
-          text: respuesta.msj,
-        })
+        this.toastr.error(respuesta.msj, 'Error');
+
       }
     });
   }

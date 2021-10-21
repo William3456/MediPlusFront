@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/auth/dao/usuario';
 import {FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { RecordService } from '../../services/record.service.service';
 import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
@@ -32,7 +33,7 @@ export class RecordComponent implements OnInit {
 
 
   constructor(private router: Router,private formBuilder: FormBuilder,
-    private recordService: RecordService, private el: ElementRef) { }
+    private recordService: RecordService, private el: ElementRef, private toastr: ToastrService) { }
 
   get f(){ return this.recordForm.controls }
   ngOnInit(): void {
@@ -40,7 +41,10 @@ export class RecordComponent implements OnInit {
     if (localStorage.getItem('usuario') == undefined) {
       this.router.navigate(['login']);
     }else{
-
+      if(this.usuario.user_type != 1){
+        this.router.navigate(['home']);
+        return;
+      }
       this.recordService.expedienteByEmail(this.usuario.email).subscribe((response)=>{
         if(response.status !== 404){
           this.router.navigate(['home']);
@@ -136,18 +140,11 @@ export class RecordComponent implements OnInit {
     this.recordService.crearExpediente(expediente).subscribe((response) =>{
       console.log(response);
       if(response.status === 200){
-        Swal.fire({
-          icon: 'success',
-          title: 'Éxito',
-          text: 'Expediente guardado',
-        });
+        this.toastr.success('Expediente creado correctamento', 'Operación exitosa');
         this.router.navigate(['/home']);
       }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Error...',
-          text: 'No se pudo crear el expediente, intente más tarde',
-        });
+        this.toastr.error('Error', 'Error al crear el expediente');
+        console.log(response);
       }
     });
   }
