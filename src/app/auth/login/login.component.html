@@ -1,14 +1,17 @@
 
-<div class="bg-primary rounded shadow mt-4">
-  <div class="row align-items-stretch">
-    <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
 
-    </div>
-    <div class="col bg-white p-5 rounded-end border">
-      <div class="text-end">
+
+
+    <div class="col-6 rounded shadow p-5 border mb-4 m-auto">
+      <div class="text-center row m-0">
+        <div class="col">
         <img src="assets/img/default.png" width="48" alt="logo">
+        </div>
       </div>
-      <h2 class="fw-bold text-center py-4">Bienvenido a MediPlus</h2>
+      <div class="row m-o">
+        <h2 class="fw-bold text-center py-4">Bienvenido a MediPlus</h2>
+      </div>
+
       <!-- LOGIN -->
       <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <div class="">
@@ -19,20 +22,20 @@
           <label  class="form-label">Password</label>
           <input type="password" name="password"  class="form-control" formControlName="password" required="">
         </div>
-        <div class="mb-2 form-check">
+        <!--<div class="mb-2 form-check">
           <input type="checkbox" formControlName="recuerdame" id="recordar" name="recordar" class="form-check-input">
           <label for="recordar" class="form-check-label">Mantener iniciada la sesión</label>
-        </div>
+        </div>-->
         <div class="d-grid">
           <button type="submit" class="btn btn-primary">Iniciar sesión</button>
         </div>
         <div class="my-3">
           <span>¿No tienes cuenta? <a [routerLink]="['/register']">Regístrate</a></span><br>
-          <span><a href="#">Perdí mi contraseña</a></span>
+          <!--<span><a href="#">Perdí mi contraseña</a></span>-->
         </div>
       </form>
 
-      <div class="container w-100 my-1">
+      <!--<div class="container w-100 my-1">
         <div class="row text-center">
           <div class="col-12">O incia con:</div>
         </div>
@@ -62,8 +65,6 @@
             </button>
           </div>
         </div>
-      </div>
+      </div>-->
 
     </div>
-  </div>
-</div>

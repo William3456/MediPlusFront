@@ -10,6 +10,7 @@ export class Usuario {
     id: 0,
     description: ""
   };
+  user_type?: number = 0;
   created_at?: any = null;
 
 }

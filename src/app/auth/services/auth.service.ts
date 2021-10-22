@@ -1,22 +1,39 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {of, Observable, BehaviorSubject} from 'rxjs';
+import {of, Observable, BehaviorSubject, throwError} from 'rxjs';
 import {Usuario} from "../dao/usuario";
-
+import { map, catchError } from 'rxjs/operators';
+import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  url: string = "http://localhost:8000/api/";
+  url: string = environment.baseUrl;
   user = new BehaviorSubject<any>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private toastr: ToastrService) {
   }
 
   login(user: any): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Access-Control-Allow-Credentials', 'true');
-    return this.http.post(this.url + "login", user, {headers: headers})
+    /*Swal.fire({
+      icon: 'error',
+      title: 'Error...',
+      text: 'error de servidor, intente más tare.',
+      didOpen: () => {
+        Swal.showLoading()
+      }
+    });*/
+    return this.http.post(this.url + "login", user, {headers: headers}).pipe(
+      catchError(e => {
+        console.error(e);
+        this.toastr.error('Error interno, intente más tarde', 'Error');
+        return throwError(e);
+      })
+    );
   }
 
   register() {

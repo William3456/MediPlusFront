@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 export class NavbarComponent implements OnInit {
   public usuario: Usuario = new Usuario();
   public isLogged = false;
-
+  public rol: any =0;
   constructor(private authService: AuthService, private route: Router) {
   }
 
@@ -22,6 +22,8 @@ export class NavbarComponent implements OnInit {
         this.isLogged = false;
       }else{
         this.isLogged = true;
+        this.rol = this.usuario.user_type;
+        console.log(this.rol)
       }
     });
   }
@@ -35,6 +37,7 @@ export class NavbarComponent implements OnInit {
         localStorage.clear();
         this.isLogged = false;
         this.route.navigate(['/login']);
+        this.rol = 0;
       } else {
         this.route.navigate(['/']);
       }
