@@ -5,6 +5,7 @@ import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./auth/login/login.component";
 import {RegisterComponent} from "./auth/register/register.component";
 import { RecordComponent } from './patient/pages/record/record.component';
+import { VerRecordComponent } from './patient/pages/ver-record/ver-record.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: 'login', loadChildren: () => import('./auth/login/login.module').then(m => m.LoginModule)
   },
+
   {
     path: 'register',
     loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterModule)
@@ -26,6 +28,9 @@ const routes: Routes = [
   {
     path: 'patient/record/new',
     component: RecordComponent
+  }, {
+    path: 'patient/verRecord',
+    component: VerRecordComponent
   }
 ];
 

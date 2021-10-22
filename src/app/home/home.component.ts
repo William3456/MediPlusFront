@@ -60,7 +60,32 @@ public barChartData: ChartDataSets[] = [
  // { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
 ];
 
+//
 
+public pieChartOptions: ChartOptions = {
+  responsive: true,
+  legend: {
+    position: 'top',
+  },
+  plugins: {
+    datalabels: {
+      formatter: (value: any, ctx: any) => {
+        const label = ctx.chart.data.labels[ctx.dataIndex];
+        return label;
+      },
+    },
+  }
+};
+public pieChartLabels: Label[] = [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'];
+public pieChartData: number[] = [300, 500, 100];
+public pieChartType: ChartType = 'pie';
+public pieChartLegend = true;
+//public pieChartPlugins = [pluginDataLabels];
+public pieChartColors = [
+  {
+    backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+  },
+];
 
   constructor(private router: Router) {
   }
