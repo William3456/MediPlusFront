@@ -1,1 +1,77 @@
-<p>presion works!</p>
+<div class="card col-9 m-auto">
+  <h5 class="card-header">Toma de presión</h5>
+  <div class="card-body">
+
+
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <i class="far fa-check-square"></i>
+            Para una toma correcta, tenga en cuenta lo siguiente:
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <p>
+              Los azúcares que se ingieren con los alimentos son transformados por el metabolismo en glucosa.
+              Ésta se desplaza a través del torrente sanguíneo hasta alcanzar las células de diferentes tipos
+              de tejido proporcionando la energía que necesitan para funcionar. El ejemplo más claro de este
+              proceso es el del tejido muscular, que necesita de esta energía para realizar el esfuerzo que le exige
+              cada movimiento. <br>
+              Al producirse con la digestión de los alimentos, los niveles de glucosa en sangre, a los que clínicamente
+              se denomina glucemia, varían a lo largo del día, oscilando entre concentraciones de 70 y 145 miligramos por
+              decilitro de sangre. Por la mañana, en ayunas son más bajos y se elevan después de cada comida
+              (glucemia postpandrial) y vuelven a descender dos horas después.
+            <p>
+              <p class="fw-bolder">¿Cuándo es recomendable medir la glucemia?</p>
+              <p>
+                Lo recomendable es que la glucemia se mida al levantarse por la mañana y antes del desayuno y
+                se considera normal si los niveles de glucosa que se sitúan entre los <span class="text-success">70 y 100 mg/dl en ayunas</span> y
+                en <span class="text-success">menos a 140 mg/dl</span> dos horas después de cada comida.
+              </p>
+              <a href="https://www.sanitas.es/sanitas/seguros/es/particulares/biblioteca-de-salud/diabetes/niveles-glucosa-sangre.html" target="_blank">Saber más sobre cómo medir la glucosa...</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h6 class="card-title mt-3">* Por favor complete los datos según se solicitan a continuación:</h6>
+
+    <div class="col mt-3">
+      <form [formGroup] ="pressureForm" (ngSubmit) = "guardarTomPres()">
+        <div class="row g-3">
+          <div class="col-sm-2">
+            <label for="firstName" class="form-label">Nivel de glucosa</label>
+            <input type="number" class="form-control" min="0" step="0.01"
+            formControlName="nivGlucosa" [ngClass]="{'is-invalid':submitted && f.nivGlucosa.errors}">
+          </div>
+
+          <div class="col-sm-4">
+            <label for="lastName" class="form-label">Unidad de medida</label>
+            <select class="form-select" formControlName="uMedida" [ngClass]="{'is-invalid':submitted && f.uMedida.errors}">
+              <option value="">Seleccione...</option>
+              <option value="1">miligramos por decilitro (mg/dl)</option>
+              <option value="2">milimol por litro (mmol/l)</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <label for="firstName" class="form-label">Hora medición</label>
+            <input type="time" class="form-control" formControlName="horaMedicion" [ngClass]="{'is-invalid':submitted && f.horaMedicion.errors}">
+
+          </div>
+
+          <div class="col-sm-3">
+            <label for="lastName" class="form-label">Fecha medición</label>
+            <input type="date" class="form-control" formControlName="fechaMedicion" [ngClass]="{'is-invalid':submitted && f.fechaMedicion.errors}">
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
