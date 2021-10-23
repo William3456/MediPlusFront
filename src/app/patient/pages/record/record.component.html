@@ -1,0 +1,85 @@
+<div class="card col-9 m-auto">
+  <h5 class="card-header text-center">Nuevo expediente clínico</h5>
+  <div class="card-body">
+    <h6 class="card-title">Bienvenido, para comenzar, por favor complete el siguiente formulario</h6>
+    <div class="col">
+      <form  [formGroup] ="recordForm" (ngSubmit) = "guardaExpediente()">
+        <div class="row g-3">
+          <div class="col-sm-8 mx-auto">
+            <input type="text" class="form-control" formControlName="fName" required="" readonly>
+          </div>
+
+          <div class="col-12">
+            <label for="address2" class="form-label">Dirección </label>
+            <input type="text" class="form-control"  placeholder="Dirección completa" formControlName="direccion" [ngClass]="{'is-invalid':submitted && f.direccion.errors}">
+            <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
+              <div *ngIf="f.direccion.errors.required">
+                Por favor ingresa la dirección
+              </div>
+              <div *ngIf="f.direccion.errors.minlength">
+                La dirección debe tener al menos 15 caracteres
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <label for="firstName" class="form-label">F. nacimiento</label>
+            <input type="date" class="form-control" id="fNacimiento" formControlName="fNacimiento" (change)="calculaEdad()"  [ngClass]="{'is-invalid':submitted && f.fNacimiento.errors}">
+            <!--<div *ngIf="submitted && f.fNacimiento.errors " class="invalid-feedback">
+              <div *ngIf="f.fNacimiento.errors.required">
+                * Completar
+              </div>
+            </div>-->
+          </div>
+          <div class="col-sm-1">
+            <label for="firstName" class="form-label">Edad</label>
+            <input type="text" name="edadActual" class="form-control" formControlName="edadActual" readonly>
+          </div>
+          <div class="col-sm-2">
+            <label for="lastName" class="form-label">Credencial</label>
+            <select class="form-select" id="state" formControlName="tipoId" [ngClass]="{'is-invalid':submitted && f.tipoId.errors}">
+              <option value="">Escoger...</option>
+              <option value="1">DUI</option>
+              <option value="2">PASAPORTE</option>
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <label for="" class="form-label">Número de credencial</label>
+            <input type="text" class="form-control" formControlName="numId" [ngClass]="{'is-invalid':submitted && f.numId.errors}">
+          </div>
+          <div class="col-sm-3">
+            <label for="" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}">
+          </div>
+
+          <div class="col-md-3">
+            <label for="country" class="form-label">Peso (LB)</label>
+            <input type="number" class="form-control" step="0.01" min="1" formControlName="peso" [ngClass]="{'is-invalid':submitted && f.peso.errors}">
+          </div>
+
+          <div class="col-md-3">
+            <label for="country" class="form-label">Altura (cm)</label>
+            <input type="number" class="form-control" step="0.01" min="1" formControlName="altura" [ngClass]="{'is-invalid':submitted && f.altura.errors}">
+          </div>
+
+          <div class="col-md-3">
+            <label for="lastName" class="form-label">Género</label>
+            <select class="form-select" id="state" formControlName="genero" [ngClass]="{'is-invalid':submitted && f.genero.errors}">
+              <option value="">Escoger...</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="country" class="form-label">Profesión</label>
+            <input type="text" class="form-control" formControlName="profesion" [ngClass]="{'is-invalid':submitted && f.profesion.errors}">
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Enviar mi información</button>
+      </form>
+    </div>
+  </div>
+</div>
