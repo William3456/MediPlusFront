@@ -1,8 +1,10 @@
 <div class="container gb-primary">
   <h1 >{{ nombreUsuario }}</h1>
 </div>
-<div class="row ">
+<div class="row mt-4">
+  <h5>Ultimo chequeo realizado</h5>
   <div class="col-lg-3 col-md-6 col-sm-6">
+
     <div class="card card-stats">
       <div class="card-body ">
         <div class="row">
@@ -11,19 +13,22 @@
               <i class="nc-icon nc-globe text-warning"></i>
             </div>
           </div>
-          <div class="col-7 col-md-8">
+
             <div class="numbers">
-              <p class="card-category">Glucosa</p>
-              <p class="card-title">45
+              <p class="card-category text-center ">Glucosa</p>
+              <p class="card-title text-center">{{valorGlucosa}} - {{Medidaglucosa}}
             </div>
-          </div>
+
 
         </div>
       </div>
       <div class="card-footer ">
-        <hr>
+
         <div class="stats">
-          <i class="fa fa-refresh">Fecha</i>
+          <i class="fa fa-refresh"></i>
+          <p class="card-category text-center">Fecha</p>
+          <hr>
+          <p class="card-title text-center">{{FechaGlucosa}}</p>
         </div>
       </div>
     </div>
@@ -54,7 +59,9 @@
       </div>
     </div>
   </div>
+
 <div class="row mt-4">
+ <a  href="/patient/ver-glucosa">ver mas</a>
   <div class="col-md-12">
     <div class="card ">
       <div class="card-header ">
