@@ -4,6 +4,7 @@ import { RecordComponent } from './pages/record/record.component';
 import { FormsModule } from '@angular/forms';
 
 import {ReactiveFormsModule} from "@angular/forms";
+import { VerRecordComponent } from './pages/ver-record/ver-record.component';
 import { GlucosaComponent } from './pages/glucosa/glucosa.component';
 import { PresionComponent } from './pages/presion/presion.component';
 @NgModule({
@@ -14,5 +15,6 @@ import { PresionComponent } from './pages/presion/presion.component';
     FormsModule,
     ReactiveFormsModule
   ]
+
 })
 export class PatientModule { }
