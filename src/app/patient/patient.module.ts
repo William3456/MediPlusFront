@@ -8,8 +8,9 @@ import { VerRecordComponent } from './pages/ver-record/ver-record.component';
 import { GlucosaComponent } from './pages/glucosa/glucosa.component';
 import { PresionComponent } from './pages/presion/presion.component';
 import { VerGlucosaComponent } from './pages/ver-glucosa/ver-glucosa.component';
+import { VerPresionComponent } from './pages/ver-presion/ver-presion.component';
 @NgModule({
-  declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent, VerRecordComponent],
+  declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent, VerPresionComponent, VerRecordComponent],
   exports:[ RecordComponent, GlucosaComponent, PresionComponent, VerRecordComponent ],
   imports: [
     CommonModule,

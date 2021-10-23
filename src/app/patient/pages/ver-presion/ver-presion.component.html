@@ -1,0 +1,31 @@
+<h2>Historial de tomas de Presion realizadas</h2>
+
+
+<div   class="row mt-6">
+  <div class="col">
+    <table class="table table-hover ">
+      <thead>
+        <tr>
+            <th>#</th>
+            <th>Presion Sistólica</th>
+            <th>Presion Diastólica</th>
+            <th>Ritmo Cardiaco</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Comentario</th>
+            </tr>
+      </thead>
+      <tbody *ngFor="let presion of presionData; let i = index">
+        <tr>
+        <td>{{i+1}}</td>
+        <td>{{presion.systolic_pressure}}</td>
+        <td>{{presion.diastolic_pressure}}</td>
+        <td>{{presion.heart_rate}}</td>
+        <td>{{presion.date}}</td>
+        <td>{{presion.time}}</td>
+        <td></td>
+        </tr>
+       </tbody>
+    </table>
+  </div>
+</div>

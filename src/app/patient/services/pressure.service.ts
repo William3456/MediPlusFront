@@ -25,4 +25,15 @@ export class PressureService {
     )
   }
 
+  ObtenerPressure(): Observable<any>{
+    return this.httpClient.get<any>(this.urlEndPoint + "presion").pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
+  }
+
+
+
 }

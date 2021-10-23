@@ -1,31 +1,21 @@
 <div class="container gb-primary">
   <h1 >{{ nombreUsuario }}</h1>
 </div>
+
 <div class="row mt-4">
   <h5>Ultimo chequeo realizado</h5>
   <div class="col-lg-3 col-md-6 col-sm-6">
-
     <div class="card card-stats">
       <div class="card-body ">
         <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="nc-icon nc-globe text-warning"></i>
-            </div>
-          </div>
-
             <div class="numbers">
               <p class="card-category text-center ">Glucosa</p>
               <p class="card-title text-center">{{valorGlucosa}} - {{Medidaglucosa}}
             </div>
-
-
         </div>
       </div>
       <div class="card-footer ">
-
         <div class="stats">
-          <i class="fa fa-refresh"></i>
           <p class="card-category text-center">Fecha</p>
           <hr>
           <p class="card-title text-center">{{FechaGlucosa}}</p>
@@ -37,32 +27,66 @@
     <div class="card card-stats">
       <div class="card-body ">
         <div class="row">
-          <div class="col-5 col-md-4">
-            <div class="icon-big text-center icon-warning">
-              <i class="nc-icon nc-vector text-danger"></i>
+            <div class="numbers text-center">
+              <p class="card-category">Presion Sistólica</p>
+              <p class="card-title"> {{Vsystolic_pressure}}</p>
             </div>
-          </div>
-          <div class="col-7 col-md-8">
-            <div class="numbers">
-              <p class="card-category">Presion</p>
-              <p class="card-title">23
-                <p>
-            </div>
-          </div>
         </div>
       </div>
       <div class="card-footer ">
-        <hr>
         <div class="stats">
-          <i class="fa fa-clock-o"></i> fecha
+          <p class="card-category text-center">Fecha</p>
+          <hr>
+          <p class="card-title text-center">{{FechaPresion}}</p>
         </div>
       </div>
     </div>
   </div>
 
-<div class="row mt-4">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+            <div class="numbers text-center">
+              <p class="card-category text-center">Presion Diastólica</p>
+              <p class="card-title text-center">{{Vdiastolic_pressure}} </p>
+            </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <div class="stats">
+          <p class="card-category text-center">Fecha</p>
+          <hr>
+          <p class="card-title text-center">{{FechaPresion}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-6 col-sm-6">
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+            <div class="numbers text-center">
+              <p class="card-category">Ritmo Cardiaco</p>
+              <p class="card-title">{{Vheart_rate}}</p>
+            </div>
+        </div>
+      </div>
+      <div class="card-footer ">
+        <div class="stats">
+          <i class="fa fa-refresh"></i>
+          <p class="card-category text-center">Fecha</p>
+          <hr>
+          <p class="card-title text-center">{{FechaPresion}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="row mt-4 col-md-12">
  <a  href="/patient/ver-glucosa">ver mas</a>
-  <div class="col-md-12">
+  <div class="col-md-6">
     <div class="card ">
       <div class="card-header ">
         <h5 class="card-title">Ultimas tomas de Glucosa</h5>
@@ -75,16 +99,44 @@
                 [datasets]="barChartData"
                 [labels]="barChartLabels"
                 [options]="barChartOptions"
-
                 [legend]="barChartLegend"
                 [chartType]="barChartType">
               </canvas>
-
-            </div>
-
           </div>
       </div>
     </div>
   </div>
 </div>
 </div>
+</div>
+
+<div class="row mt-4 col-md-12">
+  <a  href="/patient/ver-presion">ver mas</a>
+   <div class="col-md-6">
+     <div class="card ">
+       <div class="card-header ">
+         <h5 class="card-title">Ultimas tomas de Presion</h5>
+       </div>
+       <div class="card-body  ">
+         <div class="col-7  col-sm-12">
+           <div class="col-m d-block">
+             <div style="display: block">
+            </div>
+            <div style="display: block tm-4">
+              <canvas baseChart
+                [datasets]="barChartDataPresion"
+                [labels]="barChartLabels2"
+                [options]="barChartOptions"
+
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+              </canvas>
+            </div>
+           </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ </div>
+</div>
+
