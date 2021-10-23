@@ -18,6 +18,7 @@ export class GlucosaComponent implements OnInit {
     uMedida : new FormControl(''),
     horaMedicion : new FormControl(''),
     fechaMedicion : new FormControl(''),
+    comentario: new FormControl('')
   });
 
   submitted = false;
@@ -37,6 +38,7 @@ export class GlucosaComponent implements OnInit {
         uMedida : ['', [ Validators.required ]],
         horaMedicion : ['', [ Validators.required ]],
         fechaMedicion : ['', [ Validators.required ]],
+        comentario: ['',[]]
       });
       this.nombreUsuario = this.usuario.name;
     }
@@ -65,7 +67,8 @@ export class GlucosaComponent implements OnInit {
         },
         status:{
           id: 1
-        }
+        },
+        comments: this.glucoForm.value.comentario
     }
     console.log(glucosa);
     this.glucoseService.crearToma(glucosa).subscribe(response => {
@@ -75,7 +78,6 @@ export class GlucosaComponent implements OnInit {
         this.router.navigate(['/home']);
       }else{
         this.toastr.error('Error', 'Error al guardar los datos');
-        console.log(response);
       }
     })
   }

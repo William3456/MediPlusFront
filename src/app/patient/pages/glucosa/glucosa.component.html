@@ -1,18 +1,16 @@
-<div class="card col-9 m-auto">
+<div class="card col-12 m-auto">
   <h5 class="card-header">Toma de glucosa</h5>
   <div class="card-body">
 
 
-    <div class="accordion" id="accordionExample">
+    <div class="accordion"  id="accordionExample">
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <i class="far fa-check-square"></i>
-            Más información sobre las tomas de glucosa
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed btn btn-link fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Más información sobre las tomas de glucosa...
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <p>
               Los azúcares que se ingieren con los alimentos son transformados por el metabolismo en glucosa.
@@ -35,6 +33,7 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <h6 class="card-title mt-3">* Por favor complete los datos según se solicitan a continuación:</h6>
@@ -65,6 +64,14 @@
           <div class="col-sm-3">
             <label for="lastName" class="form-label">Fecha medición</label>
             <input type="date" class="form-control" formControlName="fechaMedicion" [ngClass]="{'is-invalid':submitted && f.fechaMedicion.errors}">
+          </div>
+
+          <div class="col-sm-6 mx-auto">
+            <label for="lastName" class="form-label col-12 text-center">Comentarios sobre toma</label>
+
+            <textarea class="form-control" formControlName="comentario" >
+
+            </textarea>
           </div>
         </div>
 

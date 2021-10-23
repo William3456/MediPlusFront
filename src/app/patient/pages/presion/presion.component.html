@@ -1,40 +1,60 @@
-<div class="card col-9 m-auto">
-  <h5 class="card-header">Toma de presión</h5>
+<div class="card col-12 m-auto">
+  <h5 class="card-header">Toma de presión arterial</h5>
   <div class="card-body">
 
 
-    <div class="accordion" id="accordionExample">
+    <div class="accordion"  id="accordionExample">
       <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <i class="far fa-check-square"></i>
-            Para una toma correcta, tenga en cuenta lo siguiente:
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed btn btn-link fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            ¿Cómo obtener una medición más precisa?
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
           <div class="accordion-body">
             <p>
-              Los azúcares que se ingieren con los alimentos son transformados por el metabolismo en glucosa.
-              Ésta se desplaza a través del torrente sanguíneo hasta alcanzar las células de diferentes tipos
-              de tejido proporcionando la energía que necesitan para funcionar. El ejemplo más claro de este
-              proceso es el del tejido muscular, que necesita de esta energía para realizar el esfuerzo que le exige
-              cada movimiento. <br>
-              Al producirse con la digestión de los alimentos, los niveles de glucosa en sangre, a los que clínicamente
-              se denomina glucemia, varían a lo largo del día, oscilando entre concentraciones de 70 y 145 miligramos por
-              decilitro de sangre. Por la mañana, en ayunas son más bajos y se elevan después de cada comida
-              (glucemia postpandrial) y vuelven a descender dos horas después.
+              No fume, no beba bebidas con cafeína y no se ejercite en los 30 minutos previos a medirse la presión arterial.
+              Es importante usar un manguito que le quede bien a su brazo, ya que los demasiados estrechos pueden elevar la
+              lectura de la presión arterial artificialmente. <br>
+              Colóquese el manguito sobre el brazo descubierto y siéntese con la espalda erguida y apoyada, los pies planos
+              sobre el suelo y el brazo apoyado al nivel del corazón. Asegúrese que el extremo inferior del manguito quede
+              directamente por arriba del doblez del codo. Relájese unos cinco minutos antes de medirse la presión.
+              Resista el impulso de hablar o mirar un teléfono celular.
             <p>
-              <p class="fw-bolder">¿Cuándo es recomendable medir la glucemia?</p>
-              <p>
-                Lo recomendable es que la glucemia se mida al levantarse por la mañana y antes del desayuno y
-                se considera normal si los niveles de glucosa que se sitúan entre los <span class="text-success">70 y 100 mg/dl en ayunas</span> y
-                en <span class="text-success">menos a 140 mg/dl</span> dos horas después de cada comida.
-              </p>
-              <a href="https://www.sanitas.es/sanitas/seguros/es/particulares/biblioteca-de-salud/diabetes/niveles-glucosa-sangre.html" target="_blank">Saber más sobre cómo medir la glucosa...</a>
+              <p class="fw-bolder">Medidas a tomar en cuenta</p>
+              <ul>
+                <li>
+                  <span class="fw-bolder">presión sistólica:</span>es la presión arterial cuando el corazón late y bombea la sangre a
+                  través de las arterias. La presión es más alta cuando el corazón está bombeando; por eso el número
+                  sistólico siempre es más alto.
+                </li>
+                <li>
+                  <span class="fw-bolder">presión diastólica:</span>es la presión arterial entre latidos cardiacos,
+                  cuando el corazón no está bombeando. La presión arterial es más baja cuando el corazón no está bombeando;
+                  por eso el número diastólico es más bajo.
+                </li>
+              </ul>
+              <p class="fw-bolder">¿Cuál es la presión arterial ideal?</p>
+              <ul>
+                <li>
+                  La presión arterial normal es menor de “120 sobre 80”, o sea 120/80.
+                  Eso significa que la presión sistólica es de 120 y la diastólica de 80.
+                </li>
+                <li>
+                  Una presión arterial entre 120/80 y 139/89 se llama “prehipertensión”.
+                  Esto significa que su presión arterial es más alta de lo normal y que
+                  corre el riesgo de padecer de presión arterial alta.
+                </li>
+                <li>
+                  Si su presión arterial es de 140/90 o más, la mayoría de las veces que se la mide,
+                  entonces usted padece de presión arterial alta.
+                </li>
+              </ul>
+              <a href="https://www.ncbi.nlm.nih.gov/books/NBK97819/" target="_blank">Saber más sobre medición de presión arterial...</a>
           </div>
         </div>
       </div>
+
     </div>
 
     <h6 class="card-title mt-3">* Por favor complete los datos según se solicitan a continuación:</h6>
@@ -43,19 +63,22 @@
       <form [formGroup] ="pressureForm" (ngSubmit) = "guardarTomPres()">
         <div class="row g-3">
           <div class="col-sm-2">
-            <label for="firstName" class="form-label">Nivel de glucosa</label>
+            <label for="firstName" class="form-label">Presión sistólica</label>
             <input type="number" class="form-control" min="0" step="0.01"
-            formControlName="nivGlucosa" [ngClass]="{'is-invalid':submitted && f.nivGlucosa.errors}">
+            formControlName="sistolica" [ngClass]="{'is-invalid':submitted && f.sistolica.errors}">
+          </div>
+          <div class="col-sm-2">
+            <label for="firstName" class="form-label">Presión diastólica</label>
+            <input type="number" class="form-control" min="0" step="0.01"
+            formControlName="diastolica" [ngClass]="{'is-invalid':submitted && f.diastolica.errors}">
+          </div>
+          <div class="col-sm-2">
+            <label for="firstName" class="form-label">Ritmo cardiaco</label>
+            <input type="number" class="form-control" min="0" step="0.01"
+            formControlName="cardiaco" [ngClass]="{'is-invalid':submitted && f.cardiaco.errors}">
           </div>
 
-          <div class="col-sm-4">
-            <label for="lastName" class="form-label">Unidad de medida</label>
-            <select class="form-select" formControlName="uMedida" [ngClass]="{'is-invalid':submitted && f.uMedida.errors}">
-              <option value="">Seleccione...</option>
-              <option value="1">miligramos por decilitro (mg/dl)</option>
-              <option value="2">milimol por litro (mmol/l)</option>
-            </select>
-          </div>
+
           <div class="col-sm-3">
             <label for="firstName" class="form-label">Hora medición</label>
             <input type="time" class="form-control" formControlName="horaMedicion" [ngClass]="{'is-invalid':submitted && f.horaMedicion.errors}">
@@ -65,6 +88,13 @@
           <div class="col-sm-3">
             <label for="lastName" class="form-label">Fecha medición</label>
             <input type="date" class="form-control" formControlName="fechaMedicion" [ngClass]="{'is-invalid':submitted && f.fechaMedicion.errors}">
+          </div>
+          <div class="col-sm-6 mx-auto">
+            <label for="lastName" class="form-label col-12 text-center">Comentarios sobre toma</label>
+
+            <textarea class="form-control" formControlName="comentario" >
+
+            </textarea>
           </div>
         </div>
 
