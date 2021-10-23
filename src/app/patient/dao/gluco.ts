@@ -8,6 +8,7 @@ export interface GlucoseInterface {
   status:     Status;
   created_at?: null;
   updated_at?: null;
+  comments: string;
 }
 export interface Units {
   id:          number;
