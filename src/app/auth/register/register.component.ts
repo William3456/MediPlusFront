@@ -71,8 +71,7 @@ export class RegisterComponent implements OnInit {
         status: {
           id: 1,
           description: "",
-        },
-        created_at: null
+        }
       }
 
       this.usuario = usuario;

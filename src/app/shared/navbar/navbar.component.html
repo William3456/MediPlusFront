@@ -12,7 +12,6 @@
           <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/home']">Incio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/patient/verRecord']">Ver Expediente</a>
           <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['/patient/gluco/new']">
             Toma de glucosa</a>
         </li>
@@ -20,9 +19,13 @@
           <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['/patient/pressure/new']">
             Toma de presión</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/patient/verRecord']">Ver Expediente</a>
+        </li>
         <li class="nav-item" *ngIf="!isLogged">
           <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/register']">Crear una cuenta</a>
         </li>
+
       </ul>
       <!--- PARA DOCTORES -->
       <ng-template  #doctor>

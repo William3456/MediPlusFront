@@ -11,6 +11,5 @@ export class Usuario {
     description: ""
   };
   user_type?: number = 0;
-  created_at?: any = null;
 
 }

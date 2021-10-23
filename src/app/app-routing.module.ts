@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 
+import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./auth/login/login.component";
@@ -8,7 +9,6 @@ import { RecordComponent } from './patient/pages/record/record.component';
 import { GlucosaComponent } from './patient/pages/glucosa/glucosa.component';
 import { PresionComponent } from './patient/pages/presion/presion.component';
 import { VerRecordComponent } from './patient/pages/ver-record/ver-record.component';
-import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {

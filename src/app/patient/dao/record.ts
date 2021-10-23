@@ -1,4 +1,5 @@
 export interface RecordInterface {
+  id?:               number;
   user_id:           UserID;
   phone:             string;
   address:           string;
