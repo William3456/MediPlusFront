@@ -66,7 +66,7 @@ export class VerRecordComponent implements OnInit {
             fName: this.record.user_id.email,
             fNacimiento: fechaFormateada,
             direccion: this.record.address,
-            tipoId: this.record.identification_id.id,
+            tipoId: this.record.identification_id.description,
             numId: this.record.num_id,
             telefono:this.record.phone,
             peso: this.record.weight,
