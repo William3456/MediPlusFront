@@ -10,6 +10,7 @@ import { GlucosaComponent } from './patient/pages/glucosa/glucosa.component';
 import { PresionComponent } from './patient/pages/presion/presion.component';
 import { VerRecordComponent } from './patient/pages/ver-record/ver-record.component';
 import { VerGlucosaComponent } from './patient/pages/ver-glucosa/ver-glucosa.component';
+import { VerPresionComponent } from './patient/pages/ver-presion/ver-presion.component';
 
 const routes: Routes = [
   {
@@ -46,9 +47,12 @@ const routes: Routes = [
     component: VerGlucosaComponent
   },
   {
+    path: 'patient/ver-presion',
+    component: VerPresionComponent
+  },
+  {
     path: 'patient/pressure/new',
     component: PresionComponent
-
   }
 
 ];
