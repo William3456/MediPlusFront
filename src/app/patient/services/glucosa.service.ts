@@ -20,7 +20,6 @@ export class GlucosaService {
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
 
-
   getGlucosa(): Observable<any>{
     return this.http.get<any>(this.urlEndPoint + "glucosa").pipe(
       catchError(e => {
