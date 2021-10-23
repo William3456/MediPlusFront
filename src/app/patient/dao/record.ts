@@ -1,16 +1,16 @@
-export interface RecordInterface {
+export class RecordInterface {
   id?:               number;
-  user_id:           UserID;
-  phone:             string;
-  address:           string;
-  profession:        string;
-  weight:            number;
-  height:            number;
-  date_birth:        Date;
-  gender:            string;
-  identification_id: IdentificationID;
-  num_id:            string;
-  status:            Status;
+  user_id!: UserID;
+  phone!: string;
+  address!: string;
+  profession!: string;
+  weight!: number;
+  height!: number;
+  date_birth!: Date;
+  gender!: string;
+  identification_id!: IdentificationID;
+  num_id!: string;
+  status!: Status;
   created_at?:        Date;
   updated_at?:        Date;
 }

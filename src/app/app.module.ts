@@ -11,6 +11,7 @@ import { HomeModule } from './home/home.module';
 import { InterceptorService } from './interceptors/interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { ToastrModule } from 'ngx-toastr';
 
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
+    DatePipe
   ],
   exports: [
   ],
