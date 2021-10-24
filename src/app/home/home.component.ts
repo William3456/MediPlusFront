@@ -75,6 +75,7 @@ public barChartDataPresion: ChartDataSets[] = [
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
     if (localStorage.getItem('usuario') == undefined) {
       this.router.navigate(['login']);
+      return;
     }else{
       this.router.navigate(['home']);
       this.nombreUsuario = this.usuario.name;

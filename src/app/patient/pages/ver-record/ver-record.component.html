@@ -1,7 +1,7 @@
 <div class="card col-9 m-auto">
-  <h5 class="card-header text-center">Nuevo expediente clínico</h5>
+  <h5 class="card-header text-center">Visualizando expediente clínico</h5>
   <div class="card-body">
-    <h6 class="card-title">Bienvenido, para comenzar, por favor complete el siguiente formulario</h6>
+    <h6 class="card-title">Su información:</h6>
     <div class="col">
       <form  [formGroup] ="recordForm" (ngSubmit) = "guardaExpediente()" id="formRec">
         <div class="row g-3">
@@ -37,11 +37,12 @@
           </div>
           <div class="col-sm-2">
             <label for="lastName" class="form-label">Credencial</label>
-            <select class="form-select" id="creden" formControlName="tipoId" [ngClass]="{'is-invalid':submitted && f.tipoId.errors}">
+            <input type="text" name="tipoId" class="form-control" formControlName="tipoId" readonly>
+            <!--<select class="form-select" id="creden" formControlName="tipoId" [ngClass]="{'is-invalid':submitted && f.tipoId.errors}">
               <option value="">Escoger...</option>
               <option value="1">DUI</option>
               <option value="2">PASAPORTE</option>
-            </select>
+            </select>-->
           </div>
           <div class="col-sm-3">
             <label for="" class="form-label">Número de credencial</label>
@@ -64,11 +65,12 @@
 
           <div class="col-md-3">
             <label for="lastName" class="form-label">Género</label>
-            <select class="form-select" id="state" formControlName="genero" [ngClass]="{'is-invalid':submitted && f.genero.errors}" >
+            <input type="text" name="genero" class="form-control" formControlName="genero" readonly>
+            <!--<select class="form-select" id="state" formControlName="genero" [ngClass]="{'is-invalid':submitted && f.genero.errors}" >
               <option value="">Escoger...</option>
               <option value="M">Masculino</option>
               <option value="F">Femenino</option>
-            </select>
+            </select>-->
           </div>
           <div class="col-md-3">
             <label for="country" class="form-label">Profesión</label>

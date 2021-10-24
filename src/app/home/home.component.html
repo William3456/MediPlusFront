@@ -1,20 +1,19 @@
 <div class="container gb-primary">
-  <h5 >{{ nombreUsuario }}</h5>
   <div class="row border">
-    <h5>Ultimo chequeo realizado</h5>
+    <h5>Ultimo chequeo realizado para: {{ nombreUsuario }}</h5>
     <div class="col">
       <div class="card card-stats">
         <div class="card-body ">
           <div class="row">
               <div class="numbers">
-                <p class="card-category text-center ">Glucosa</p>
+                <p class="card-category text-center fw-bolder">Glucosa</p>
                 <p class="card-title text-center">{{valorGlucosa}} - {{Medidaglucosa}}
               </div>
           </div>
         </div>
         <div class="card-footer ">
           <div class="stats">
-            <p class="card-category text-center">Fecha</p>
+            <p class="card-category text-center fw-bolder">Fecha</p>
             <hr>
             <p class="card-title text-center">{{FechaGlucosa}}</p>
           </div>
@@ -26,14 +25,14 @@
         <div class="card-body ">
           <div class="row">
               <div class="numbers text-center">
-                <p class="card-category">Presion Sistólica</p>
+                <p class="card-category fw-bolder">Presion Sistólica</p>
                 <p class="card-title"> {{Vsystolic_pressure}}</p>
               </div>
           </div>
         </div>
         <div class="card-footer ">
           <div class="stats">
-            <p class="card-category text-center">Fecha</p>
+            <p class="card-category text-center fw-bolder">Fecha</p>
             <hr>
             <p class="card-title text-center">{{FechaPresion}}</p>
           </div>
@@ -45,14 +44,14 @@
         <div class="card-body ">
           <div class="row">
               <div class="numbers text-center">
-                <p class="card-category text-center">Presion Diastólica</p>
+                <p class="card-category text-center fw-bolder">Presion Diastólica</p>
                 <p class="card-title text-center">{{Vdiastolic_pressure}} </p>
               </div>
           </div>
         </div>
         <div class="card-footer ">
           <div class="stats">
-            <p class="card-category text-center">Fecha</p>
+            <p class="card-category text-center fw-bolder">Fecha</p>
             <hr>
             <p class="card-title text-center">{{FechaPresion}}</p>
           </div>
@@ -64,7 +63,7 @@
         <div class="card-body ">
           <div class="row">
               <div class="numbers text-center">
-                <p class="card-category">Ritmo Cardiaco</p>
+                <p class="card-category fw-bolder">Ritmo Cardiaco</p>
                 <p class="card-title">{{Vheart_rate}}</p>
               </div>
           </div>
@@ -72,7 +71,7 @@
         <div class="card-footer ">
           <div class="stats">
             <i class="fa fa-refresh"></i>
-            <p class="card-category text-center">Fecha</p>
+            <p class="card-category text-center fw-bolder">Fecha</p>
             <hr>
             <p class="card-title text-center">{{FechaPresion}}</p>
           </div>
@@ -83,7 +82,7 @@
   <div class="row mt-4 mb-4">
     <div class="col">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header fw-bolder">
           Últimas tomas de glucosa
         </div>
         <div class="card-body">
@@ -101,7 +100,7 @@
     <div class="col">
 
       <div class="card">
-        <div class="card-header">
+        <div class="card-header fw-bolder">
           Últimas tomas de presión
         </div>
         <div class="card-body">
