@@ -9,8 +9,10 @@ import { GlucosaComponent } from './pages/glucosa/glucosa.component';
 import { PresionComponent } from './pages/presion/presion.component';
 import { VerGlucosaComponent } from './pages/ver-glucosa/ver-glucosa.component';
 import { VerPresionComponent } from './pages/ver-presion/ver-presion.component';
+import { CrearCitaComponent } from './pages/crear-cita/crear-cita.component';
+import { VerCitaComponent } from './pages/ver-cita/ver-cita.component';
 @NgModule({
-  declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent, VerPresionComponent, VerRecordComponent],
+  declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent, VerPresionComponent, VerRecordComponent, CrearCitaComponent, VerCitaComponent],
   exports:[ RecordComponent, GlucosaComponent, PresionComponent, VerRecordComponent ],
   imports: [
     CommonModule,
