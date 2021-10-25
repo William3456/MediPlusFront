@@ -21,13 +21,13 @@ export class HomeComponent implements OnInit {
   usuario: Usuario = new Usuario();
   glucosa: any;
   presion: any;
-  valorGlucosa: string = "";
-  Medidaglucosa: string = "";
-  FechaGlucosa: string = "";
-  FechaPresion: string = "";
-  Vsystolic_pressure: string = "";
-  Vdiastolic_pressure: string = "";
-  Vheart_rate: string = "";
+  valorGlucosa: string = "N/A";
+  Medidaglucosa: string = "N/A";
+  FechaGlucosa: string = "N/A";
+  FechaPresion: string = "N/A";
+  Vsystolic_pressure: string = "N/A";
+  Vdiastolic_pressure: string = "N/A";
+  Vheart_rate: string = "N/A";
 
   iduser: any;
   fech: string[] = [];
@@ -95,21 +95,27 @@ public barChartDataPresion: ChartDataSets[] = [
           this.Vsystolic_pressure = this.presion[i].systolic_pressure;
           this.Vdiastolic_pressure = this.presion[i].diastolic_pressure;
           this.Vheart_rate = this.presion[i].heart_rate;
-
           this.fechP.push(this.presion[i].date);
-
           this.systolic_pressureData.push(this.presion[i].systolic_pressure);
           this.diastolic_pressureData.push(this.presion[i].diastolic_pressure);
           this.heart_rateData.push(this.presion[i].heart_rate);
-
           }
         }
-        console.log(this.systolic_pressureData);
+        for(let i = this.presion.length;i<0;i--){
 
+          if (this.presion[i-1].user_id.id == this.iduser){
+
+           this.FechaPresion = this.presion[i-1].date;
+           this.Vsystolic_pressure = this.presion[i-1].systolic_pressure;
+           this.Vdiastolic_pressure = this.presion[i-1].diastolic_pressure;
+           this.Vheart_rate = this.presion[i-1].heart_rate;
+           this.fechP.push(this.presion[i-1].date);
+           this.systolic_pressureData.push(this.presion[i-1].systolic_pressure);
+           this.diastolic_pressureData.push(this.presion[i-1].diastolic_pressure);
+           this.heart_rateData.push(this.presion[i-1].heart_rate);
+           }
+         }
         this.barChartLabels2 = this.fechP;
-
-      //  this.Data = this.GlucosaData;
-//consolog(this.fech)
         this.router.navigate(['home']);
         return;
       }
@@ -120,33 +126,30 @@ public barChartDataPresion: ChartDataSets[] = [
     this.glucosService.getGlucosa().subscribe((response: any)=>{
       if(response.status !== 404){
         //console.log(this.usuario.id);
-        this.glucosa = response;
+         this.glucosa = response;
+          let itera = 10;
+          for(let i = 0;i<this.glucosa.length;i++){
+            if (this.glucosa[i].user_id.id == this.iduser){
+              this.valorGlucosa = this.glucosa[i].measure;
+              this.Medidaglucosa = this.glucosa[i].units.description;
+              this.FechaGlucosa = this.glucosa[i].date;
+           }
+          }
 
-        for(let i = 0;i< this.glucosa.length;i++){
-
-         if (this.glucosa[i].user_id.id == this.iduser){
-
-          this.valorGlucosa = this.glucosa[i].measure;
-          this.Medidaglucosa = this.glucosa[i].units.description;
-          this.FechaGlucosa = this.glucosa[i].date;
-         // console.log(this.glucosa[i])
-          this.fech.push(this.glucosa[i].date);
-          this.GlucosaData.push(this.glucosa[i].measure);
-         // console.log(fech[i]);
+        for(let i = this.glucosa.length;i>0;i--){
+         if (this.glucosa[i-1].user_id.id == this.iduser){
+          if(itera>0){
+          this.fech.push(this.glucosa[i-1].date);
+          this.GlucosaData.push(this.glucosa[i-1].measure);
+         }
+          itera --;
           }
         }
-        //console.log(this.GlucosaData);
         this.barChartLabels = this.fech;
-
-      //  this.Data = this.GlucosaData;
-//consolog(this.fech)
         this.router.navigate(['home']);
         return;
       }
     });
-
-
-
   }
 
 }
