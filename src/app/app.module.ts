@@ -12,6 +12,7 @@ import { InterceptorService } from './interceptors/interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { DoctorModule } from './doctor/doctor.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { DatePipe } from '@angular/common';
     HomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    DoctorModule
 
   ],
   providers: [

@@ -77,10 +77,18 @@ public barChartDataPresion: ChartDataSets[] = [
       this.router.navigate(['login']);
       return;
     }else{
-      this.router.navigate(['home']);
       this.nombreUsuario = this.usuario.name;
       this.iduser = this.usuario.id;
+
+      if(this.usuario.user_type == 2){
+        this.router.navigate(['doctor/home'])
+      }else {
+      this.router.navigate(['home']);
+
     }
+
+  }
+
 
     this.presionService.ObtenerPressure().subscribe((response: any)=>{
       if(response.status !== 404){
