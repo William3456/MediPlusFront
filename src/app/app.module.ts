@@ -12,6 +12,8 @@ import { InterceptorService } from './interceptors/interceptor.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { DoctorModule } from './doctor/doctor.module';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +29,8 @@ import { DatePipe } from '@angular/common';
     HomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    DoctorModule,
+    NgMultiSelectDropDownModule.forRoot()
 
   ],
   providers: [
