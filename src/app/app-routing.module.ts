@@ -11,6 +11,7 @@ import { PresionComponent } from './patient/pages/presion/presion.component';
 import { VerRecordComponent } from './patient/pages/ver-record/ver-record.component';
 import { VerGlucosaComponent } from './patient/pages/ver-glucosa/ver-glucosa.component';
 import { VerPresionComponent } from './patient/pages/ver-presion/ver-presion.component';
+import { CrearCitaComponent } from './patient/pages/crear-cita/crear-cita.component';
 
 const routes: Routes = [
   {
@@ -53,6 +54,10 @@ const routes: Routes = [
   {
     path: 'patient/pressure/new',
     component: PresionComponent
+  },
+  {
+    path: 'patient/appointment/new',
+    component: CrearCitaComponent
   }
 
 ];

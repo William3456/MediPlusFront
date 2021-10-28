@@ -63,7 +63,7 @@ export class VerRecordComponent implements OnInit {
           const fechaFormateada = this.datepipe.transform(fechaNaci, 'yyyy-MM-dd');
 
           this.recordForm.patchValue({
-            fName: this.record.user_id.email,
+            fName: this.record.user_id.name,
             fNacimiento: fechaFormateada,
             direccion: this.record.address,
             tipoId: this.record.identification_id.description,

@@ -1,1 +1,81 @@
-<p>crear-cita works!</p>
+<div class="card col m-auto">
+  <h5 class="card-header">Agendar cita</h5>
+  <div class="card-body">
+
+    <h6 class="card-title mt-3">DATOS PERSONALES:</h6>
+
+    <div class="col mt-3">
+      <form [formGroup] ="pressureForm" (ngSubmit) = "agendarCita()">
+        <div class="row g-3">
+          <div class="col-sm-3">
+            <label for="firstName" class="form-label">Nombre</label>
+            <input type="text" class="form-control" formControlName="fName" required="" readonly>
+          </div>
+          <div class="col-sm-2">
+            <label for="firstName" class="form-label">F. nacimiento</label>
+            <input type="date" class="form-control disabled" id="fNacimiento" formControlName="fNacimiento"   [ngClass]="{'is-invalid':submitted && f.fNacimiento.errors}" readonly>
+          </div>
+          <div class="col-sm-2">
+            <label for="" class="form-label">Número de credencial</label>
+            <input type="text" class="form-control" formControlName="numId" [ngClass]="{'is-invalid':submitted && f.numId.errors}" readonly>
+          </div>
+          <div class="col-md-2">
+            <label for="lastName" class="form-label">Género</label>
+            <input type="text" name="genero" class="form-control" formControlName="genero" readonly>
+          </div>
+          <div class="col-sm-3">
+            <label for="" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}" readonly>
+          </div>
+          <div class="col-6">
+            <label for="address2" class="form-label">Dirección </label>
+            <input type="text" class="form-control" placeholder="Dirección completa" formControlName="direccion" [ngClass]="{'is-invalid':submitted && f.direccion.errors}" readonly>
+          </div>
+
+          <div class="col-md-3">
+            <label for="country" class="form-label">Peso (LB)</label>
+            <input type="number" class="form-control" step="0.01" min="1" formControlName="peso" [ngClass]="{'is-invalid':submitted && f.peso.errors}" readonly>
+          </div>
+
+          <div class="col-md-3">
+            <label for="country" class="form-label">Altura (cm)</label>
+            <input type="number" class="form-control" step="0.01" min="1" formControlName="altura" [ngClass]="{'is-invalid':submitted && f.altura.errors}" readonly>
+          </div>
+        </div>
+
+        <hr class="my-4">
+        <h6 class="card-title mt-3">DATOS DE CITA</h6>
+        <div class="row g-3">
+          <div class="col-sm-3">
+            <label for="firstName" class="form-label">Departamento</label>
+            <input type="text" class="form-control" formControlName="fName" required="">
+          </div>
+          <div class="col-sm-3">
+            <label for="firstName" class="form-label">Clínica</label>
+            <input type="text" class="form-control" formControlName="fName" required="">
+          </div>
+          <div class="col-sm-3">
+            <label for="" class="form-label">Doctor</label>
+            <input type="text" class="form-control" formControlName="numId" [ngClass]="{'is-invalid':submitted && f.numId.errors}">
+          </div>
+          <div class="col-md-3">
+            <label for="lastName" class="form-label">Hora</label>
+            <input type="text" name="genero" class="form-control" formControlName="genero" >
+          </div>
+          <div class="col-sm-3">
+            <label for="" class="form-label">Fecha</label>
+            <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}">
+          </div>
+          <div class="col-6">
+            <label for="address2" class="form-label">Comentarios </label>
+            <textarea class="form-control">
+
+            </textarea>
+          </div>
+        </div>
+        <hr class="my-4">
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
