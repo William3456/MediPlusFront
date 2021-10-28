@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { DoctorModule } from './doctor/doctor.module';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { DoctorModule } from './doctor/doctor.module';
     HomeModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    DoctorModule
+    DoctorModule,
+    NgMultiSelectDropDownModule.forRoot()
 
   ],
   providers: [

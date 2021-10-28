@@ -34,7 +34,13 @@
       <ng-template  #doctor>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isLogged">
             <li class="nav-item">
-              <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/home']">Incio</a>
+              <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/doctor/home']">Incio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/doctor/schedule/new']">Agregar Horario</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/doctor/profile']">Ver Perfil</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

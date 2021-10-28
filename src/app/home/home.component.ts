@@ -79,9 +79,11 @@ public barChartDataPresion: ChartDataSets[] = [
     }else{
       this.nombreUsuario = this.usuario.name;
       this.iduser = this.usuario.id;
+      console.log(this.usuario.user_type);
 
       if(this.usuario.user_type == 2){
         this.router.navigate(['doctor/home'])
+        return;
       }else {
       this.router.navigate(['home']);
 

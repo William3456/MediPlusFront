@@ -12,6 +12,8 @@ import { VerRecordComponent } from './patient/pages/ver-record/ver-record.compon
 import { VerGlucosaComponent } from './patient/pages/ver-glucosa/ver-glucosa.component';
 import { VerPresionComponent } from './patient/pages/ver-presion/ver-presion.component';
 import { DoctorHomeComponent } from './doctor/pages/doctor-home/doctor-home.component';
+import { CrearHorarioComponent } from './doctor/pages/crear-horario/crear-horario.component';
+import { VerPerfilComponent } from './doctor/pages/ver-perfil/ver-perfil.component';
 
 const routes: Routes = [
   {
@@ -58,6 +60,15 @@ const routes: Routes = [
   {
     path: 'doctor/home',
     component: DoctorHomeComponent
+  }
+  ,
+  {
+    path: 'doctor/schedule/new',
+    component: CrearHorarioComponent
+  },
+  {
+    path: 'doctor/profile',
+    component: VerPerfilComponent
   }
 
 ];
