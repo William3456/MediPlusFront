@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./doctor-home.component.css']
 })
 export class DoctorHomeComponent implements OnInit {
-
+  horario = false;
   constructor() { }
 
   ngOnInit(): void {

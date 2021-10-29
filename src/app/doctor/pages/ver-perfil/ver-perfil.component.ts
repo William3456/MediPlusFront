@@ -55,7 +55,6 @@ export class VerPerfilComponent implements OnInit {
             this.doctorData = response;
             this.doctorForm.patchValue({
               fName: this.usuario.name,
-
               especialidad: this.doctorData.speciality,
               numId: this.doctorData.num_id,
               tipoId: this.doctorData.identification_id.description,
@@ -70,12 +69,6 @@ export class VerPerfilComponent implements OnInit {
         this.router.navigate(['home']);
 
       }
-
-
   }
-
-
   }
-
-
 }

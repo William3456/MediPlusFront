@@ -1,8 +1,11 @@
 
-<h2>Citas de pacientes Agendadas</h2>
+<div *ngIf="!horario" class="alert alert-warning" role="alert">
+ <h5> Por favor Agregar un Horario de atencion a pacientes.!!</h5>
+</div>
 
 
-<div class="row mt-6">
+<h2 *ngIf="horario" >Citas de pacientes Agendadas</h2>
+<div *ngIf="horario"  class="row mt-6">
   <div class="table-responsive">
     <table class="table">
       <thead class="table-dark">

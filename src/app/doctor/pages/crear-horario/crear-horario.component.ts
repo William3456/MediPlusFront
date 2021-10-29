@@ -7,14 +7,19 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
   styleUrls: ['./crear-horario.component.css']
 })
 export class CrearHorarioComponent implements OnInit {
+
+  horario = false;
+
   dropdownListDia: any;
   dropdownListHoraInicio: any;
   dropdownListHoraFin: any;
+  dropdownListRango: any;
   selectedItems: any;
   dropdownSettings = {};
 
   dropdownSettingsHora = {};
   dropdownSettingsHoraFin = {};
+  dropdownSettingsRango = {};
 
 
   constructor() { }
@@ -56,6 +61,11 @@ export class CrearHorarioComponent implements OnInit {
       { item_id: 10, item_text: '15:00' },
       { item_id: 11, item_text: '16:00' },
       { item_id: 12, item_text: '17:00' },
+    ];
+
+    this.dropdownListRango = [
+      { item_id: 1, item_text: '30 minutos' },
+      { item_id: 2, item_text: '1 hora' },
     ];
 
     this.selectedItems = [
