@@ -23,7 +23,6 @@ export class VerRecordComponent implements OnInit {
     altura: new FormControl(''),
     genero: new FormControl(''),
     profesion: new FormControl(''),
-
     telefono: new FormControl(''),
   });
 
@@ -32,7 +31,7 @@ export class VerRecordComponent implements OnInit {
   nombreUsuario: string = "";
 
 
-  record: RecordInterface = new RecordInterface();;
+  record: RecordInterface = new RecordInterface();
 
   constructor(private router: Router,private formBuilder: FormBuilder,
     private recordService: RecordService, private el: ElementRef, private toastr: ToastrService,
@@ -75,13 +74,8 @@ export class VerRecordComponent implements OnInit {
             profesion: this.record.profession,
           });
           this.calculaEdad();
-          //this.router.navigate(['patient/verRecord']);
-          //return;
         }
       });
-
-      //this.router.navigate(['/patient/record/new']);
-
     }
   }
   calculaEdad(){

@@ -11,13 +11,16 @@ import { VerGlucosaComponent } from './pages/ver-glucosa/ver-glucosa.component';
 import { VerPresionComponent } from './pages/ver-presion/ver-presion.component';
 import { CrearCitaComponent } from './pages/crear-cita/crear-cita.component';
 import { VerCitaComponent } from './pages/ver-cita/ver-cita.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
-  declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent, VerPresionComponent, VerRecordComponent, CrearCitaComponent, VerCitaComponent],
+  declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent,
+    VerPresionComponent, VerRecordComponent, CrearCitaComponent, VerCitaComponent],
   exports:[ RecordComponent, GlucosaComponent, PresionComponent, VerRecordComponent ],
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ]
 
 })

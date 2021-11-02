@@ -5,7 +5,7 @@
     <h6 class="card-title mt-3">DATOS PERSONALES:</h6>
 
     <div class="col mt-3">
-      <form [formGroup] ="pressureForm" (ngSubmit) = "agendarCita()">
+      <form [formGroup] ="recordPacForm" (ngSubmit) = "agendarCita()">
         <div class="row g-3">
           <div class="col-sm-3">
             <label for="firstName" class="form-label">Nombre</label>
@@ -48,11 +48,29 @@
         <div class="row g-3">
           <div class="col-sm-3">
             <label for="firstName" class="form-label">Departamento</label>
-            <input type="text" class="form-control" formControlName="fName" required="">
+            <ng-multiselect-dropdown
+              [placeholder]="'custom placeholder'"
+              [settings]="dropdownSettings"
+              [data]="dropdownList"
+              (onDeSelect)="onDeSelect($event)"
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)"
+
+            >
+            </ng-multiselect-dropdown>
           </div>
           <div class="col-sm-3">
             <label for="firstName" class="form-label">Clínica</label>
-            <input type="text" class="form-control" formControlName="fName" required="">
+            <ng-multiselect-dropdown
+              [placeholder]="'custom placeholder'"
+              [settings]="dropdownSettings"
+              [data]="dropdownList"
+
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)"
+              [disabled]="!seleccionoDep"
+            >
+            </ng-multiselect-dropdown>
           </div>
           <div class="col-sm-3">
             <label for="" class="form-label">Doctor</label>
