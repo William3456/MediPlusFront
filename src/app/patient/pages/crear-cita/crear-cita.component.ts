@@ -4,6 +4,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Usuario } from 'src/app/auth/dao/usuario';
+import { DoctorInterface } from 'src/app/patient/dao/doctor';
+import { DoctorService } from 'src/app/doctor/services/doctor.service';
 import { RecordInterface } from '../../dao/record';
 import { RecordService } from '../../services/record.service.service';
 
@@ -15,14 +17,24 @@ import { RecordService } from '../../services/record.service.service';
 export class CrearCitaComponent implements OnInit {
 
   //SELECTS
+  //departamento
   dropdownList:any = [];
   selectedItems:any = [];
   dropdownSettings:any = {};
   seleccionoDep: boolean = false;
 
+  //Doctor
+  dropdownListDoc:any = [];
+  selectedItemsDoc:any = [];
+  dropdownSettingsDoc:any = {};
+  seleccionoClin: boolean = false;
+
+
+  doctor: DoctorInterface[] = [];
+
   constructor(private router: Router, private formBuilder: FormBuilder,
     private el: ElementRef, private toastr: ToastrService, private recordService: RecordService,
-    public datepipe: DatePipe) { }
+    public datepipe: DatePipe, private doctorService: DoctorService) { }
 
     recordPacForm = new FormGroup({
       fNacimiento: new FormControl(''),
@@ -55,6 +67,7 @@ export class CrearCitaComponent implements OnInit {
     this.nombreUsuario = this.usuario.name;
     this.recordService.expedienteByEmail(this.usuario.email).subscribe((response)=>{
       if(response.status !== 404){
+
 
         this.record = response;
         console.log(this.record.user_id.email);
@@ -107,6 +120,13 @@ export class CrearCitaComponent implements OnInit {
     this.seleccionoDep = true;
     console.log(item);
   }
+
+  onItemSelectClinica(item: any) {
+    this.seleccionoClin = true;
+    console.log(item.item_id);
+    this.cargarDoctores(item.item_id);
+  }
+
   onSelectAll(items: any) {
     console.log(items);
   }
@@ -114,9 +134,38 @@ export class CrearCitaComponent implements OnInit {
     this.seleccionoDep = false;
     console.log(item);
   }
+  onDeSelectClinica(item: any){
+    this.seleccionoClin = false;
+    let selDoc = document.getElementById('selectDoctor');
+    console.log(item);
+  }
   get f(){ return this.recordPacForm.controls }
 
   agendarCita(){
 
+  }
+
+  cargarDoctores(idClinica: number){
+    this.doctor = [];
+    this.dropdownListDoc = [];
+    this.doctorService.doctorByClinica(idClinica).subscribe((response)=>{
+      if (response.status !== 404){
+        this.doctor = response;
+        this.llenarSelectDoctor(this.doctor);
+      }
+    });
+  }
+
+  llenarSelectDoctor(doctores: DoctorInterface[]){
+    this.dropdownListDoc = [];
+    let dataSel = {};
+
+    for (let i = 0; i < doctores.length; i++) {
+      dataSel = {
+        item_id: doctores[i].id,
+        item_text: 'Dr. ' + doctores[i].user_id.name,
+      };
+      this.dropdownListDoc.push(dataSel);
+    }
   }
 }

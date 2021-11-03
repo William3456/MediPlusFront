@@ -49,7 +49,7 @@
           <div class="col-sm-3">
             <label for="firstName" class="form-label">Departamento</label>
             <ng-multiselect-dropdown
-              [placeholder]="'custom placeholder'"
+              [placeholder]="'Departamentos'"
               [settings]="dropdownSettings"
               [data]="dropdownList"
               (onDeSelect)="onDeSelect($event)"
@@ -62,11 +62,11 @@
           <div class="col-sm-3">
             <label for="firstName" class="form-label">Clínica</label>
             <ng-multiselect-dropdown
-              [placeholder]="'custom placeholder'"
+              [placeholder]="'Clínica'"
               [settings]="dropdownSettings"
               [data]="dropdownList"
-
-              (onSelect)="onItemSelect($event)"
+              (onDeSelect)="onDeSelectClinica($event)"
+              (onSelect)="onItemSelectClinica($event)"
               (onSelectAll)="onSelectAll($event)"
               [disabled]="!seleccionoDep"
             >
@@ -74,7 +74,17 @@
           </div>
           <div class="col-sm-3">
             <label for="" class="form-label">Doctor</label>
-            <input type="text" class="form-control" formControlName="numId" [ngClass]="{'is-invalid':submitted && f.numId.errors}">
+            <ng-multiselect-dropdown
+              [placeholder]="'Doctores'"
+              [settings]="dropdownSettings"
+              [data]="dropdownListDoc"
+
+              (onSelect)="onItemSelect($event)"
+              (onSelectAll)="onSelectAll($event)"
+              [disabled]="!seleccionoClin"
+              #selectDoctor
+            >
+            </ng-multiselect-dropdown>
           </div>
           <div class="col-md-3">
             <label for="lastName" class="form-label">Hora</label>

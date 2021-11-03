@@ -24,4 +24,13 @@ export class DoctorService {
       })
     );
   }
+
+  doctorByClinica(idClinica: number): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint+"doctor/clinica/"+idClinica).pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    )
+  }
 }
