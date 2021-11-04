@@ -34,6 +34,13 @@ export class PressureService {
     );
   }
 
-
+  getPressureById(id: any): Observable<any>{
+    return this.httpClient.get<any>(this.urlEndPoint + "presion/user/" + id).pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
+  }
 
 }

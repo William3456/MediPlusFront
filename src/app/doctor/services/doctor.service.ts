@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { HorarioDocInterface } from '../dao/HorarioDoctor';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +35,25 @@ export class DoctorService {
       })
     )
   }
+ getPatienById(id: any): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + "users/userid/" + id).pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
+  }
+
+
+  getAppointment(): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + "doctor/appointment").pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
+  }
+
+
+
 }
