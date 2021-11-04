@@ -1,3 +1,8 @@
+<style>
+  ::ng-deep .selected-item {
+    max-width: max-content !important;
+}
+</style>
 <div class="card col m-auto">
   <h5 class="card-header">Agendar cita</h5>
   <div class="card-body">
@@ -64,7 +69,7 @@
             <ng-multiselect-dropdown
               [placeholder]="'Clínica'"
               [settings]="dropdownSettings"
-              [data]="dropdownList"
+              [data]="dropdownListClinic"
               (onDeSelect)="onDeSelectClinica($event)"
               (onSelect)="onItemSelectClinica($event)"
               (onSelectAll)="onSelectAll($event)"
@@ -78,8 +83,8 @@
               [placeholder]="'Doctores'"
               [settings]="dropdownSettings"
               [data]="dropdownListDoc"
-
-              (onSelect)="onItemSelect($event)"
+              (onDeSelect)="onDeSelectDoctor($event)"
+              (onSelect)="onItemSelectDoctor($event)"
               (onSelectAll)="onSelectAll($event)"
               [disabled]="!seleccionoClin"
               #selectDoctor
@@ -87,11 +92,11 @@
             </ng-multiselect-dropdown>
           </div>
           <div class="col-md-3">
-            <label for="lastName" class="form-label">Hora</label>
-            <input type="text" name="genero" class="form-control" formControlName="genero" >
+            <label for="lastName" class="form-label">Fecha</label>
+            <input type="date" name="fechaCita" class="form-control" formControlName="fechaCita" [readOnly]="!selecDoctor" (change)="obtieneHorarios()">
           </div>
           <div class="col-sm-3">
-            <label for="" class="form-label">Fecha</label>
+            <label for="" class="form-label">Hora</label>
             <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}">
           </div>
           <div class="col-6">

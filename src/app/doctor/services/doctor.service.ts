@@ -29,6 +29,7 @@ export class DoctorService {
     return this.http.get<any>(this.urlEndPoint+"doctor/clinica/"+idClinica).pipe(
       catchError(e => {
         console.error(e);
+        this.toastr.error('Error al obtener los doctores, intente más tarde', 'Error');
         return throwError(e);
       })
     )

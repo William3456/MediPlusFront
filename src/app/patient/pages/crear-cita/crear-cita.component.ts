@@ -8,6 +8,8 @@ import { DoctorInterface } from 'src/app/patient/dao/doctor';
 import { DoctorService } from 'src/app/doctor/services/doctor.service';
 import { RecordInterface } from '../../dao/record';
 import { RecordService } from '../../services/record.service.service';
+import { ClinicService } from '../../services/clinic.service';
+import { ClinicInterface } from '../../dao/clinic';
 
 @Component({
   selector: 'app-crear-cita',
@@ -21,6 +23,9 @@ export class CrearCitaComponent implements OnInit {
   dropdownList:any = [];
   selectedItems:any = [];
   dropdownSettings:any = {};
+
+  //Clinica
+  dropdownListClinic: any = [];
   seleccionoDep: boolean = false;
 
   //Doctor
@@ -29,12 +34,14 @@ export class CrearCitaComponent implements OnInit {
   dropdownSettingsDoc:any = {};
   seleccionoClin: boolean = false;
 
-
+  idDoctor: number = 0;
+  selecDoctor: boolean = false;
   doctor: DoctorInterface[] = [];
+  clinica: ClinicInterface[] = [];
 
   constructor(private router: Router, private formBuilder: FormBuilder,
     private el: ElementRef, private toastr: ToastrService, private recordService: RecordService,
-    public datepipe: DatePipe, private doctorService: DoctorService) { }
+    public datepipe: DatePipe, private doctorService: DoctorService, private clinicaService: ClinicService) { }
 
     recordPacForm = new FormGroup({
       fNacimiento: new FormControl(''),
@@ -45,6 +52,7 @@ export class CrearCitaComponent implements OnInit {
       altura: new FormControl(''),
       genero: new FormControl(''),
       telefono: new FormControl(''),
+      fechaCita: new FormControl(''),
     });
 
   submitted = false;
@@ -119,6 +127,7 @@ export class CrearCitaComponent implements OnInit {
   onItemSelect(item: any) {
     this.seleccionoDep = true;
     console.log(item);
+    this.cargarClinicas(item.item_id)
   }
 
   onItemSelectClinica(item: any) {
@@ -126,21 +135,40 @@ export class CrearCitaComponent implements OnInit {
     console.log(item.item_id);
     this.cargarDoctores(item.item_id);
   }
+  onItemSelectDoctor(item: any){
+    this.seleccionoClin = true;
+    console.log(item.item_id);
+    this.selecDoctor = true;
+    this.idDoctor = item.item_id;
+  }
 
   onSelectAll(items: any) {
     console.log(items);
   }
   onDeSelect(item: any){
     this.seleccionoDep = false;
-    console.log(item);
+    console.log(this.selectedItems);
   }
   onDeSelectClinica(item: any){
     this.seleccionoClin = false;
-    let selDoc = document.getElementById('selectDoctor');
     console.log(item);
+  }
+  onDeSelectDoctor(item: any){
+    this.selecDoctor = false;
+    console.log(item);
+    this.idDoctor = 0;
   }
   get f(){ return this.recordPacForm.controls }
 
+  obtieneHorarios(){
+    if(this.selecDoctor && this.seleccionoClin){
+      let fechaCita = this.recordPacForm.value.fechaCita
+      console.log(fechaCita);
+    }else{
+      this.toastr.error('Favor seleccionar doctor y clínica', 'Error');
+    }
+
+  }
   agendarCita(){
 
   }
@@ -166,6 +194,29 @@ export class CrearCitaComponent implements OnInit {
         item_text: 'Dr. ' + doctores[i].user_id.name,
       };
       this.dropdownListDoc.push(dataSel);
+    }
+  }
+  cargarClinicas(idDepa:number){
+    this.clinica = [];
+    this.dropdownListClinic = [];
+    this.clinicaService.clinicaByDepa(idDepa).subscribe((response)=>{
+      if (response.status !== 404){
+        this.clinica = response;
+        this.llenarSelectClinica(this.clinica);
+      }
+    });
+
+  }
+  llenarSelectClinica(clinica: ClinicInterface[]){
+    this.dropdownListClinic = [];
+    let dataSel = {};
+
+    for (let i = 0; i < clinica.length; i++) {
+      dataSel = {
+        item_id: clinica[i].id,
+        item_text: clinica[i].description,
+      };
+      this.dropdownListClinic.push(dataSel);
     }
   }
 }
