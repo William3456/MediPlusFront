@@ -48,7 +48,6 @@ export class VerPerfilComponent implements OnInit {
       if(this.usuario.user_type == 2){
        // this.router.navigate(['doctor/home'])
         this.nombreUsuario = this.usuario.name;
-        console.log(this.usuario.email);
         this.doctorService.doctoreByEmail(this.usuario.email).subscribe((response)=>{
           if(response.status !== 404){
 

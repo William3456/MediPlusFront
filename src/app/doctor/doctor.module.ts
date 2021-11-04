@@ -5,16 +5,19 @@ import { CrearHorarioComponent } from './pages/crear-horario/crear-horario.compo
 import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { DetailPatientComponent } from './pages/detail-patient/detail-patient.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 
 @NgModule({
-  declarations: [DoctorHomeComponent, CrearHorarioComponent, VerPerfilComponent],
+  declarations: [DoctorHomeComponent, CrearHorarioComponent, VerPerfilComponent, DetailPatientComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    ChartsModule
   ],
   exports: [
     DoctorHomeComponent

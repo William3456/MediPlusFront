@@ -16,18 +16,20 @@
           <th>Fecha</th>
           <th>Hora</th>
           <th>Comentario</th>
+          <th>Ver detalles</th>
         </tr>
       </thead>
-        <!-- <tbody *ngFor="let cita of citasData; let i = index">
+          <tbody *ngFor="let cita of citasData; let i = index">
           <tr>
           <th scope="row">{{i+1}}</th>
+          <td>{{cita.patient_id.name}}</td>
           <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{cita.appointment_date}}</td>
+          <td>{{cita.appointment_time}}</td>
+          <td>{{cita.justification}}</td>
+          <td>  <h5 class="card-title"><a  href="doctor/detail/patient/{{cita.patient_id.id}}" class="btn btn-link p-0">Ver detalle</a></h5></td>
           </tr>
-         </tbody> -->
+         </tbody>
     </table>
   </div>
 </div>

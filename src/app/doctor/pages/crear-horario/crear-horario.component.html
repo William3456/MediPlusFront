@@ -1,9 +1,11 @@
 <div class="card col-9 m-auto">
   <h5 class="card-header text-center">Agregar Horarios</h5>
+  <hr>
+  <h5 class="card-header text-center">{{clinica}}</h5>
   <div class="card-body">
     <h6 class="card-title">Por favor Seleccione el Horario de Disponibilidad</h6>
     <div class="col">
-      <form  >
+      <form  [formGroup] ="dochorarioForm" (ngSubmit) = "guardarHorarioDoc()" >
         <!-- [formGroup] ="horarioForm" (ngSubmit) = "guardaEHorario()" -->
         <div class="row ">
 
@@ -13,8 +15,8 @@
   [settings]="dropdownSettings"
   [data]="dropdownListDia"
   [(ngModel)]="selectedItems"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
+  (onSelect)="onItemSelectDia($event)"
+  (onSelectAll)="onSelectAllDia($event)"
 ></ng-multiselect-dropdown>
             <!-- <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
               <div *ngIf="f.direccion.errors.required">
@@ -29,9 +31,9 @@
             <ng-multiselect-dropdown
   [placeholder]="'Hora inicio'"
   [settings]="dropdownSettingsHora"
-  [data]="dropdownListHoraInicio"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
+  [data]="dropdownListHora"
+  (onSelect)="onItemSelectHora($event)"
+
 ></ng-multiselect-dropdown>
 
             <!-- <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
@@ -46,10 +48,10 @@
           <div class="col-3">
             <ng-multiselect-dropdown
   [placeholder]="'Hora Fin'"
-  [settings]="dropdownSettingsHoraFin"
-  [data]="dropdownListHoraFin"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
+  [settings]="dropdownSettingsHora"
+  [data]="dropdownListHora"
+  (onSelect)="onItemSelectHoraFin($event)"
+
 >
 </ng-multiselect-dropdown>
 
@@ -68,8 +70,8 @@
   [placeholder]="'Rango'"
   [settings]="dropdownSettingsHora"
   [data]="dropdownListRango"
-  (onSelect)="onItemSelect($event)"
-  (onSelectAll)="onSelectAll($event)"
+
+
 >
 </ng-multiselect-dropdown>
 

@@ -69,9 +69,6 @@ public barChartDataPresion: ChartDataSets[] = [
 
   ngOnInit(): void {
 
-
-
-
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
     if (localStorage.getItem('usuario') == undefined) {
       this.router.navigate(['login']);
@@ -92,7 +89,7 @@ public barChartDataPresion: ChartDataSets[] = [
   }
 
 
-    this.presionService.ObtenerPressure().subscribe((response: any)=>{
+    this.presionService.getPressureById(this.usuario.id).subscribe((response: any)=>{
       if(response.status !== 404){
         //console.log(this.usuario.id);
         this.presion = response;
@@ -133,7 +130,7 @@ public barChartDataPresion: ChartDataSets[] = [
 
     //PRESION
 
-    this.glucosService.getGlucosa().subscribe((response: any)=>{
+    this.glucosService.getGlucosaById(this.usuario.id).subscribe((response: any)=>{
       if(response.status !== 404){
         //console.log(this.usuario.id);
          this.glucosa = response;

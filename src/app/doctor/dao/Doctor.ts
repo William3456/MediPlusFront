@@ -33,3 +33,8 @@ export interface UserID {
   createdAt: null;
   updatedAt: Date;
 }
+
+export interface diaInterface {
+  item_ids?: [];
+  item_value?: string;
+}
