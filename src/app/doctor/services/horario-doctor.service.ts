@@ -49,4 +49,13 @@ export class HorarioDoctorService {
 
 }
 */
+  horarioDispByFechaDoc(idDoctor: number, fecha: any){
+    return this.http.get<any>(this.urlEndPoint+"horariosCita/"+idDoctor + '/'+fecha).pipe(
+      catchError(e => {
+        console.error(e);
+        this.toastr.error('Error al obtener los horarios, intente más tarde', 'Error');
+        return throwError(e);
+      })
+    )
+  }
 }

@@ -10,6 +10,8 @@ import { RecordInterface } from '../../dao/record';
 import { RecordService } from '../../services/record.service.service';
 import { ClinicService } from '../../services/clinic.service';
 import { ClinicInterface } from '../../dao/clinic';
+import { HorarioDoctorService } from 'src/app/doctor/services/horario-doctor.service';
+import { HorarioInterface } from '../../dao/horario';
 
 @Component({
   selector: 'app-crear-cita',
@@ -34,14 +36,23 @@ export class CrearCitaComponent implements OnInit {
   dropdownSettingsDoc:any = {};
   seleccionoClin: boolean = false;
 
+  //Horario
+  dropdownListHor:any = [];
+  seleccionoHorario: boolean = false;
+  seleccionoFecha: boolean = false;
+
   idDoctor: number = 0;
   selecDoctor: boolean = false;
   doctor: DoctorInterface[] = [];
   clinica: ClinicInterface[] = [];
+  horario: HorarioInterface[] = [];
 
+  fechaActual = new Date();
+  fechaPicker = '';
   constructor(private router: Router, private formBuilder: FormBuilder,
     private el: ElementRef, private toastr: ToastrService, private recordService: RecordService,
-    public datepipe: DatePipe, private doctorService: DoctorService, private clinicaService: ClinicService) { }
+    public datepipe: DatePipe, private doctorService: DoctorService, private clinicaService: ClinicService,
+    private horarioDoctor: HorarioDoctorService) { }
 
     recordPacForm = new FormGroup({
       fNacimiento: new FormControl(''),
@@ -61,6 +72,12 @@ export class CrearCitaComponent implements OnInit {
   record: RecordInterface = new RecordInterface();
 
   ngOnInit(): void {
+
+    this.fechaPicker = this.fechaActual.getFullYear() + '-' +
+    ("0" + (this.fechaActual.getMonth() + 1)).slice(-2) + '-' +
+    ("0" + this.fechaActual.getDate()).slice(-2);
+
+
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
     if (localStorage.getItem('usuario') == undefined) {
       this.router.navigate(['login']);
@@ -78,7 +95,7 @@ export class CrearCitaComponent implements OnInit {
 
 
         this.record = response;
-        console.log(this.record.user_id.email);
+        //console.log(this.record.user_id.email);
 
         let fechaNaci = this.record.date_birth
 
@@ -126,47 +143,111 @@ export class CrearCitaComponent implements OnInit {
   }
   onItemSelect(item: any) {
     this.seleccionoDep = true;
-    console.log(item);
+    //console.log(item);
     this.cargarClinicas(item.item_id)
   }
 
   onItemSelectClinica(item: any) {
     this.seleccionoClin = true;
-    console.log(item.item_id);
+    //console.log(item.item_id);
     this.cargarDoctores(item.item_id);
   }
   onItemSelectDoctor(item: any){
     this.seleccionoClin = true;
-    console.log(item.item_id);
+    //console.log(item.item_id);
     this.selecDoctor = true;
     this.idDoctor = item.item_id;
   }
 
   onSelectAll(items: any) {
-    console.log(items);
+    //console.log(items);
   }
   onDeSelect(item: any){
     this.seleccionoDep = false;
-    console.log(this.selectedItems);
+    //console.log(this.selectedItems);
   }
   onDeSelectClinica(item: any){
     this.seleccionoClin = false;
-    console.log(item);
+    //console.log(item);
   }
   onDeSelectDoctor(item: any){
     this.selecDoctor = false;
-    console.log(item);
+    //console.log(item);
     this.idDoctor = 0;
   }
   get f(){ return this.recordPacForm.controls }
 
   obtieneHorarios(){
     if(this.selecDoctor && this.seleccionoClin){
+      let fech = document.getElementById('fechaCita');
+
+      this.seleccionoFecha = true;
       let fechaCita = this.recordPacForm.value.fechaCita
-      console.log(fechaCita);
+      this.horarioDoctor.horarioDispByFechaDoc(this.idDoctor, fechaCita).subscribe((response)=>{
+        if (response.status !== 404){
+          this.horario = response;
+          this.dropdownListHor = [];
+          let dataSel = {};
+          let rangoCita = 0;
+          var horaIni = 0;
+          let horasRango = 0;
+
+
+          for (let i = 0; i < this.horario.length; i++) {
+
+
+            var horaInicio = this.horario[i].start_time;
+            var horaFin = this.horario[i].finish_time;
+            var horasTot = 0;
+
+            rangoCita = this.horario[i].rango_cita;
+            horaIni = parseInt(horaInicio.split(':')[0]);
+            horasRango =  rangoCita / 60;
+
+            horasTot = parseInt(horaFin) - parseInt(horaInicio)  ;
+
+            if(rangoCita == 30){
+              horasTot *= 2;
+            }
+
+            for (let j = 0; j < horasTot; j++) {
+              var rangoInicial = horaIni;
+              var rango1 = horaIni + horasRango;
+              horaIni = rango1;
+
+              var rangoIni = rangoInicial+'';
+              var rangoFin = horaIni+'';
+
+              if(horasRango != 1){
+                if(j % 2 == 0){
+                  rangoIni = rangoIni.split('.')[0]+':00';
+                  rangoFin = rangoFin.split('.')[0]+':30';
+                }else{
+                  rangoIni = rangoIni.split('.')[0]+':30';
+                  rangoFin = rangoFin.split('.')[0]+':00';
+                }
+              }else{
+                rangoIni = rangoIni.split('.')[0]+':00';
+                rangoFin = rangoFin.split('.')[0]+':00';
+              }
+
+              dataSel = {
+                item_id: this.horario[i].id,
+                item_text: rangoIni + ' - ' +rangoFin,
+              };
+              this.dropdownListHor.push(dataSel);
+            }
+          }
+        }else{
+          this.toastr.error('No se encontraron horarios', 'Error');
+        }
+      })
     }else{
       this.toastr.error('Favor seleccionar doctor y clínica', 'Error');
     }
+  }
+
+  llenarSelectHorario(){
 
   }
   agendarCita(){

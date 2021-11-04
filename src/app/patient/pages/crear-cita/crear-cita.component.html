@@ -93,11 +93,22 @@
           </div>
           <div class="col-md-3">
             <label for="lastName" class="form-label">Fecha</label>
-            <input type="date" name="fechaCita" class="form-control" formControlName="fechaCita" [readOnly]="!selecDoctor" (change)="obtieneHorarios()">
+            <input type="date" name="fechaCita" class="form-control" id="fechaCita" min="{{fechaPicker}}"
+            formControlName="fechaCita" [readOnly]="!selecDoctor" (change)="obtieneHorarios()">
           </div>
           <div class="col-sm-3">
-            <label for="" class="form-label">Hora</label>
-            <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}">
+            <label for="" class="form-label">Horas disponibles</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Horarios'"
+              [settings]="dropdownSettings"
+              [data]="dropdownListHor"
+              (onDeSelect)="onDeSelectDoctor($event)"
+              (onSelect)="onItemSelectDoctor($event)"
+              (onSelectAll)="onSelectAll($event)"
+              [disabled]="!seleccionoFecha"
+              #selectDoctor
+            >
+            </ng-multiselect-dropdown>
           </div>
           <div class="col-6">
             <label for="address2" class="form-label">Comentarios </label>
@@ -112,3 +123,4 @@
     </div>
   </div>
 </div>
+
