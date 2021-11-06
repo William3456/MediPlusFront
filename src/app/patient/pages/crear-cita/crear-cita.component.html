@@ -49,10 +49,10 @@
         </div>
 
         <hr class="my-4">
-        <h6 class="card-title mt-3">DATOS DE CITA</h6>
+        <h6 class="card-title mt-3">DATOS DE CITA - Por favor complete los campos en el orden indicado</h6>
         <div class="row g-3">
           <div class="col-sm-3">
-            <label for="firstName" class="form-label">Departamento</label>
+            <label for="firstName" class="form-label">1.- Departamento</label>
             <ng-multiselect-dropdown
               [placeholder]="'Departamentos'"
               [settings]="dropdownSettings"
@@ -60,12 +60,11 @@
               (onDeSelect)="onDeSelect($event)"
               (onSelect)="onItemSelect($event)"
               (onSelectAll)="onSelectAll($event)"
-
             >
             </ng-multiselect-dropdown>
           </div>
           <div class="col-sm-3">
-            <label for="firstName" class="form-label">Clínica</label>
+            <label for="firstName" class="form-label">2.- Clínica</label>
             <ng-multiselect-dropdown
               [placeholder]="'Clínica'"
               [settings]="dropdownSettings"
@@ -73,12 +72,13 @@
               (onDeSelect)="onDeSelectClinica($event)"
               (onSelect)="onItemSelectClinica($event)"
               (onSelectAll)="onSelectAll($event)"
-              [disabled]="!seleccionoDep"
+
             >
+            <!--[disabled]="!seleccionoDep"-->
             </ng-multiselect-dropdown>
           </div>
           <div class="col-sm-3">
-            <label for="" class="form-label">Doctor</label>
+            <label for="" class="form-label">3.- Doctor</label>
             <ng-multiselect-dropdown
               [placeholder]="'Doctores'"
               [settings]="dropdownSettings"
@@ -86,35 +86,35 @@
               (onDeSelect)="onDeSelectDoctor($event)"
               (onSelect)="onItemSelectDoctor($event)"
               (onSelectAll)="onSelectAll($event)"
-              [disabled]="!seleccionoClin"
               #selectDoctor
             >
+            <!--[disabled]="!seleccionoClin"-->
             </ng-multiselect-dropdown>
           </div>
           <div class="col-md-3">
-            <label for="lastName" class="form-label">Fecha</label>
+            <label for="lastName" class="form-label">4.- Fecha</label>
             <input type="date" name="fechaCita" class="form-control" id="fechaCita" min="{{fechaPicker}}"
-            formControlName="fechaCita" [readOnly]="!selecDoctor" (change)="obtieneHorarios()">
+            formControlName="fechaCita" (change)="obtieneHorarios()">
+             <!--[readOnly]="!seleccionoFecha"-->
           </div>
           <div class="col-sm-3">
-            <label for="" class="form-label">Horas disponibles</label>
+            <label for="" class="form-label">5.- Horas disponibles</label>
             <ng-multiselect-dropdown
               [placeholder]="'Horarios'"
               [settings]="dropdownSettings"
-              [data]="dropdownListHor"
-              (onDeSelect)="onDeSelectDoctor($event)"
-              (onSelect)="onItemSelectDoctor($event)"
+              [data]="listaHorarios"
+              (onDeSelect)="onDeSelectHorario($event)"
+              (onSelect)="onItemSelectHorario($event)"
               (onSelectAll)="onSelectAll($event)"
-              [disabled]="!seleccionoFecha"
+
               #selectDoctor
             >
+            <!--[disabled]="!seleccionoFecha"-->
             </ng-multiselect-dropdown>
           </div>
-          <div class="col-6">
+          <div class="col-9">
             <label for="address2" class="form-label">Comentarios </label>
-            <textarea class="form-control">
-
-            </textarea>
+            <textarea class="form-control" formControlName="justificacion"></textarea>
           </div>
         </div>
         <hr class="my-4">
