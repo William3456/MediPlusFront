@@ -1,7 +1,7 @@
 export interface CitasDocInterface {
   id:               number;
-  patient_id:        ID;
-  doctorID:         ID;
+  patient_id:        PatientIDClass;
+  doctor_id:         doctor_id;
   doctorScheduleID: DoctorScheduleID;
   justification:    string;
   appointment_date:  Date;
@@ -11,7 +11,37 @@ export interface CitasDocInterface {
   updatedAt:        Date;
 }
 
-export interface ID {
+export interface doctor_id {
+  id:               number;
+  userID:           user_id;
+  speciality:       string;
+  identificationID: ClinicIDClass;
+  numID:            string;
+  numRegDoc:        string;
+  clinicID:         ClinicIDClass;
+  status:           Status;
+  createdAt:        Date;
+  updatedAt:        Date;
+}
+
+export interface ClinicIDClass {
+  id:            number;
+  description:   string;
+  departmentID?: ClinicIDClass;
+  status:        Status;
+}
+
+export interface Status {
+  id:          number;
+  description: Description;
+}
+
+export enum Description {
+  Activo = "ACTIVO",
+  Martes = "Martes",
+}
+
+export interface PatientIDClass {
   id:        number;
   name:      string;
   email:     string;
@@ -23,14 +53,21 @@ export interface ID {
   updatedAt: Date;
 }
 
-export interface Status {
-  id:          number;
-  description: string;
+export interface user_id {
+  id:        number;
+  name:      string;
+  email:     string;
+  password:  string;
+  remember:  number;
+  userType:  number;
+  status:    Status;
+  createdAt: Date | null;
+  updatedAt: Date;
 }
 
 export interface DoctorScheduleID {
   id:         number;
-  doctorID:   null;
+  doctorID:   doctor_id;
   startTime:  string;
   finishTime: string;
   dayID:      Status;

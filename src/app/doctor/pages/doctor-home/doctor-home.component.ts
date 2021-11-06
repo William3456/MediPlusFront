@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/auth/dao/usuario';
-import { CitasDocInterface,ID } from '../../dao/CitasDoctor';
+import { CitasDocInterface, user_id } from '../../dao/CitasDoctor';
 import { DoctorService } from '../../services/doctor.service';
+import { UserID, ID } from '../../../patient/dao/doctor';
 
 @Component({
   selector: 'app-doctor-home',
@@ -31,9 +32,10 @@ export class DoctorHomeComponent implements OnInit {
          this.horario = true
          this.appoitment = response;
          let itera = 0;
+
          for(let i = 0;i<this.appoitment.length;i++){
 
-           if(this.usuario.id == this.appoitment[i].doctor_id.id){
+           if(this.usuario.id == this.appoitment[0].doctor_id.user_id.id){
 
             this.citasData[itera] = this.appoitment[i];
             console.log(this.citasData[itera])

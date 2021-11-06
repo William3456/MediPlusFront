@@ -25,6 +25,15 @@ export class HorarioDoctorService {
       })
     )
   }
+  getHorarioDoctor(): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + "doctor/schedule").pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
+  }
+
 
 /*
   AddHorarioDoctor(expediente: HorarioDocInterface): Observable<any>{
@@ -57,5 +66,14 @@ export class HorarioDoctorService {
         return throwError(e);
       })
     )
+  }
+
+  getClinicSchedule(): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + "clinicschedule").pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
   }
 }
