@@ -11,12 +11,13 @@
 
           <div class="col-sm-3">
             <ng-multiselect-dropdown
-  [placeholder]="'Seleccione Fecha'"
+  [placeholder]="'Seleccione Dia'"
   [settings]="dropdownSettings"
   [data]="dropdownListDia"
   [(ngModel)]="selectedItems"
   (onSelect)="onItemSelectDia($event)"
   (onSelectAll)="onSelectAllDia($event)"
+  (onDeSelect)="onDeSelectDia($event)"
 ></ng-multiselect-dropdown>
             <!-- <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
               <div *ngIf="f.direccion.errors.required">
@@ -33,6 +34,8 @@
   [settings]="dropdownSettingsHora"
   [data]="dropdownListHora"
   (onSelect)="onItemSelectHora($event)"
+  (onDeSelect)="onDeSelectHIni($event)"
+  [disabled]="!selectDay"
 
 ></ng-multiselect-dropdown>
 
@@ -51,6 +54,8 @@
   [settings]="dropdownSettingsHora"
   [data]="dropdownListHora"
   (onSelect)="onItemSelectHoraFin($event)"
+  (onDeSelect)="onDeSelectHFin($event)"
+  [disabled]="!selectHoraIni"
 
 >
 </ng-multiselect-dropdown>
@@ -70,7 +75,9 @@
   [placeholder]="'Rango'"
   [settings]="dropdownSettingsHora"
   [data]="dropdownListRango"
-
+  (onSelect)="onItemSelectRango($event)"
+  (onDeSelect)="onDeSelectRango($event)"
+  [disabled]="!selectHoraFin"
 
 >
 </ng-multiselect-dropdown>
@@ -88,7 +95,7 @@
 
         <hr class="my-4">
 
-        <button class="w-100 btn btn-primary btn-lg" type="submit">Crear Horario</button>
+        <button class="w-100 btn btn-primary btn-lg" type="submit" >Crear Horario</button>
       </form>
     </div>
   </div>
