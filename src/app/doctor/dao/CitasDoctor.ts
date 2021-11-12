@@ -15,19 +15,19 @@ export interface doctor_id {
   id:               number;
   userID:           user_id;
   speciality:       string;
-  identificationID: ClinicIDClass;
+  identificationID: clinic_id;
   numID:            string;
   numRegDoc:        string;
-  clinicID:         ClinicIDClass;
+  clinic_id:         clinic_id;
   status:           Status;
   createdAt:        Date;
   updatedAt:        Date;
 }
 
-export interface ClinicIDClass {
+export interface clinic_id {
   id:            number;
-  description:   string;
-  departmentID?: ClinicIDClass;
+  description?:   string;
+  departmentID?: clinic_id;
   status:        Status;
 }
 

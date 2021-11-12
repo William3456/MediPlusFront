@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Usuario } from 'src/app/auth/dao/usuario';
 import { GlucoseInterface } from '../../dao/gluco';
 import { GlucosaService } from '../../services/glucosa.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-ver-glucosa',
@@ -15,6 +16,7 @@ export class VerGlucosaComponent implements OnInit {
   iduser: any;
   glucosaData: GlucoseInterface[] = [];
   usuario: Usuario = new Usuario();
+  p: number = 1;
 
   constructor(private router: Router, private glucosService: GlucosaService) { }
 

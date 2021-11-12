@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DetailPatientComponent } from './pages/detail-patient/detail-patient.component';
 import { ChartsModule } from 'ng2-charts';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -17,7 +18,8 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    NgxPaginationModule
   ],
   exports: [
     DoctorHomeComponent

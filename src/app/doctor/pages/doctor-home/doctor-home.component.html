@@ -4,13 +4,12 @@
 </div>
 
 
-<h2 *ngIf="horario" >Citas de pacientes Agendadas</h2>
+<h2 *ngIf="horario" >Citas de pacientes agendadas</h2>
 <div *ngIf="horario"  class="row mt-6">
   <div class="table-responsive">
     <table class="table">
       <thead class="table-dark">
         <tr>
-          <th scope="col">#</th>
           <th>Nombre Paciente</th>
           <th>Nombre Clinica</th>
           <th>Fecha</th>
@@ -19,11 +18,11 @@
           <th>Ver detalles</th>
         </tr>
       </thead>
-          <tbody *ngFor="let cita of citasData; let i = index">
+          <tbody *ngFor="let cita of citasData | paginate: { itemsPerPage: 10, currentPage: p }">
           <tr>
-          <th scope="row">{{i+1}}</th>
+
           <td>{{cita.patient_id.name}}</td>
-          <td></td>
+          <td>{{cita.doctor_id.clinic_id.description}}</td>
           <td>{{cita.appointment_date}}</td>
           <td>{{cita.appointment_time}}</td>
           <td>{{cita.justification}}</td>
@@ -31,5 +30,8 @@
           </tr>
          </tbody>
     </table>
+    <pagination-controls previousLabel="Anterior"
+    nextLabel="Siguiente" (pageChange)="p = $event"></pagination-controls>
+
   </div>
 </div>

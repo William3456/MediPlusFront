@@ -4,6 +4,7 @@ import { Usuario } from 'src/app/auth/dao/usuario';
 import { CitasDocInterface, user_id } from '../../dao/CitasDoctor';
 import { DoctorService } from '../../services/doctor.service';
 import { UserID, ID } from '../../../patient/dao/doctor';
+import { RecordService } from '../../../patient/services/record.service.service';
 
 @Component({
   selector: 'app-doctor-home',
@@ -15,11 +16,17 @@ export class DoctorHomeComponent implements OnInit {
   usuario: Usuario = new Usuario();
   horario = false;
   appoitment: any;
+   dateDay = new Date().getDay();
   citasData:  CitasDocInterface[] = [];
+  p: number = 1;
 
-  constructor(private router: Router, private doctorService: DoctorService) { }
+
+  constructor(private router: Router, private doctorService: DoctorService) {
+
+  }
 
   ngOnInit(): void {
+    console.log(this.dateDay);
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
     if (localStorage.getItem('usuario') == undefined) {
       this.router.navigate(['login']);
@@ -31,11 +38,12 @@ export class DoctorHomeComponent implements OnInit {
         if(response.status !== 404){
          this.horario = true
          this.appoitment = response;
+
          let itera = 0;
 
          for(let i = 0;i<this.appoitment.length;i++){
 
-           if(this.usuario.id == this.appoitment[0].doctor_id.user_id.id){
+           if(this.usuario.id == this.appoitment[i].doctor_id.user_id.id && this.appoitment[i].status.id == 1){
 
             this.citasData[itera] = this.appoitment[i];
             console.log(this.citasData[itera])
@@ -44,10 +52,6 @@ export class DoctorHomeComponent implements OnInit {
 
          }
           //console.log(this.usuario.id);
-
-
-
-
         }
       });
 

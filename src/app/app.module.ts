@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 import { DoctorModule } from './doctor/doctor.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DataTablesModule } from 'angular-datatables';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +33,8 @@ import { DataTablesModule } from 'angular-datatables';
     ToastrModule.forRoot(),
     DoctorModule,
     NgMultiSelectDropDownModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
+    NgxPaginationModule
 
   ],
   providers: [

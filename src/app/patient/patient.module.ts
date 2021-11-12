@@ -13,6 +13,7 @@ import { CrearCitaComponent } from './pages/crear-cita/crear-cita.component';
 import { VerCitaComponent } from './pages/ver-cita/ver-cita.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DataTablesModule } from 'angular-datatables';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent,
     VerPresionComponent, VerRecordComponent, CrearCitaComponent, VerCitaComponent],
@@ -22,7 +23,8 @@ import { DataTablesModule } from 'angular-datatables';
     FormsModule,
     ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
-    DataTablesModule
+    DataTablesModule,
+    NgxPaginationModule
   ]
 
 })
