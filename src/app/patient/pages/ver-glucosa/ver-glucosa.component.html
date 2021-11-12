@@ -12,7 +12,7 @@
           <th scope="col">Comentario</th>
         </tr>
       </thead>
-        <tbody *ngFor="let gluco of glucosaData | paginate: { itemsPerPage: 10, currentPage: p }">
+        <tbody *ngFor="let gluco of glucosaData ">
           <tr>
           <td>{{gluco.date}}</td>
           <td>{{gluco.measure}} - {{gluco.units.description}}</td>
@@ -21,8 +21,7 @@
           </tr>
          </tbody>
     </table>
-    <pagination-controls previousLabel="Anterior"
-    nextLabel="Siguiente" (pageChange)="p = $event"></pagination-controls>
+
   </div>
 </div>
 

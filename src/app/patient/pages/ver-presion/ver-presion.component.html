@@ -14,7 +14,7 @@
           <th>Comentario</th>
         </tr>
       </thead>
-        <tbody *ngFor="let presion of presionData | paginate: { itemsPerPage: 10, currentPage: p }">
+        <tbody *ngFor="let presion of presionData ">
           <tr>
 
           <td>{{presion.systolic_pressure}}</td>
@@ -26,7 +26,6 @@
           </tr>
          </tbody>
     </table>
-    <pagination-controls previousLabel="Anterior"
-    nextLabel="Siguiente" (pageChange)="p = $event"></pagination-controls>
+
   </div>
 </div>

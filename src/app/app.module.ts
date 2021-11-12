@@ -14,7 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { DoctorModule } from './doctor/doctor.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,8 +31,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     DoctorModule,
-    NgMultiSelectDropDownModule.forRoot(),
-   NgxPaginationModule
+    NgMultiSelectDropDownModule.forRoot()
 
   ],
   providers: [

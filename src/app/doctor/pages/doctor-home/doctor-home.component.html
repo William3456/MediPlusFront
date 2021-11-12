@@ -18,7 +18,7 @@
           <th>Ver detalles</th>
         </tr>
       </thead>
-          <tbody *ngFor="let cita of citasData | paginate: { itemsPerPage: 10, currentPage: p }">
+          <tbody *ngFor="let cita of citasData ">
           <tr>
 
           <td>{{cita.patient_id.name}}</td>
@@ -30,8 +30,7 @@
           </tr>
          </tbody>
     </table>
-    <pagination-controls previousLabel="Anterior"
-    nextLabel="Siguiente" (pageChange)="p = $event"></pagination-controls>
+
 
   </div>
 </div>
