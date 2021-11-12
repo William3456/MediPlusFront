@@ -6,7 +6,6 @@
     <table class="table">
       <thead class="table-dark">
         <tr>
-          <th scope="col">#</th>
           <th>Presion Sistólica</th>
           <th>Presion Diastólica</th>
           <th>Ritmo Cardiaco</th>
@@ -15,9 +14,9 @@
           <th>Comentario</th>
         </tr>
       </thead>
-        <tbody *ngFor="let presion of presionData; let i = index">
+        <tbody *ngFor="let presion of presionData | paginate: { itemsPerPage: 10, currentPage: p }">
           <tr>
-          <th scope="row">{{i+1}}</th>
+
           <td>{{presion.systolic_pressure}}</td>
           <td>{{presion.diastolic_pressure}}</td>
           <td>{{presion.heart_rate}}</td>
@@ -27,5 +26,7 @@
           </tr>
          </tbody>
     </table>
+    <pagination-controls previousLabel="Anterior"
+    nextLabel="Siguiente" (pageChange)="p = $event"></pagination-controls>
   </div>
 </div>

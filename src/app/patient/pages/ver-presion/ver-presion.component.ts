@@ -15,6 +15,7 @@ export class VerPresionComponent implements OnInit {
  iduser: any;
  presionData: PressureInterface[] = [];
  usuario: Usuario = new Usuario();
+ p: number = 1;
   constructor(private router: Router, private presionService: PressureService) { }
 
   ngOnInit(): void {
