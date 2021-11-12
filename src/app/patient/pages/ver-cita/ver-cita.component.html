@@ -1,1 +1,42 @@
-<p>ver-cita works!</p>
+<div class="card col m-auto">
+  <h5 class="card-header">Mis citas</h5>
+  <div class="card-body">
+
+    <h6 class="card-title mt-3">**</h6>
+
+    <div class="col mt-3">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Doctor asignado</th>
+            <th>Clínica</th>
+            <th>Fecha</th>
+            <th>Hora inicio</th>
+            <th>Hora fin</th>
+            <th>Comentario</th>
+            <th>Estado</th>
+            <th>Más</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cita of cita; let i = index ">
+            <td>{{ i + 1 }}</td>
+            <td>{{ cita.doctor_id.user_id?.name }}</td>
+            <td>{{ cita.doctor_id.clinic_id?.description }}</td>
+            <td>{{ cita.appointment_date }}</td>
+            <td>{{ cita.appointment_time }}</td>
+            <td>{{ cita.appointment_time_finish }}</td>
+            <td >{{ cita.justification }}</td>
+            <td [ngClass]="{ 'text-primary': cita.status.id == 1,
+            'text-danger': cita.status.id == 3,
+            'text-success': cita.status.id == 5 }">
+            {{ cita.status.description }}</td>
+            <td><a href="#" class="btn btn-link">Detalles</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

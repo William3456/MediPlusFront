@@ -14,8 +14,6 @@ import { HorarioDoctorService } from 'src/app/doctor/services/horario-doctor.ser
 import { HorarioInterface } from '../../dao/horario';
 import { CitaService } from '../../services/cita.service';
 import { CitaInterface } from '../../dao/cita';
-import { interval } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-crear-cita',
@@ -202,10 +200,11 @@ export class CrearCitaComponent implements OnInit {
     fecha.value = '';
   }
   onDeSelectHorario(item: any){
+    this.idHorario = '';
     console.log(item);
   }
   onItemSelectHorario(item: any){
-
+    this.idHorario = item.item_id;
     //console.log(item.item_id);
 
   }
@@ -260,7 +259,7 @@ export class CrearCitaComponent implements OnInit {
                 rangoFinal = intervalos[j+1].substring(0,5);
 
                 dataSel = {
-                  item_id:  j +'-'+this.horario[i].id,
+                  item_id:  j +'-'+this.horario[i].id + '-'+rangoInicial + ':00-' + rangoFinal+':00',
                   item_text: rangoInicial + ' - ' + rangoFinal,
                 };
                 this.dropdownListHor.push(dataSel);
@@ -302,7 +301,33 @@ export class CrearCitaComponent implements OnInit {
     if(errores)
       return;
 
-
+    const cita = {
+      patient_id:{
+        id: this.usuario.id
+      },
+      doctor_id:{
+        id: this.idDoctor,
+      },
+      doctor_schedule_id:{
+        id: this.idHorario.split('-')[1]
+      },
+      justification: justif,
+      appointment_date: fechaCita,
+      appointment_time: this.idHorario.split('-')[2],
+      appointment_time_finish: this.idHorario.split('-')[3],
+      status:{
+        id: 1
+      }
+    }
+    this.citaService.crearCita(cita).subscribe((response)=>{
+      console.log(response);
+      if(response.status === 200){
+        this.toastr.success('Cita agendada', 'Operación exitosa');
+        this.router.navigate(['patient/appointment/my_appointments']);
+      }else{
+        this.toastr.error('Error', 'Error al crear la cita');
+      }
+    });
   }
 
   cargarDoctores(idClinica: number){

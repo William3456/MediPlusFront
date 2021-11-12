@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { DoctorModule } from './doctor/doctor.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     DoctorModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    DataTablesModule
 
   ],
   providers: [

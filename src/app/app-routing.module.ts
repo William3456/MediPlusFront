@@ -16,6 +16,7 @@ import { DoctorHomeComponent } from './doctor/pages/doctor-home/doctor-home.comp
 import { CrearHorarioComponent } from './doctor/pages/crear-horario/crear-horario.component';
 import { VerPerfilComponent } from './doctor/pages/ver-perfil/ver-perfil.component';
 import { DetailPatientComponent } from './doctor/pages/detail-patient/detail-patient.component';
+import { VerCitaComponent } from './patient/pages/ver-cita/ver-cita.component';
 
 const routes: Routes = [
   {
@@ -79,7 +80,11 @@ const routes: Routes = [
   {
     path: 'doctor/detail/patient/:id',
     component: DetailPatientComponent
-  }
+  },
+  {
+    path: 'patient/appointment/my_appointments',
+    component: VerCitaComponent
+  },
 
 ];
 

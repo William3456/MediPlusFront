@@ -12,7 +12,7 @@ import { VerPresionComponent } from './pages/ver-presion/ver-presion.component';
 import { CrearCitaComponent } from './pages/crear-cita/crear-cita.component';
 import { VerCitaComponent } from './pages/ver-cita/ver-cita.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent,
     VerPresionComponent, VerRecordComponent, CrearCitaComponent, VerCitaComponent],
@@ -21,7 +21,9 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    DataTablesModule
+
   ]
 
 })
