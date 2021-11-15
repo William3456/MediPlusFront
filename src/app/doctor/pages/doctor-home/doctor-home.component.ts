@@ -5,6 +5,7 @@ import { CitasDocInterface, user_id } from '../../dao/CitasDoctor';
 import { DoctorService } from '../../services/doctor.service';
 import { UserID, ID } from '../../../patient/dao/doctor';
 import { RecordService } from '../../../patient/services/record.service.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-doctor-home',
@@ -18,8 +19,8 @@ export class DoctorHomeComponent implements OnInit {
   appoitment: any;
    dateDay = new Date().getDay();
   citasData:  CitasDocInterface[] = [];
-  p: number = 1;
-
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private router: Router, private doctorService: DoctorService) {
 
@@ -33,11 +34,21 @@ export class DoctorHomeComponent implements OnInit {
       return;
     }else{
 
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        language: {
+          url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es-mx.json'
+        },
+      //  order:  [[ 7, "asc" ]]
+
+      };
+
       this.doctorService.getAppointment().subscribe((response: any)=>{
 
         if(response.status !== 404){
          this.horario = true
          this.appoitment = response;
+         this.dtTrigger.next();
 
          let itera = 0;
 
@@ -55,20 +66,9 @@ export class DoctorHomeComponent implements OnInit {
         }
       });
 
-/*
-      for(let i = this.glucosa.length;i>0;i--){
-        if (this.glucosa[i-1].user_id.id == this.iduser){
-         if(itera>0){
-         this.fech.push(this.glucosa[i-1].date);
-         this.GlucosaData.push(this.glucosa[i-1].measure);
-        }
-         itera --;
-         }
-       }
-       */
-
-
     }
   }
-
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
 }
