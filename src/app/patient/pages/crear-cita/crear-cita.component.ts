@@ -85,7 +85,7 @@ export class CrearCitaComponent implements OnInit {
   nombreUsuario: string = "";
   record: RecordInterface = new RecordInterface();
 
-  ngOnInit(): void {
+   ngOnInit(): void {
 
     this.fechaPicker = this.fechaActual.getFullYear() + '-' +
     ("0" + (this.fechaActual.getMonth() + 1)).slice(-2) + '-' +
@@ -104,11 +104,16 @@ export class CrearCitaComponent implements OnInit {
     }
 
     this.nombreUsuario = this.usuario.name;
-    this.recordService.expedienteByEmail(this.usuario.email).subscribe((response)=>{
+
+    this.recordService.expedienteByEmail(this.usuario.email, true).subscribe((response)=>{
       if(response.status !== 404){
 
-
         this.record = response;
+        if(this.record.cita_activa == 1){
+          this.toastr.warning('Ya se ecuentra otra cita activa, por favor verifique o cancele la actual', 'Error');
+          this.router.navigate(['patient/appointment/my_appointments']);
+          return;
+        }
         //console.log(this.record.user_id.email);
 
         let fechaNaci = this.record.date_birth
@@ -322,7 +327,9 @@ export class CrearCitaComponent implements OnInit {
     this.citaService.crearCita(cita).subscribe((response)=>{
       console.log(response);
       if(response.status === 200){
+
         this.toastr.success('Cita agendada', 'Operación exitosa');
+        this.toastr.success('Correo de confirmación enviado', 'Operación exitosa');
         this.router.navigate(['patient/appointment/my_appointments']);
       }else{
         this.toastr.error('Error', 'Error al crear la cita');

@@ -27,8 +27,12 @@ export class RecordService {
     );
   }
 
-  expedienteByEmail(email: any): Observable<any>{
-    return this.http.get<any>(this.urlEndPoint + "expediente/email/" + email).pipe(
+  expedienteByEmail(email: any, validaCita?: Boolean): Observable<any>{
+    let url = this.urlEndPoint + "expediente/email/" + email;
+    if(validaCita)
+      url += '/'+ 1;
+
+    return this.http.get<any>(url).pipe(
       catchError(e => {
         console.error(e);
         return throwError(e);

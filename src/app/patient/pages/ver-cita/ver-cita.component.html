@@ -21,7 +21,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let cita of cita; let i = index ">
-            <td>{{ i + 1 }}</td>
+            <td>{{ cita.id }}</td>
             <td>{{ cita.doctor_id.user_id?.name }}</td>
             <td>{{ cita.doctor_id.clinic_id?.description }}</td>
             <td>{{ cita.appointment_date }}</td>
