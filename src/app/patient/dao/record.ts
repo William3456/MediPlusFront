@@ -13,6 +13,7 @@ export class RecordInterface {
   status!: Status;
   created_at?:        Date;
   updated_at?:        Date;
+  cita_activa?:        number;
 }
 
 export interface IdentificationID {
