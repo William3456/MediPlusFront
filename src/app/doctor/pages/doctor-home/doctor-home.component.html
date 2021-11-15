@@ -7,9 +7,10 @@
 <h2 *ngIf="horario" >Citas de pacientes agendadas</h2>
 <div *ngIf="horario"  class="row mt-6">
   <div class="table-responsive">
-    <table class="table">
-      <thead class="table-dark">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
         <tr>
+          <th>N°</th>
           <th>Nombre Paciente</th>
           <th>Nombre Clinica</th>
           <th>Fecha</th>
@@ -18,19 +19,18 @@
           <th>Ver detalles</th>
         </tr>
       </thead>
-          <tbody *ngFor="let cita of citasData ">
-          <tr>
-
+      <tbody>
+        <tr *ngFor="let cita of citasData; let i = index  ">
+          <td>{{ i + 1 }}</td>
           <td>{{cita.patient_id.name}}</td>
           <td>{{cita.doctor_id.clinic_id.description}}</td>
           <td>{{cita.appointment_date}}</td>
           <td>{{cita.appointment_time}}</td>
           <td>{{cita.justification}}</td>
           <td>  <h5 class="card-title"><a  href="doctor/detail/patient/{{cita.patient_id.id}}" class="btn btn-link p-0">Ver detalle</a></h5></td>
-          </tr>
-         </tbody>
+        </tr>
+      </tbody>
     </table>
-
 
   </div>
 </div>

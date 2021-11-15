@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Usuario } from 'src/app/auth/dao/usuario';
 import { GlucoseInterface } from '../../dao/gluco';
 import { GlucosaService } from '../../services/glucosa.service';
-import { NgxPaginationModule } from 'ngx-pagination';
+
 
 @Component({
   selector: 'app-ver-glucosa',
@@ -16,7 +17,9 @@ export class VerGlucosaComponent implements OnInit {
   iduser: any;
   glucosaData: GlucoseInterface[] = [];
   usuario: Usuario = new Usuario();
-  p: number = 1;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private router: Router, private glucosService: GlucosaService) { }
 
@@ -33,12 +36,20 @@ export class VerGlucosaComponent implements OnInit {
       console.log(this.iduser);
 
     }
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es-mx.json'
+      },
+    //  order:  [[ 7, "asc" ]]
 
+    };
 
     this.glucosService.getGlucosa().subscribe((response: any)=>{
       if(response.status !== 404){
         //console.log(this.usuario.id);
         this.glucosa = response;
+        this.dtTrigger.next();
         let itera = 0;
         for(let i = 0;i< this.glucosa.length;i++){
 
@@ -58,5 +69,9 @@ export class VerGlucosaComponent implements OnInit {
     });
 
   }
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
 
 }

@@ -220,15 +220,109 @@
 
                     <hr class="my-4">
 
-                    <button class="w-100 btn btn-secondary btn-lg disabled" type="submit">Enviar mi información</button>
                   </form>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed btn btn-link fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                 Detalle del Expediente
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+
+                  <div class="card col-9 m-auto">
+                    <h5 class="card-header text-center">Detalle de Expediente medico</h5>
+
+                        <form  [formGroup] ="recordForm" id="formRec">
+                          <div class="row g-3">
+
+                            <div class="col-12">
+                              <label for="address2" class="form-label">Detalle de expediente</label>
+                              <input type="text" class="form-control" value="record.user_id.email" placeholder="Dirección completa" formControlName="direccion" [ngClass]="{'is-invalid':submitted && f.direccion.errors}" readonly>
+                              <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
+                                <div *ngIf="f.direccion.errors.required">
+                                  Por favor ingresa la dirección
+                                </div>
+                                <div *ngIf="f.direccion.errors.minlength">
+                                  La dirección debe tener al menos 15 caracteres
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                              <label for="firstName" class="form-label">F. nacimiento</label>
+                              <input type="date" class="form-control disabled" id="fNacimiento" formControlName="fNacimiento" (change)="calculaEdad()"  [ngClass]="{'is-invalid':submitted && f.fNacimiento.errors}" readonly>
+                              <!--<div *ngIf="submitted && f.fNacimiento.errors " class="invalid-feedback">
+                                <div *ngIf="f.fNacimiento.errors.required">
+                                  * Completar
+                                </div>
+                              </div>-->
+                            </div>
+                            <div class="col-sm-1">
+                              <label for="firstName" class="form-label">Edad</label>
+                              <input type="text" name="edadActual" class="form-control" formControlName="edadActual" readonly>
+                            </div>
+                            <div class="col-sm-2">
+                              <label for="lastName" class="form-label">Credencial</label>
+                              <input type="text" name="tipoId" class="form-control" formControlName="tipoId" readonly>
+                              <!--<select class="form-select" id="creden" formControlName="tipoId" [ngClass]="{'is-invalid':submitted && f.tipoId.errors}">
+                                <option value="">Escoger...</option>
+                                <option value="1">DUI</option>
+                                <option value="2">PASAPORTE</option>
+                              </select>-->
+                            </div>
+                            <div class="col-sm-3">
+                              <label for="" class="form-label">Número de credencial</label>
+                              <input type="text" class="form-control" formControlName="numId" [ngClass]="{'is-invalid':submitted && f.numId.errors}" readonly>
+                            </div>
+                            <div class="col-sm-3">
+                              <label for="" class="form-label">Teléfono</label>
+                              <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}" readonly>
+                            </div>
+
+                            <div class="col-md-3">
+                              <label for="country" class="form-label">Peso (LB)</label>
+                              <input type="number" class="form-control" step="0.01" min="1" formControlName="peso" [ngClass]="{'is-invalid':submitted && f.peso.errors}" readonly>
+                            </div>
+
+                            <div class="col-md-3">
+                              <label for="country" class="form-label">Altura (cm)</label>
+                              <input type="number" class="form-control" step="0.01" min="1" formControlName="altura" [ngClass]="{'is-invalid':submitted && f.altura.errors}" readonly>
+                            </div>
+
+                            <div class="col-md-3">
+                              <label for="lastName" class="form-label">Género</label>
+                              <input type="text" name="genero" class="form-control" formControlName="genero" readonly>
+                              <!--<select class="form-select" id="state" formControlName="genero" [ngClass]="{'is-invalid':submitted && f.genero.errors}" >
+                                <option value="">Escoger...</option>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                              </select>-->
+                            </div>
+                            <div class="col-md-3">
+                              <label for="country" class="form-label">Profesión</label>
+                              <input type="text" class="form-control" formControlName="profesion" [ngClass]="{'is-invalid':submitted && f.profesion.errors}" readonly>
+                            </div>
+                          </div>
+
+                          <hr class="my-4">
+
+                        </form>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            </div>
-            </div>
+
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
