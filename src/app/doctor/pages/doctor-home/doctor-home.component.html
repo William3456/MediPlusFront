@@ -3,10 +3,11 @@
  <h5> Por favor Agregar un Horario de atencion a pacientes.!!</h5>
 </div>
 
-
-<h2 *ngIf="horario" >Citas de pacientes agendadas</h2>
-<div *ngIf="horario"  class="row mt-6">
-  <div class="table-responsive">
+<div *ngIf="horario"></div>
+<div  class="card col m-auto">
+  <h5 *ngIf="horario" class="card-header">Citas de pacientes agendadas</h5>
+  <div class="card-body">
+<div class="col mt-3">
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
       <thead>
         <tr>
@@ -31,6 +32,7 @@
         </tr>
       </tbody>
     </table>
-
+   </div>
   </div>
 </div>
+

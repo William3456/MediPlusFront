@@ -40,7 +40,6 @@ export class DoctorHomeComponent implements OnInit {
           url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es-mx.json'
         },
       //  order:  [[ 7, "asc" ]]
-
       };
 
       this.doctorService.getAppointment().subscribe((response: any)=>{
@@ -48,10 +47,9 @@ export class DoctorHomeComponent implements OnInit {
         if(response.status !== 404){
          this.horario = true
          this.appoitment = response;
-         this.dtTrigger.next();
-
          let itera = 0;
 
+         this.dtTrigger.next();
          for(let i = 0;i<this.appoitment.length;i++){
 
            if(this.usuario.id == this.appoitment[i].doctor_id.user_id.id && this.appoitment[i].status.id == 1){
