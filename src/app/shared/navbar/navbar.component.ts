@@ -12,6 +12,7 @@ export class NavbarComponent implements OnInit {
   public usuario: Usuario = new Usuario();
   public isLogged = false;
   public rol: any =0;
+  public tieneExpediente: boolean = false;
   constructor(private authService: AuthService, private route: Router) {
   }
 
@@ -23,7 +24,12 @@ export class NavbarComponent implements OnInit {
       }else{
         this.isLogged = true;
         this.rol = this.usuario.user_type;
-        console.log(this.rol)
+        if(this.usuario.expediente === 1){
+          this.tieneExpediente = true;
+        }else{
+          this.tieneExpediente= false;
+        }
+        //console.log(this.rol);
       }
     });
   }

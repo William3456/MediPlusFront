@@ -18,6 +18,7 @@ import { VerPerfilComponent } from './doctor/pages/ver-perfil/ver-perfil.compone
 import { DetailPatientComponent } from './doctor/pages/detail-patient/detail-patient.component';
 import { VerCitaComponent } from './patient/pages/ver-cita/ver-cita.component';
 import { VerHorariosComponent } from './doctor/pages/ver-horarios/ver-horarios.component';
+import { AppointmentDetailComponent } from './patient/pages/appointment-detail/appointment-detail.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
   {
     path: 'patient/appointment/my_appointments',
     component: VerCitaComponent
+  },
+  {
+    path: 'patient/appointment/detail/:id',
+    component: AppointmentDetailComponent
   },
 
 ];

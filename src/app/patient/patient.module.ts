@@ -13,17 +13,19 @@ import { CrearCitaComponent } from './pages/crear-cita/crear-cita.component';
 import { VerCitaComponent } from './pages/ver-cita/ver-cita.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DataTablesModule } from 'angular-datatables';
+import { AppRoutingModule } from '../app-routing.module';
+import { AppointmentDetailComponent } from './pages/appointment-detail/appointment-detail.component';
 @NgModule({
   declarations: [RecordComponent, GlucosaComponent, PresionComponent, VerGlucosaComponent,
-    VerPresionComponent, VerRecordComponent, CrearCitaComponent, VerCitaComponent],
-  exports:[ RecordComponent, GlucosaComponent, PresionComponent, VerRecordComponent ],
+    VerPresionComponent, VerRecordComponent, CrearCitaComponent, VerCitaComponent, AppointmentDetailComponent],
+  exports:[ RecordComponent, GlucosaComponent, PresionComponent, VerRecordComponent,AppointmentDetailComponent ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgMultiSelectDropDownModule.forRoot(),
-    DataTablesModule
-
+    DataTablesModule,
+    AppRoutingModule,
   ]
 
 })
