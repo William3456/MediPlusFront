@@ -46,9 +46,10 @@ export class VerCitaComponent implements OnInit {
     this.citaService.obtenerCitasPorPaciente(this.usuario.id).subscribe((response)=>{
       if(response.status !== 404){
         this.cita = response;
-        this.dtTrigger.next();
       }
+      this.dtTrigger.next();
     });
+
   }
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();

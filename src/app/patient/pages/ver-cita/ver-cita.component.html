@@ -2,9 +2,11 @@
   <h5 class="card-header">Mis citas</h5>
   <div class="card-body">
 
-    <h6 class="card-title mt-3">**</h6>
+    <div class="card-title mt-3">
+      <a class="btn btn-primary" [routerLink] = "['../new']">+ Agendar cita</a>
+    </div>
 
-    <div class="col mt-3">
+    <div class="col mt-3" >
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
         <thead>
           <tr>
@@ -32,7 +34,7 @@
             'text-danger': cita.status.id == 3,
             'text-success': cita.status.id == 5 }">
             {{ cita.status.description }}</td>
-            <td><a href="#" class="btn btn-link">Detalles</a></td>
+            <td><a [routerLink]="['../detail/', cita.id]" class="btn btn-link">Detalles</a></td>
           </tr>
         </tbody>
       </table>

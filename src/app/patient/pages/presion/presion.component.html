@@ -87,7 +87,7 @@
 
           <div class="col-sm-3">
             <label for="lastName" class="form-label">Fecha medición</label>
-            <input type="date" class="form-control" formControlName="fechaMedicion" [ngClass]="{'is-invalid':submitted && f.fechaMedicion.errors}">
+            <input type="date" class="form-control"  max="{{fechaPicker}}" formControlName="fechaMedicion" [ngClass]="{'is-invalid':submitted && f.fechaMedicion.errors}">
           </div>
           <div class="col-sm-6 mx-auto">
             <label for="lastName" class="form-label col-12 text-center">Comentarios sobre toma</label>
@@ -105,3 +105,18 @@
     </div>
   </div>
 </div>
+
+<ng-template #contenido let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title">Alerta de toma de presión alta</h4>
+  </div>
+  <div class="modal-body">
+      Se detectaron valores altos en la toma de presión, se recomienda agendar una cita.
+      ¿Dese hacerlo ahora mismo?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close()">Cancelar</button>
+      <a  class="btn btn-success" [routerLink] = "['/patient/appointment/new']" (click)="modal.close()">Agendar cita</a>
+  </div>
+</ng-template>
+

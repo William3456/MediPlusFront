@@ -5,6 +5,7 @@ import {FormGroup, FormControl, Validators, FormBuilder} from "@angular/forms";
 import { RecordService } from '../../services/record.service.service';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/auth/services/auth.service';
 @Component({
   selector: 'app-record',
   templateUrl: './record.component.html',
@@ -33,7 +34,8 @@ export class RecordComponent implements OnInit {
 
 
   constructor(private router: Router,private formBuilder: FormBuilder,
-    private recordService: RecordService, private el: ElementRef, private toastr: ToastrService) { }
+    private recordService: RecordService, private el: ElementRef, private toastr: ToastrService,
+    private userService: AuthService) { }
 
   get f(){ return this.recordForm.controls }
   ngOnInit(): void {
@@ -142,6 +144,10 @@ export class RecordComponent implements OnInit {
       if(response.status === 200){
         this.toastr.success('Expediente creado correctamento', 'Operación exitosa');
         this.router.navigate(['/home']);
+        this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
+        this.usuario.expediente = 1;
+        localStorage.setItem('usuario', JSON.stringify(this.usuario));
+        this.userService.user.next(this.usuario);
       }else{
         this.toastr.error('Error', 'Error al crear el expediente');
         console.log(response);

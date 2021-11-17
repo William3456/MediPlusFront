@@ -1,0 +1,226 @@
+<div class="card col m-auto">
+  <h5 class="card-header">Visualizando detalle de cita #{{idCita}}</h5>
+  <div class="card-body">
+     <div class="row">
+        <div class="col">
+           <p class="h5 text-secondary">Paciente:</p>
+        </div>
+        <div class="col">
+           <p class="h5 text-secondary">Doctor:</p>
+        </div>
+        <div class="col">
+           <p class="h5 text-secondary">Estado:</p>
+        </div>
+        <div class="col">
+           <p class="h5 text-secondary">Fecha:</p>
+        </div>
+     </div>
+     <div class="row">
+        <div class="col">
+          <p class="h5">{{ detalleCita.paciente }}</p>
+        </div>
+        <div class="col">
+          <p class="h5">Dr. {{ detalleCita.doctor }}</p>
+        </div>
+        <div class="col">
+          <p class="h5">{{ detalleCita.estado }}</p>
+        </div>
+        <div class="col">
+          <p class="h5 text-secondary">{{ detalleCita.fecha }}</p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <p class="h5 fst-italic text-secondary">Información detallada:</p>
+        </div>
+        <div class="col">
+          <button type="button" class="btn btn-danger float-end" (click)="modal.open(contenido)" title="Cancelar cita">
+          Cancelar
+          </button>
+        </div>
+        <div class="col-1"></div>
+      </div>
+      <hr class="text-secondary">
+      <div class="row">
+        <div class="col ">
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Número de cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ idCita }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Fecha de cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.fecha }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Hora de cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.horaIni }} - {{ detalleCita.horaFin }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Justificación del paciente</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.justificacion }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Departamento</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.departamento }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Clínica</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.clinica }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Doctor asignado</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">Dr. {{ detalleCita.doctor }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Estado de la cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.estado }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="mt-2">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+           type="button" role="tab" aria-controls="nav-home" aria-selected="true">Detalles médicos</button>
+          <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+          type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Sobre el doctor</button>
+          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="col-8 m-auto mt-2">
+            <div class="accordion accordion-flush border" id="accordionFlushExample" >
+
+              <div class="accordion-item" *ngFor="let detalleTipo of detalles; let i = index ">
+                <h2 class="accordion-header " id="flush-headingOne{{i}}">
+                  <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapseOne'+i" aria-expanded="false" [attr.aria-controls]="'flush-collapseOne'+i">
+                    {{ detalleTipo }}&nbsp;
+                    <span class="badge bg-primary rounded-pill">1</span>
+                  </button>
+                </h2>
+                <div id="flush-collapseOne{{i}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-headingOne'+i" [attr.data-bs-parent]="'#accordionFlushExample' + i">
+                  <div class="accordion-body">
+                    <ol class="list-group list-group-numbered">
+                      <li class="list-group-item">Cras justo odio</li>
+                      <li class="list-group-item">Cras justo odio</li>
+                      <li class="list-group-item">Cras justo odio</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <div class="row p-3">
+            <div class="col ">
+              <div class="row">
+                <div class=" col-md-4 col-12 ">
+                    <p class="text-dark">Especialidad:</p>
+                </div>
+                <div class=" col-md-8 col-12 ">
+                    <p class="text-dark fw-bold">{{ detalleCita.doctorEspec }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class=" col-md-4 col-12 ">
+                    <p class="text-dark">Número de registro:</p>
+                </div>
+                <div class=" col-md-8 col-12 ">
+                    <p class="text-dark fw-bold">{{ detalleCita.doctorNumReg }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="row">
+                <div class=" col-md-4 col-12 ">
+                    <p class="text-dark">Email:</p>
+                </div>
+                <div class=" col-md-8 col-12 ">
+                    <p class="text-dark fw-bold">{{ detalleCita.doctorEmail }}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class=" col-md-4 col-12 ">
+                    <p class="text-dark">Clínica</p>
+                </div>
+                <div class=" col-md-8 col-12 ">
+                    <p class="text-dark fw-bold">{{ detalleCita.clinica }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+      </div>
+     </div>
+  </div>
+  <ng-template #contenido let-modal>
+    <form [formGroup] ="canCitaForm" (ngSubmit) = "cambiarEstado()">
+      <div class="modal-header">
+          <h4 class="modal-title">Cambiar estado de cita a cancelado</h4>
+      </div>
+      <div class="modal-body">
+          Se actualizará el estado a la cita a cancelado, por la tanto ya no podrá asistir a ella y
+          deberá abrir una nueva si lo desea.
+          <br><br>
+          <small>* Si continúa por favor modifique la justificación</small>
+          <br>
+          <b class="mt-3">Justificación:</b>
+          <textarea placeholder="Justificacion" class="form-control"
+          [ngClass]="{'is-invalid':submitted && f.justificacion.errors}">
+
+          </textarea>
+
+          <div *ngIf="submitted && f.justificacion.errors " class="invalid-feedback">
+            <div *ngIf="f.justificacion.errors.required">
+              Por favor ingresa una justificación
+            </div>
+            <div *ngIf="f.justificacion.errors.minlength">
+              La justificación debe tener al menos 10 caracteres
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="modal.close()">Cerrar</button>
+        <button type="submit" class="btn btn-danger" >Sí, Cancelar</button>
+      </div>
+  </form>
+  </ng-template>

@@ -11,5 +11,5 @@ export class Usuario {
     description: ""
   };
   user_type?: number = 0;
-
+  expediente?:number;
 }

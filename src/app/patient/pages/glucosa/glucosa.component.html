@@ -52,7 +52,6 @@
             <select class="form-select" formControlName="uMedida" [ngClass]="{'is-invalid':submitted && f.uMedida.errors}">
               <option value="">Seleccione...</option>
               <option value="1">miligramos por decilitro (mg/dl)</option>
-              <option value="2">milimol por litro (mmol/l)</option>
             </select>
           </div>
           <div class="col-sm-3">
@@ -63,7 +62,7 @@
 
           <div class="col-sm-3">
             <label for="lastName" class="form-label">Fecha medición</label>
-            <input type="date" class="form-control" formControlName="fechaMedicion" [ngClass]="{'is-invalid':submitted && f.fechaMedicion.errors}">
+            <input type="date" class="form-control" max="{{fechaPicker}}" formControlName="fechaMedicion" [ngClass]="{'is-invalid':submitted && f.fechaMedicion.errors}">
           </div>
 
           <div class="col-sm-6 mx-auto">
@@ -82,3 +81,16 @@
     </div>
   </div>
 </div>
+<ng-template #contenido let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title">Alerta de toma de glucosa alta</h4>
+  </div>
+  <div class="modal-body">
+      Se detectaron valores altos en la toma de glucosa, se recomienda agendar una cita.
+      ¿Dese hacerlo ahora mismo?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.close()">Cancelar</button>
+      <a  class="btn btn-success" [routerLink] = "['/patient/appointment/new']" (click)="modal.close()">Agendar cita</a>
+  </div>
+</ng-template>
