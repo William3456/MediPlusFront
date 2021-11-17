@@ -1,0 +1,30 @@
+
+<div class="card col m-auto">
+  <h5 class="card-header">Horarios </h5>
+  <div class="card-body">
+<div class="col mt-3">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
+        <tr >
+          <th>N°</th>
+          <th>Dia</th>
+          <th >Hora Inicio</th>
+          <th >Hora Fin</th>
+          <th >Rango</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hora of horarioDoc; let i = index ">
+          <td>{{ i + 1 }}</td>
+          <td>{{hora.day_id.description}}</td>
+          <td>{{hora.start_time}}</td>
+          <td>{{hora.finish_time}}</td>
+          <td>{{hora.rango_cita}} Minutos</td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>
+</div>
+</div>

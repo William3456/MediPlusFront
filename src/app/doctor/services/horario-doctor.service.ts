@@ -33,6 +33,14 @@ export class HorarioDoctorService {
       })
     );
   }
+  getHorarioById(id: any): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + "doctor/schedule/doctor/" + id).pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
+  }
 
 
 /*
