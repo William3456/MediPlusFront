@@ -26,7 +26,7 @@
           <p class="h5">{{ detalleCita.estado }}</p>
         </div>
         <div class="col">
-          <p class="h5 text-secondary">{{ detalleCita.fecha }}</p>
+          <p class="h5">{{ detalleCita.fecha }}</p>
         </div>
       </div>
       <hr>
@@ -34,7 +34,7 @@
         <div class="col">
           <p class="h5 fst-italic text-secondary">Información detallada:</p>
         </div>
-        <div class="col">
+        <div class="col" *ngIf="detalleCita.estadoId == 1">
           <button type="button" class="btn btn-danger float-end" (click)="modal.open(contenido)" title="Cancelar cita">
           Cancelar
           </button>
@@ -112,7 +112,6 @@
           </div>
         </div>
       </div>
-
       <nav class="mt-2">
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
@@ -125,26 +124,25 @@
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="col-8 m-auto mt-2">
-            <div class="accordion accordion-flush border" id="accordionFlushExample" >
-
+            <div class="accordion accordion-flush border" id="accordionFlushExample" *ngIf="hayComentarios else sinComentarios" >
               <div class="accordion-item" *ngFor="let detalleTipo of detalles; let i = index ">
                 <h2 class="accordion-header " id="flush-headingOne{{i}}">
                   <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapseOne'+i" aria-expanded="false" [attr.aria-controls]="'flush-collapseOne'+i">
                     {{ detalleTipo }}&nbsp;
-                    <span class="badge bg-primary rounded-pill">1</span>
                   </button>
                 </h2>
                 <div id="flush-collapseOne{{i}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-headingOne'+i" [attr.data-bs-parent]="'#accordionFlushExample' + i">
                   <div class="accordion-body">
-                    <ol class="list-group list-group-numbered">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Cras justo odio</li>
+                    <ol class="list-group fw-bold">
+                      <div  *ngFor="let details of arrDetallDesc; let j = index">
+                        <li class="list-group-item list-group-numbered" *ngIf="arrDetallDesc[j][detalleTipo] != null">
+                          {{ arrDetallDesc[j][detalleTipo] }}
+                        </li>
+                    </div>
                     </ol>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -205,9 +203,8 @@
           <br>
           <b class="mt-3">Justificación:</b>
           <textarea placeholder="Justificacion" class="form-control"
-          [ngClass]="{'is-invalid':submitted && f.justificacion.errors}">
+          [ngClass]="{'is-invalid':submitted && f.justificacion.errors}">{{ detalleCita.justificacion }}</textarea>
 
-          </textarea>
 
           <div *ngIf="submitted && f.justificacion.errors " class="invalid-feedback">
             <div *ngIf="f.justificacion.errors.required">
@@ -223,4 +220,9 @@
         <button type="submit" class="btn btn-danger" >Sí, Cancelar</button>
       </div>
   </form>
+  </ng-template>
+  <ng-template #sinComentarios>
+    <div class="alert alert-info" role="alert">
+      Para obtener detalles, primero debe haber asistido a la cita
+    </div>
   </ng-template>

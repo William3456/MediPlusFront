@@ -20,6 +20,8 @@ export class AppointmentDetailComponent implements OnInit {
   detalleCita: any = {};
   detallesDoctor: detalleExpInterface[] = [];
   detalles: any[] = [];
+  hayComentarios: boolean= false;
+  arrDetallDesc: any[] = [];
 
   canCitaForm = new FormGroup({
     justificacion : new FormControl(''),
@@ -42,8 +44,34 @@ export class AppointmentDetailComponent implements OnInit {
       let citaDetail = await this.citaService.obtenerDetalleCita(this.idCita).toPromise();
 
       if(citaDetail.status !== 404){
-        let arrTwo: any[] =[]
+        let arrTwo: any[] =[];
+        this.arrDetallDesc = [];
+        let obDetallDesc: {} = {};
+        let idDetalleTipo: any;
+
+        if(citaDetail.id === null){
+          this.hayComentarios = false;
+          this.detalleCita = {
+            paciente : citaDetail.appointment_id.patient_id?.name,
+            doctor: citaDetail.appointment_id.doctor_id?.user_id?.name,
+            estado: citaDetail.appointment_id.status?.description,
+            estadoId: citaDetail.appointment_id.status?.id,
+            fecha: citaDetail.appointment_id.appointment_date,
+            horaIni: citaDetail.appointment_id.appointment_time,
+            horaFin: citaDetail.appointment_id.appointment_time_finish,
+            justificacion: citaDetail.appointment_id.justification,
+            departamento: citaDetail.appointment_id.doctor_id?.clinic_id?.department_id?.description,
+            clinica: citaDetail.appointment_id.doctor_id?.clinic_id?.description,
+            doctorEspec: citaDetail.appointment_id.doctor_id?.speciality,
+            doctorEmail: citaDetail.appointment_id.doctor_id?.user_id?.email,
+            doctorNumReg: citaDetail.appointment_id.doctor_id?.num_reg_doc,
+          }
+          console.log(citaDetail.id);
+          return;
+        }
+        this.hayComentarios = true;
         this.detallesDoctor = citaDetail;
+
         this.detalleCita = {
           paciente : this.detallesDoctor[0].appointment_id.patient_id?.name,
           doctor: this.detallesDoctor[0].appointment_id.doctor_id?.user_id?.name,
@@ -61,16 +89,22 @@ export class AppointmentDetailComponent implements OnInit {
         }
 
         for (let i = 0; i < this.detallesDoctor.length; i++) {
-          arrTwo.push(this.detallesDoctor[i].detailType_id?.description)
+          arrTwo.push(this.detallesDoctor[i].detailType_id?.description);
+
+          obDetallDesc = {
+            [String(this.detallesDoctor[i].detailType_id?.description)] : this.detallesDoctor[i].description
+          }
+          this.arrDetallDesc.push(obDetallDesc);
         }
 
         //Eliminar duplicados
         this.detalles = arrTwo.filter(function(ele , pos){
           return  arrTwo.indexOf(ele) == pos;
         });
-
+      }else{
+        this.toastr.error('No se encontró la cita', 'Error');
+        this.router.navigate(['/patient/appointment/my_appointments']);
       }
-
     }
   }
   cambiarEstado(){
@@ -78,7 +112,6 @@ export class AppointmentDetailComponent implements OnInit {
     if(this.canCitaForm.invalid){
       return
     }
-
   }
   get f(){ return this.canCitaForm.controls }
 }
