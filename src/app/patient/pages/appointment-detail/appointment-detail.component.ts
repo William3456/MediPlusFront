@@ -49,12 +49,15 @@ export class AppointmentDetailComponent implements OnInit {
         let arrTwo: any[] =[];
         this.arrDetallDesc = [];
         let obDetallDesc: {} = {};
-        if(citaDetail.appointment_id.patient_id.id != this.usuario.id){
-          this.toastr.error('Sólo puede visualizar sus citas', 'Error');
-          this.router.navigate(['/patient/appointment/my_appointments']);
-        }
+
+
 
         if(citaDetail.id === null){
+          if(citaDetail.appointment_id.patient_id.id != this.usuario.id){
+            this.toastr.error('Sólo puede visualizar sus citas', 'Error');
+            this.router.navigate(['/patient/appointment/my_appointments']);
+          }
+
           this.hayComentarios = false;
           this.detalleCita = {
             paciente : citaDetail.appointment_id.patient_id?.name,
@@ -75,7 +78,13 @@ export class AppointmentDetailComponent implements OnInit {
 
           return;
         }
+        if(citaDetail[0].appointment_id.patient_id.id != this.usuario.id){
+          this.toastr.error('Sólo puede visualizar sus citas', 'Error');
+          this.router.navigate(['/patient/appointment/my_appointments']);
+        }
+
         this.hayComentarios = true;
+        console.log(citaDetail);
         this.detallesDoctor = citaDetail;
 
         this.detalleCita = {
