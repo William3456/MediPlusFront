@@ -168,6 +168,13 @@ this.getDays();
     });
 
   }
+
+  agregarDetalle(){
+
+
+
+  }
+
   guardarHorarioDocs(days: any){
 
     if(this.doctorData.id != null && this.horaInicio != [] && this.dia != [] && this.valRango != 0){
@@ -236,7 +243,7 @@ console.log(days.length);
       }})
   }
   getHoras(day: any){
-    console.log(day);
+
     this.horarioDocService.getClinicSchedule().subscribe((response)=>{
       if(response.Status !== 400){
 this.clinicScheduleData = response;
