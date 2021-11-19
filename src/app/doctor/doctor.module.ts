@@ -12,8 +12,6 @@ import { DataTablesModule } from 'angular-datatables';
 import { VerHorariosComponent } from './pages/ver-horarios/ver-horarios.component';
 
 
-
-
 @NgModule({
   declarations: [DoctorHomeComponent, CrearHorarioComponent, VerPerfilComponent, DetailPatientComponent,VerHorariosComponent],
   imports: [

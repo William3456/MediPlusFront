@@ -50,16 +50,13 @@ export class VerPerfilComponent implements OnInit {
         this.nombreUsuario = this.usuario.name;
         this.doctorService.doctoreByEmail(this.usuario.email).subscribe((response)=>{
           if(response.status !== 404){
-
             this.doctorData = response;
             this.doctorForm.patchValue({
               fName: this.usuario.name,
               especialidad: this.doctorData.speciality,
               numId: this.doctorData.num_id,
               tipoId: this.doctorData.identification_id.description,
-
               num_reg: this.doctorData.num_reg_doc,
-
             });
           }
         });

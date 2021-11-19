@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/patient/record/new']);
       }else{
         this.toastr.error(respuesta.msj, 'Error');
-
       }
     });
   }

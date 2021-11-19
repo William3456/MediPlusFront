@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { detalleExpInterface } from 'src/app/patient/dao/detalleExpediente';
 import { environment } from 'src/environments/environment';
+import { detalleExpeInterface } from '../dao/DetalleExp';
 import { HorarioDocInterface } from '../dao/HorarioDoctor';
 
 @Injectable({
@@ -83,5 +85,25 @@ export class HorarioDoctorService {
         return throwError(e);
       })
     );
+  }
+
+  crearDetalle(detalle: detalleExpeInterface): Observable<any>{
+    return this.http.post<any>(this.urlEndPoint + 'detalle/crear/', detalle,{ headers: this.httpHeaders }).pipe(
+      catchError( e =>{
+        this.toastr.error('Error interno, intente más tarde', 'Error');
+
+        return throwError(e);
+      })
+    )
+  }
+
+  updateStatusCita(idCita: number, Status: number){
+    return this.http.get<any>(this.urlEndPoint+"cita/actualizaEstado/"+idCita+'/'+Status+'/'+2).pipe(
+      catchError(e => {
+        console.error(e);
+        this.toastr.error('Error al actualizar el estado, intente más tarde', 'Error');
+        return throwError(e);
+      })
+    )
   }
 }

@@ -17,6 +17,9 @@ import { CitaService } from 'src/app/patient/services/cita.service';
 import { param } from 'jquery';
 import { CitaInterface } from 'src/app/patient/dao/cita';
 import { Status } from '../../../patient/dao/detalleExpediente';
+import { HorarioDoctorService } from '../../services/horario-doctor.service';
+import { Description } from '../../dao/CitasDoctor';
+
 
 @Component({
   selector: 'app-detail-patient',
@@ -30,7 +33,8 @@ export class DetailPatientComponent implements OnInit {
     public datepipe: DatePipe,
      public modal: NgbModal,
     private router: Router,
-    private citaService: CitaService) { }
+    private citaService: CitaService,
+    private horarioDoctor: HorarioDoctorService) { }
   idPatient: any;
 
   //----------
@@ -38,6 +42,7 @@ export class DetailPatientComponent implements OnInit {
   nombreUsuario: string = "";
  // usuario: Usuario = new Usuario();
 
+ appointment: any;
   glucosa: any;
   presion: any;
   valorGlucosa: string = "N/A";
@@ -48,7 +53,10 @@ export class DetailPatientComponent implements OnInit {
   Vdiastolic_pressure: string = "N/A";
   Vheart_rate: string = "N/A";
 
+  valor = '';
   detalle: Array<string> = [];
+  detalleid: Array<string> = [];
+  justifi: Array<string>=[];
   user: any;
   iduser: any;
   fech: string[] = [];
@@ -60,7 +68,7 @@ export class DetailPatientComponent implements OnInit {
   heart_rateData: any[] =[];
   conta = 0;
  fechas: string[]= [];
-
+descricionOK = false;
  idCita: any;
  usuario: Usuario = new Usuario();
  detalleCita: any = {};
@@ -72,6 +80,7 @@ export class DetailPatientComponent implements OnInit {
  detalles: any[] = [];
 
  operacion: any;
+ selectOpera = false;
 
  dropdownListDetail: any;
  dropdownListOpera: any;
@@ -82,8 +91,9 @@ export class DetailPatientComponent implements OnInit {
  recordDetailData: any;
 
 
+
  agregarDetalleForm = new FormGroup({
-  justificacion : new FormControl(''),
+  description0 : new FormControl(''),
 });
 
 
@@ -131,13 +141,15 @@ public barChartLabels!: Label[];
   record: any;
  //------
 
-    get f(){ return this.recordForm.controls }
+
 
   ngOnInit(): void {
 
     this.dropdownListOpera = [
       { item_id: 5, item_text: 'Realizada' },
       { item_id: 3, item_text: 'Cancelar' },
+      { item_id: 4, item_text: 'Vencida' },
+
     ];
 
 
@@ -216,10 +228,6 @@ this.dropdownListDetail.push(dataSel);
   }
   })
 
-
-
-
-
     this.recordForm = this.formBuilder.group({
       direccion: ['', [ Validators.required, Validators.minLength(15) ]],
       fNacimiento: ['', [ Validators.required]],
@@ -235,15 +243,13 @@ this.dropdownListDetail.push(dataSel);
       edadActual:  ['', []],
     });
 
-
-
-
     //this.router.navigate(['/patient/record/new']);
 
   }
   onItemSelectDetail(item: any) {
 
     this.detalle.push(item);
+    this.detalleid.push(item.item_id);
     this.agregar(this.detalle);
    // this.selectDay = true;
 
@@ -251,7 +257,9 @@ this.dropdownListDetail.push(dataSel);
    }
 
    onItemSelectOpera(item:any){
-    this.operacion = item;
+    this.operacion = item.item_id;
+    this.selectOpera = true;
+
    }
 
    agregar(deta: any) {
@@ -261,12 +269,10 @@ this.dropdownListDetail.push(dataSel);
         nFilas = 1;
     }
     let cont = nFilas;
-
-    console.log(cont);
     var fila = '<tr  id="fila' + cont + '">' +
         '<th scope="row">' + cont + '</th>' +
         '<td>'+deta[this.conta].item_text +'</td>' +
-        '<td><textarea style="height: 75px" name="Descripcion'+this.conta+'" class="form-control-lg" required  [ngClass]="{f.justificacion.errors}" ></textarea></td>' +
+        '<td><textarea style="height: 75px" id="descripcion'+this.conta+'" class="form-control-lg" required  [ngClass]="{f.justificacion.errors}" ></textarea></td>' +
         '<td><button type="button"  class="btn btn-danger" id="elim' + this.conta + '" onclick="eliminarFila(this)">Eliminar</button></td>' +
         '</tr>';
     $('#tabla').append(fila);
@@ -285,9 +291,6 @@ this.dropdownListDetail.push(dataSel);
       this.getTomas();
 
       }
-
-
-
     })
   }
 
@@ -358,16 +361,14 @@ this.dropdownListDetail.push(dataSel);
 
     });
   }
-
+  get f(){ return this.agregarDetalleForm.controls }
 getRecord(){
   this.recordService.expedienteByEmail(this.user.email).subscribe((response)=>{
     if(response.status !== 404){
 
       this.record = response;
 
-
       let fechaNaci = this.record.date_birth
-
 
       const fechaFormateada = this.datepipe.transform(fechaNaci, 'yyyy-MM-dd');
 
@@ -384,30 +385,78 @@ getRecord(){
         profesion: this.record.profession,
       });
       this.calculaEdad();
-      //this.router.navigate(['patient/verRecord']);
-      //return;
     }
   });
 }
 
 agregarDetalle(){
+  if(this.selectOpera==true){
+  this.formu();
+  this.crearDetalle();
+
+  this.horarioDoctor.updateStatusCita(this.idCita,this.operacion).subscribe((response)=>{
+if(response.Status !== 404){
+  this.appointment = response
+  if(response.status === 200){
+
+    this.toastr.success('Datos acualizados correctamente', 'Operación exitosa');
 
 
-}
-
-/*
-cambiarEstado(){
-  this.submitted = true;
-  if(this.canCitaForm.invalid){
-    return
+  }else{
+    this.toastr.error('Error', 'Error al guardar los datos');
   }
-
 }
-*/
 
+  })
+}
+}
 
+crearDetalle(){
 
+  if(this.descricionOK==true){
 
+  let insert = false;
+  for(let i =0; i<this.detalle.length;i++){
+
+  const detalleData = {
+      description: this.justifi[i],
+      detailType_id: {
+        id:  parseInt(this.detalleid[i])
+      },
+      appointment_id: {
+        id: parseInt(this.idCita)
+      },
+      status: {
+        id: 1
+      }
+  }
+  console.log(detalleData)
+  this.horarioDoctor.crearDetalle(detalleData).subscribe((response)=>{
+    if(insert== false){
+      insert = true;
+   //   this.toastr.success('Datos guardados correctamente', 'Operación exitosa');
+    }
+  })
+}
+  }
+}
+
+formu(){
+  this.justifi =[];
+  this.descricionOK = true;
+let val
+  for(let i =0; i<this.conta;i++){
+    val = (<HTMLInputElement>document.getElementById('descripcion'+i+'')).value;//((document.getElementById("descripcion0") as HTMLInputElement).value);//document.getElementById("description0").value;
+
+  //this.justifi[i] = this.agregarDetalleForm.value.description0;
+  if(val == ""){
+    this.toastr.error('Error', 'Debe agregar una descripcion');
+    this.descricionOK = false;
+  }else{
+  this.justifi[i] =  val;
+  }
+}
+}
   calculaEdad(){
     let date = new Date();
     let fnaci = this.recordForm.value.fNacimiento;
@@ -438,9 +487,10 @@ cambiarEstado(){
       agemonth = 0;
     }
     //console.log(ageyear);
-
     this.recordForm.patchValue({
       edadActual: ageyear,
     });
   }
+
+
 }
