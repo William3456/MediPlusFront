@@ -124,7 +124,7 @@ export class AppointmentDetailComponent implements OnInit {
 
     let justi = this.canCitaForm.value.justification;
     this.modalServ.dismissAll()
-    this.citaService.actualizarCitaPaciente(this.idCita, 3, 1,justi).subscribe((response)=>{
+    this.citaService.actualizarCitaPaciente(this.idCita, 3, 1, justi).subscribe((response)=>{
       if(response.status === 200){
         this.toastr.info('Cita cancelada correctamente', 'Operación exitosa');
         this.router.navigate(['patient/appointment/my_appointments']);
