@@ -231,7 +231,7 @@
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed btn btn-link fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                 Detalle del Expediente
+                 Detalle de cita programada
                 </button>
               </h2>
               <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -275,7 +275,7 @@
                           </div>
                           <div class="col">
                             <ng-multiselect-dropdown
-                            [placeholder]="'Accion'"
+                            [placeholder]="'Cambiar Estado '"
                               [settings]="dropdownSettingsOperacion"
                               [data]="dropdownListOpera"
                               (onSelect)="onItemSelectOpera($event)"
@@ -359,8 +359,6 @@
                           <div class="nav nav-tabs" id="nav-tab" role="tablist">
                             <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                              type="button" role="tab" aria-controls="nav-home" aria-selected="true">Detalles médicos</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                            type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Sobre el doctor</button>
 
                           </div>
                         </nav>
@@ -372,7 +370,7 @@
 
                                 <div class="col-8">
                                   <ng-multiselect-dropdown
-                                  [placeholder]="'Detalle'"
+                                  [placeholder]="'Agregar Receta o comentario'"
                                   [settings]="dropdownSettingsDetail "
                                   [data]="dropdownListDetail"
                                   (onSelect)="onItemSelectDetail($event)"
@@ -386,69 +384,23 @@
                                 </div>
                                 <div class="col-1"></div>
                               </div>
-                              <table class="table" id="tabla">
+                              <table class="table table-hover" id="tabla">
                                 <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Tipo detalle</th>
-                                    <th scope="col">Descripcion</th>
-                                    <th scope="col">Eliminar.</th>
+                                    <th scope="row">Descripcion</th>
                                 </tr>
                                 </thead>
-
-                                <tr id="fila1">
-
-                                </tr>
                                 <tbody>
                                 </tbody>
                             </table>
                           </form>
                               </div>
-
                             </div>
-
                           </div>
                           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <div class="row p-3">
-                              <div class="col ">
-                                <div class="row">
-                                  <div class=" col-md-4 col-12 ">
-                                      <p class="text-dark">Especialidad:</p>
-                                  </div>
-                                  <div class=" col-md-8 col-12 ">
-                                      <p class="text-dark fw-bold">{{ detalleCita.doctorEspec }}</p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class=" col-md-4 col-12 ">
-                                      <p class="text-dark">Número de registro:</p>
-                                  </div>
-                                  <div class=" col-md-8 col-12 ">
-                                      <p class="text-dark fw-bold">{{ detalleCita.doctorNumReg }}</p>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col">
-                                <div class="row">
-                                  <div class=" col-md-4 col-12 ">
-                                      <p class="text-dark">Email:</p>
-                                  </div>
-                                  <div class=" col-md-8 col-12 ">
-                                      <p class="text-dark fw-bold">{{ detalleCita.doctorEmail }}</p>
-                                  </div>
-                                </div>
-                                <div class="row">
-                                  <div class=" col-md-4 col-12 ">
-                                      <p class="text-dark">Clínica</p>
-                                  </div>
-                                  <div class=" col-md-8 col-12 ">
-                                      <p class="text-dark fw-bold">{{ detalleCita.clinica }}</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+
                         </div>
                        </div>
                     </div>

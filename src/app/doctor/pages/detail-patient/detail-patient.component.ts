@@ -273,7 +273,6 @@ this.dropdownListDetail.push(dataSel);
         '<th scope="row">' + cont + '</th>' +
         '<td>'+deta[this.conta].item_text +'</td>' +
         '<td><textarea style="height: 75px" id="descripcion'+this.conta+'" class="form-control-lg" required  [ngClass]="{f.justificacion.errors}" ></textarea></td>' +
-        '<td><button type="button"  class="btn btn-danger" id="elim' + this.conta + '" onclick="eliminarFila(this)">Eliminar</button></td>' +
         '</tr>';
     $('#tabla').append(fila);
     cont++;
@@ -400,7 +399,7 @@ if(response.Status !== 404){
   if(response.status === 200){
 
     this.toastr.success('Datos acualizados correctamente', 'Operación exitosa');
-
+    this.router.navigate(['/home']);
 
   }else{
     this.toastr.error('Error', 'Error al guardar los datos');
@@ -408,7 +407,10 @@ if(response.Status !== 404){
 }
 
   })
+}else{
+  this.toastr.error('Error', 'Debe cambiar el estado de la Cita');
 }
+
 }
 
 crearDetalle(){
@@ -438,6 +440,8 @@ crearDetalle(){
     }
   })
 }
+  }else{
+
   }
 }
 
