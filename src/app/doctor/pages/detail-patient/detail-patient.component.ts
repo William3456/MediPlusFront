@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { GlucosaService } from 'src/app/patient/services/glucosa.service';
 import { PressureService } from 'src/app/patient/services/pressure.service';
@@ -10,6 +10,16 @@ import { DoctorService } from '../../services/doctor.service';
 import { Label } from 'ng2-charts';
 import { ChartOptions, ChartType } from 'chart.js';
 import { ChartDataSets } from 'chart.js';
+import { detalleExpInterface } from 'src/app/patient/dao/detalleExpediente';
+import { Usuario } from 'src/app/auth/dao/usuario';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { CitaService } from 'src/app/patient/services/cita.service';
+import { param } from 'jquery';
+import { CitaInterface } from 'src/app/patient/dao/cita';
+import { Status } from '../../../patient/dao/detalleExpediente';
+import { HorarioDoctorService } from '../../services/horario-doctor.service';
+import { Description } from '../../dao/CitasDoctor';
+
 
 @Component({
   selector: 'app-detail-patient',
@@ -20,13 +30,19 @@ export class DetailPatientComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,private doctorService: DoctorService,private glucosService: GlucosaService, private presionService: PressureService,private formBuilder: FormBuilder,
     private recordService: RecordService, private el: ElementRef, private toastr: ToastrService,
-    public datepipe: DatePipe) { }
+    public datepipe: DatePipe,
+     public modal: NgbModal,
+    private router: Router,
+    private citaService: CitaService,
+    private horarioDoctor: HorarioDoctorService) { }
   idPatient: any;
 
   //----------
 
   nombreUsuario: string = "";
  // usuario: Usuario = new Usuario();
+
+ appointment: any;
   glucosa: any;
   presion: any;
   valorGlucosa: string = "N/A";
@@ -37,6 +53,10 @@ export class DetailPatientComponent implements OnInit {
   Vdiastolic_pressure: string = "N/A";
   Vheart_rate: string = "N/A";
 
+  valor = '';
+  detalle: Array<string> = [];
+  detalleid: Array<string> = [];
+  justifi: Array<string>=[];
   user: any;
   iduser: any;
   fech: string[] = [];
@@ -46,8 +66,36 @@ export class DetailPatientComponent implements OnInit {
   systolic_pressureData: any[] = [];
   diastolic_pressureData: any[] = [];
   heart_rateData: any[] =[];
-
+  conta = 0;
  fechas: string[]= [];
+descricionOK = false;
+ idCita: any;
+ usuario: Usuario = new Usuario();
+ detalleCita: any = {};
+ detallesDoctor: detalleExpInterface[] = [];
+
+ detallesCita: CitaInterface[] = [];
+
+ detalleApoitment: any;
+ detalles: any[] = [];
+
+ operacion: any;
+ selectOpera = false;
+
+ dropdownListDetail: any;
+ dropdownListOpera: any;
+ dropdownSettingsOperacion = {};
+
+ dropdownSettingsDetail = {};
+
+ recordDetailData: any;
+
+
+
+ agregarDetalleForm = new FormGroup({
+  description0 : new FormControl(''),
+});
+
 
 
  recordForm = new FormGroup({
@@ -93,29 +141,92 @@ public barChartLabels!: Label[];
   record: any;
  //------
 
-    get f(){ return this.recordForm.controls }
+
 
   ngOnInit(): void {
 
+    this.dropdownListOpera = [
+      { item_id: 5, item_text: 'Realizada' },
+      { item_id: 3, item_text: 'Cancelar' },
+      { item_id: 4, item_text: 'Vencida' },
+
+    ];
+
+
+
     this.route.paramMap.subscribe((params: ParamMap)=>{
-      this.idPatient = params.get('id');
+
+      this.idCita = params.get('id');
     })
 
 
-    this.doctorService.getPatienById(this.idPatient).subscribe((response: any)=>{
-      if(response.status !== 404){
-        //console.log(this.usuario.id);
-      this.user = response;
+    this.dropdownSettingsDetail = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'item_text',
+      allowSearchFilter: false
+    };
+    this.dropdownSettingsOperacion = {
+      singleSelection: true,
+      idField: 'item_id',
+      textField: 'item_text',
+      itemsShowLimit: 3,
+      allowSearchFilter: false
+    };
 
-      this.getRecord();
 
-      this.getTomas();
+  this.citaService.obtenerCitasPorId(this.idCita).subscribe((response: any)=>{
+    if(response.status !== 404){
+      let arrTwo: any[] =[]
+      this.detalleApoitment = response;
+      console.log(response[0])
+     this.idPatient = this.detalleApoitment.patient_id.id;
+      console.log(this.idPatient)
 
+      this.detalleCita = {
+
+        paciente : this.detalleApoitment.patient_id.name,
+        doctor: this.detalleApoitment.doctor_id.user_id.name,
+        estado: this.detalleApoitment.status.description,
+        estadoId: this.detalleApoitment.status.id,
+        fecha: this.detalleApoitment.appointment_date,
+        horaIni: this.detalleApoitment.appointment_time,
+        horaFin: this.detalleApoitment.appointment_time_finish,
+        justificacion: this.detalleApoitment.justification,
+        departamento: this.detalleApoitment.doctor_id?.clinic_id?.department_id?.description,
+        clinica: this.detalleApoitment.doctor_id?.clinic_id?.description,
+        doctorEspec: this.detalleApoitment.doctor_id?.speciality,
+        doctorEmail: this.detalleApoitment.doctor_id?.user_id?.email,
+        doctorNumReg: this.detalleApoitment.doctor_id?.num_reg_doc,
       }
-    })
+
+      this.agregarDetalleForm = this.formBuilder.group({
+        justificacion : ['', [ Validators.required, Validators.minLength(10)]],
+      });
+
+      this.getDatos();
+
+    }
+  })
 
 
 
+  this.doctorService.getRecordDetail().subscribe((response: any)=>{
+    if(response.Status !== 404){
+
+      this.recordDetailData = response;
+
+      this.dropdownListDetail = [];
+      let dataSel = {};
+
+      for(let i = 0;i<this.recordDetailData.length;i++){
+        dataSel =
+{ item_id: this.recordDetailData[i].id, item_text: this.recordDetailData[i].description};
+this.dropdownListDetail.push(dataSel);
+
+    }
+  }
+  })
 
     this.recordForm = this.formBuilder.group({
       direccion: ['', [ Validators.required, Validators.minLength(15) ]],
@@ -132,12 +243,56 @@ public barChartLabels!: Label[];
       edadActual:  ['', []],
     });
 
-
-
-
     //this.router.navigate(['/patient/record/new']);
 
   }
+  onItemSelectDetail(item: any) {
+
+    this.detalle.push(item);
+    this.detalleid.push(item.item_id);
+    this.agregar(this.detalle);
+   // this.selectDay = true;
+
+
+   }
+
+   onItemSelectOpera(item:any){
+    this.operacion = item.item_id;
+    this.selectOpera = true;
+
+   }
+
+   agregar(deta: any) {
+
+    var nFilas = $("#tabla tr").length;
+    if (nFilas == 0) {
+        nFilas = 1;
+    }
+    let cont = nFilas;
+    var fila = '<tr  id="fila' + cont + '">' +
+        '<th scope="row">' + cont + '</th>' +
+        '<td>'+deta[this.conta].item_text +'</td>' +
+        '<td><textarea style="height: 75px" id="descripcion'+this.conta+'" class="form-control-lg" required  [ngClass]="{f.justificacion.errors}" ></textarea></td>' +
+        '</tr>';
+    $('#tabla').append(fila);
+    cont++;
+    this.conta++;
+}
+
+ getDatos(){
+    this.doctorService.getPatienById(this.idPatient).subscribe((response: any)=>{
+      if(response.status !== 404){
+        //console.log(this.usuario.id);
+      this.user = response;
+
+      this.getRecord();
+
+      this.getTomas();
+
+      }
+    })
+  }
+
 
   getTomas(){
     this.presionService.getPressureById(this.idPatient).subscribe((response: any)=>{
@@ -203,20 +358,16 @@ public barChartLabels!: Label[];
         }
         this.barChartLabels = this.fech;
 
-
-
     });
   }
-
+  get f(){ return this.agregarDetalleForm.controls }
 getRecord(){
   this.recordService.expedienteByEmail(this.user.email).subscribe((response)=>{
     if(response.status !== 404){
 
       this.record = response;
 
-
       let fechaNaci = this.record.date_birth
-
 
       const fechaFormateada = this.datepipe.transform(fechaNaci, 'yyyy-MM-dd');
 
@@ -233,12 +384,83 @@ getRecord(){
         profesion: this.record.profession,
       });
       this.calculaEdad();
-      //this.router.navigate(['patient/verRecord']);
-      //return;
     }
   });
 }
 
+agregarDetalle(){
+  if(this.selectOpera==true){
+  this.formu();
+  this.crearDetalle();
+
+  this.horarioDoctor.updateStatusCita(this.idCita,this.operacion).subscribe((response)=>{
+if(response.Status !== 404){
+  this.appointment = response
+  if(response.status === 200){
+
+    this.toastr.success('Datos acualizados correctamente', 'Operación exitosa');
+    this.router.navigate(['/home']);
+
+  }else{
+    this.toastr.error('Error', 'Error al guardar los datos');
+  }
+}
+
+  })
+}else{
+  this.toastr.error('Error', 'Debe cambiar el estado de la Cita');
+}
+
+}
+
+crearDetalle(){
+
+  if(this.descricionOK==true){
+
+  let insert = false;
+  for(let i =0; i<this.detalle.length;i++){
+
+  const detalleData = {
+      description: this.justifi[i],
+      detailType_id: {
+        id:  parseInt(this.detalleid[i])
+      },
+      appointment_id: {
+        id: parseInt(this.idCita)
+      },
+      status: {
+        id: 1
+      }
+  }
+  console.log(detalleData)
+  this.horarioDoctor.crearDetalle(detalleData).subscribe((response)=>{
+    if(insert== false){
+      insert = true;
+   //   this.toastr.success('Datos guardados correctamente', 'Operación exitosa');
+    }
+  })
+}
+  }else{
+
+  }
+}
+
+formu(){
+  this.justifi =[];
+  this.descricionOK = true;
+let val
+  for(let i =0; i<this.conta;i++){
+    val = (<HTMLInputElement>document.getElementById('descripcion'+i+'')).value;//((document.getElementById("descripcion0") as HTMLInputElement).value);//document.getElementById("description0").value;
+
+  //this.justifi[i] = this.agregarDetalleForm.value.description0;
+  if(val == ""){
+    this.toastr.error('Error', 'Debe agregar una descripcion');
+    this.descricionOK = false;
+  }else{
+  this.justifi[i] =  val;
+  }
+}
+}
   calculaEdad(){
     let date = new Date();
     let fnaci = this.recordForm.value.fNacimiento;
@@ -269,9 +491,10 @@ getRecord(){
       agemonth = 0;
     }
     //console.log(ageyear);
-
     this.recordForm.patchValue({
       edadActual: ageyear,
     });
   }
+
+
 }

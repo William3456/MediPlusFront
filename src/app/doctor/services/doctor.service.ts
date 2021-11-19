@@ -45,6 +45,7 @@ export class DoctorService {
   }
 
 
+
   getAppointment(): Observable<any>{
     return this.http.get<any>(this.urlEndPoint + "doctor/appointment").pipe(
       catchError(e => {
@@ -54,6 +55,15 @@ export class DoctorService {
     );
   }
 
+
+  getRecordDetail(): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + "expediente/record/detail").pipe(
+      catchError(e => {
+        console.error(e);
+        return throwError(e);
+      })
+    );
+  }
 
 
 }

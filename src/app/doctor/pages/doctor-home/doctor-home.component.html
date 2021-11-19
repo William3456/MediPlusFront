@@ -3,7 +3,6 @@
  <h5> Por favor Agregar un Horario de atencion a pacientes.!!</h5>
 </div>
 
-<div *ngIf="horario"></div>
 <div  class="card col m-auto">
   <h5 *ngIf="horario" class="card-header">Citas de pacientes agendadas</h5>
   <div class="card-body">
@@ -28,7 +27,7 @@
           <td>{{cita.appointment_date}}</td>
           <td>{{cita.appointment_time}}</td>
           <td>{{cita.justification}}</td>
-          <td>  <h5 class="card-title"><a  href="doctor/detail/patient/{{cita.patient_id.id}}" class="btn btn-link p-0">Ver detalle</a></h5></td>
+          <td>  <h5 class="card-title"><a  href="doctor/detail/patient/{{cita.id}}" class="btn btn-link p-0">Ver detalle</a></h5></td>
         </tr>
       </tbody>
     </table>

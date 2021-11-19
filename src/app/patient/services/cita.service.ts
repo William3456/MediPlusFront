@@ -41,6 +41,16 @@ export class CitaService {
       })
     )
   }
+
+  obtenerCitasPorId(id:number): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + 'cita/'+id).pipe(
+      catchError( e =>{
+        this.toastr.error('Error al obtener las citas, intente más tarde', 'Error');
+        return throwError(e);
+      })
+    )
+  }
+
   obtenerDetalleCita(idCita:number): Observable<any>{
     return this.http.get<any>(this.urlEndPoint + 'expediente/cita/detalle/'+idCita).pipe(
       catchError( e =>{

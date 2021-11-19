@@ -9,11 +9,11 @@ import { DetailPatientComponent } from './pages/detail-patient/detail-patient.co
 import { ChartsModule } from 'ng2-charts';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DataTablesModule } from 'angular-datatables';
-
+import { VerHorariosComponent } from './pages/ver-horarios/ver-horarios.component';
 
 
 @NgModule({
-  declarations: [DoctorHomeComponent, CrearHorarioComponent, VerPerfilComponent, DetailPatientComponent],
+  declarations: [DoctorHomeComponent, CrearHorarioComponent, VerPerfilComponent, DetailPatientComponent,VerHorariosComponent],
   imports: [
     CommonModule,
     FormsModule,
