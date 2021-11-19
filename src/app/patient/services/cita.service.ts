@@ -59,4 +59,14 @@ export class CitaService {
       })
     )
   }
+
+  actualizarCitaPaciente(idCita:number, idEstado:number, tipUser: number ,justif: string): Observable<any>{
+    return this.http.get<any>(this.urlEndPoint + 'cita/actualizaEstado/'+ idCita + '/' + idEstado + '/'+ tipUser + '/'
+     + justif).pipe(
+      catchError( e =>{
+        this.toastr.error('Error al actualizar la cita, intente más tarde', 'Error');
+        return throwError(e);
+      })
+    )
+  }
 }
