@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,12 +22,14 @@ export class AppointmentDetailComponent implements OnInit {
   detalles: any[] = [];
   hayComentarios: boolean= false;
   arrDetallDesc: any[] = [];
+  @ViewChild('contenido', { static: false })
+  modal?: ElementRef<HTMLElement>;
 
   canCitaForm = new FormGroup({
-    justificacion : new FormControl(''),
+    justification : new FormControl(''),
   });
 
-  constructor(private route: ActivatedRoute, public modal: NgbModal,
+  constructor(private route: ActivatedRoute, public modalServ: NgbModal,
     private formBuilder: FormBuilder, private el: ElementRef,private toastr: ToastrService, private router: Router,
     private citaService: CitaService) { }
 
@@ -38,7 +40,7 @@ export class AppointmentDetailComponent implements OnInit {
       this.router.navigate(['login']);
     }else{
       this.canCitaForm = this.formBuilder.group({
-        justificacion : ['', [ Validators.required, Validators.minLength(10)]],
+        justification : ['', [ Validators.required, Validators.minLength(10)]],
       });
 
       let citaDetail = await this.citaService.obtenerDetalleCita(this.idCita).toPromise();
@@ -69,7 +71,8 @@ export class AppointmentDetailComponent implements OnInit {
             doctorEmail: citaDetail.appointment_id.doctor_id?.user_id?.email,
             doctorNumReg: citaDetail.appointment_id.doctor_id?.num_reg_doc,
           }
-          console.log(citaDetail.id);
+
+
           return;
         }
         this.hayComentarios = true;
@@ -104,17 +107,31 @@ export class AppointmentDetailComponent implements OnInit {
         this.detalles = arrTwo.filter(function(ele , pos){
           return  arrTwo.indexOf(ele) == pos;
         });
+
       }else{
         this.toastr.error('No se encontró la cita', 'Error');
         this.router.navigate(['/patient/appointment/my_appointments']);
       }
+
     }
   }
+
   cambiarEstado(){
     this.submitted = true;
     if(this.canCitaForm.invalid){
       return
     }
+
+    let justi = this.canCitaForm.value.justification;
+    this.modalServ.dismissAll()
+    this.citaService.actualizarCitaPaciente(this.idCita, 3, 1,justi).subscribe((response)=>{
+      if(response.status === 200){
+        this.toastr.info('Cita cancelada correctamente', 'Operación exitosa');
+        this.router.navigate(['patient/appointment/my_appointments']);
+      }else{
+        this.toastr.error('Error', 'Error al actualizar la cita');
+      }
+    });
   }
   get f(){ return this.canCitaForm.controls }
 }

@@ -35,7 +35,7 @@
           <p class="h5 fst-italic text-secondary">Información detallada:</p>
         </div>
         <div class="col" *ngIf="detalleCita.estadoId == 1">
-          <button type="button" class="btn btn-danger float-end" (click)="modal.open(contenido)" title="Cancelar cita">
+          <button type="button" class="btn btn-danger float-end" (click)="modalServ.open(contenido)" title="Cancelar cita">
           Cancelar
           </button>
         </div>
@@ -199,18 +199,18 @@
           Se actualizará el estado a la cita a cancelado, por la tanto ya no podrá asistir a ella y
           deberá abrir una nueva si lo desea.
           <br><br>
-          <small>* Si continúa por favor modifique la justificación</small>
+          <small>* Si continúa por favor ingrese una nueva justificación</small>
           <br>
           <b class="mt-3">Justificación:</b>
-          <textarea placeholder="Justificacion" class="form-control"
-          [ngClass]="{'is-invalid':submitted && f.justificacion.errors}">{{ detalleCita.justificacion }}</textarea>
+          <textarea placeholder="Justificacion" formControlName="justification" class="form-control"
+          [ngClass]="{'is-invalid':submitted && f.justification.errors}"></textarea>
 
 
-          <div *ngIf="submitted && f.justificacion.errors " class="invalid-feedback">
-            <div *ngIf="f.justificacion.errors.required">
+          <div *ngIf="submitted && f.justification.errors " class="invalid-feedback">
+            <div *ngIf="f.justification.errors.required">
               Por favor ingresa una justificación
             </div>
-            <div *ngIf="f.justificacion.errors.minlength">
+            <div *ngIf="f.justification.errors.minlength">
               La justificación debe tener al menos 10 caracteres
             </div>
           </div>
