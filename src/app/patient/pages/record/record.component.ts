@@ -38,6 +38,7 @@ export class RecordComponent implements OnInit {
     private userService: AuthService) { }
 
   get f(){ return this.recordForm.controls }
+
   ngOnInit(): void {
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
     if (localStorage.getItem('usuario') == undefined) {
@@ -47,12 +48,15 @@ export class RecordComponent implements OnInit {
         this.router.navigate(['home']);
         return;
       }
+
       this.recordService.expedienteByEmail(this.usuario.email).subscribe((response)=>{
-        if(response.status !== 404){
+        if(response.id !== 0){
           this.router.navigate(['home']);
           return;
         }
+        console.log(response);
       });
+
       this.recordForm = this.formBuilder.group({
         direccion: ['', [ Validators.required, Validators.minLength(15) ]],
         fNacimiento: ['', [ Validators.required]],
@@ -142,7 +146,7 @@ export class RecordComponent implements OnInit {
     this.recordService.crearExpediente(expediente).subscribe((response) =>{
       console.log(response);
       if(response.status === 200){
-        this.toastr.success('Expediente creado correctamento', 'Operación exitosa');
+        this.toastr.success('Expediente creado correctamente', 'Operación exitosa');
         this.router.navigate(['/home']);
         this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
         this.usuario.expediente = 1;
