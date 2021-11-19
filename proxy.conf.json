@@ -1,0 +1,7 @@
+{
+  "/api/*":{
+    "target": "https://mediplusback.herokuapp.com",
+    "secure": "false",
+    "logLevel": "debug"
+  }
+}

@@ -26,7 +26,7 @@ export class CitaService {
     )
   }
   crearCita(cita: CitaInterface): Observable<any>{
-    return this.http.post<any>(this.urlEndPoint + 'cita/crear/', cita,{ headers: this.httpHeaders }).pipe(
+    return this.http.post<any>(this.urlEndPoint + 'cita/crear', cita,{ headers: this.httpHeaders }).pipe(
       catchError( e =>{
         this.toastr.error('Error al crear la cita, intente más tarde', 'Error');
         return throwError(e);

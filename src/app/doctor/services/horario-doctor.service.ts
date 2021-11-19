@@ -17,7 +17,7 @@ export class HorarioDoctorService {
 
 
   crearHorarioDoctor(horarioDoc: HorarioDocInterface): Observable<any>{
-    return this.http.post<any>(this.urlEndPoint + 'doctorHorario/crear/', horarioDoc,{ headers: this.httpHeaders }).pipe(
+    return this.http.post<any>(this.urlEndPoint + 'doctorHorario/crear', horarioDoc,{ headers: this.httpHeaders }).pipe(
       catchError( e =>{
         this.toastr.error('Error interno, intente más tarde', 'Error');
 

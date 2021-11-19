@@ -16,7 +16,7 @@ export class PressureService {
   constructor(private httpClient: HttpClient, private toastr: ToastrService ) {}
 
   crearToma(presion: PressureInterface): Observable<any>{
-    return this.httpClient.post<any>(this.urlEndPoint + 'presion/crear/', presion,{ headers: this.httpHeaders }).pipe(
+    return this.httpClient.post<any>(this.urlEndPoint + 'presion/crear', presion,{ headers: this.httpHeaders }).pipe(
       catchError( e =>{
         this.toastr.error('Error interno, intente más tarde', 'Error');
 

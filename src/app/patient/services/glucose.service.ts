@@ -15,10 +15,8 @@ export class GlucoseService {
   constructor(private httpClient: HttpClient, private toastr: ToastrService) { }
 
   crearToma(glucosa: GlucoseInterface): Observable<any>{
-    let headers = new HttpHeaders();
-    headers = headers.set('Access-Control-Allow-Credentials', 'true');
 
-    return this.httpClient.post<any>(this.urlEndPoint + 'glucosa/crear/', glucosa,{ headers: headers }).pipe(
+    return this.httpClient.post<any>(this.urlEndPoint + 'glucosa/crear', glucosa).pipe(
       catchError( e =>{
         this.toastr.error('Error interno, intente más tarde', 'Error');
 
