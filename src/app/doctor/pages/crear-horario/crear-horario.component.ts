@@ -149,7 +149,6 @@ this.getDays();
       if(response.status !== 404){
 
         this.horarioDoc = response;
-
        for(let i = 0; i<this.horarioDoc.length;i++){
         if(this.horaInicio === this.horarioDoc[i].start_time && this.dia[i] === this.horarioDoc[i].day_id.id){
           this.toastr.error('Error', 'Horario ya existe ');
@@ -178,8 +177,6 @@ this.getDays();
   guardarHorarioDocs(days: any){
 
     if(this.doctorData.id != null && this.horaInicio != [] && this.dia != [] && this.valRango != 0){
-
-console.log(days.length);
     this.submitted = true;
     const invalidControl = this.el.nativeElement.querySelector('.is-invalid');
     if(this.dochorarioForm.invalid){
@@ -243,7 +240,6 @@ console.log(days.length);
       }})
   }
   getHoras(day: any){
-
     this.horarioDocService.getClinicSchedule().subscribe((response)=>{
       if(response.Status !== 400){
 this.clinicScheduleData = response;
@@ -311,7 +307,15 @@ itera ++;
   }
 
   onDeSelectDia(item: any){
+    let arrTwo: any[] = [];
+
+  arrTwo = this.dia;
     this.selectDay = false;
+    this.dia = arrTwo.filter(function(n){
+     return n !== item.item_id;
+
+    })
+    console.log(this.dia);
 
   }
   onDeSelectHIni(item: any){
