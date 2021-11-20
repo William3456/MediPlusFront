@@ -53,6 +53,8 @@ export class DetailPatientComponent implements OnInit {
   Vdiastolic_pressure: string = "N/A";
   Vheart_rate: string = "N/A";
 
+
+
   valor = '';
   detalle: Array<string> = [];
   detalleid: Array<string> = [];

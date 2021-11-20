@@ -38,6 +38,11 @@ valorHIni = 0;
 
 valorHFin = 0;
 
+vhoraini: number = 0;
+vhoraFin: number = 0;
+vrango: number = 0;
+vdia: number = 0;
+
   clinicScheduleData: any;
 
   dropdownListDia: any;
@@ -75,7 +80,7 @@ valorHFin = 0;
       this.doctorservice.doctoreByEmail(this.usuario.email).subscribe((response)=>{
         if(response.status !== 404){
 
-
+            console.log("trae doctor");
           this.doctorData = response;
           this.clinica =this.doctorData.clinic_id.description
 
@@ -176,6 +181,21 @@ this.getDays();
 
   guardarHorarioDocs(days: any){
 
+    let errors = true;
+
+    if(this.vdia == 0){
+      this.toastr.error('Seleccione dia', 'Error');
+    }else if(this.vhoraini == 0){
+      this.toastr.error('Seleccione hora inicio', 'Error');
+    }else if(this.vhoraFin == 0){
+      this.toastr.error('Seleccione hora fin', 'Error');
+    } else if(this.vrango == 0){
+      this.toastr.error('Ingrese un rango', 'Error');
+    }else{
+      errors = false
+    }
+
+    if(errors){
     if(this.doctorData.id != null && this.horaInicio != [] && this.dia != [] && this.valRango != 0){
     this.submitted = true;
     const invalidControl = this.el.nativeElement.querySelector('.is-invalid');
@@ -217,9 +237,13 @@ this.getDays();
     }
     })
   }
+
 }else{
   this.toastr.error('Error', 'Completar valores');
+}}else{
+
 }
+
   }
 
   getDays(){
@@ -297,13 +321,16 @@ itera ++;
    this.dia.push(item.item_id);
     this.getHoras(this.dia);
     this.selectDay = true;
-
+    console.log(this.dia)
+    this.vdia = 1;
 
   }
   onSelectAllDia(items: any) {
     this.dias = items
     this.getHorasAll(this.dias);
     this.selectDay = true;
+    this.vdia = 1;
+
   }
 
   onDeSelectDia(item: any){
@@ -315,26 +342,28 @@ itera ++;
      return n !== item.item_id;
 
     })
-    console.log(this.dia);
+    this.vdia = 0;
 
   }
   onDeSelectHIni(item: any){
     this.selectHoraIni = false;
-
+    this.vhoraini = 0
 
   }
   onDeSelectHFin(item: any){
     this.selectHoraFin = false;
-
+    this.vhoraFin = 0;
   }
   onDeSelectRango(item: any){
     this.selectRango = false;
+    this.vrango = 0;
 
   }
   onItemSelectHora(item: any) {
     this.horaInicio =item.item_text;
 
     this.selectHoraIni = true;
+    this.vhoraini = 1;
 
   }
   onItemSelectHoraFin(item: any) {
@@ -349,6 +378,7 @@ itera ++;
       this.toastr.error('Error', 'Hora Fin es menor ');
     }else{
       this.selectHoraFin = true;
+      this.horaFin =1;
     }
 
 
@@ -356,6 +386,7 @@ itera ++;
   onItemSelectRango(item: any) {
     this.valRango = item.item_id;
     this.selectRango = true;
+    this.vrango = 1;
    }
 
    getHorasAll(day: any){
