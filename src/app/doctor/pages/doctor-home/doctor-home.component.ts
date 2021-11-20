@@ -47,15 +47,16 @@ export class DoctorHomeComponent implements OnInit {
         if(response.status !== 404){
          this.horario = true
          this.appoitment = response;
+         console.log(this.appoitment);
          let itera = 0;
 
 
          for(let i = 0;i<this.appoitment.length;i++){
 
-           if(this.usuario.id == this.appoitment[i].doctor_id.user_id.id && this.appoitment[i].status.id == 1){
+           if(this.usuario.id == this.appoitment[i].doctor_id.user_id.id ){
 
             this.citasData[itera] = this.appoitment[i];
-            console.log(this.citasData[itera])
+
             itera ++;
            }
 

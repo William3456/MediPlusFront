@@ -181,9 +181,9 @@ public barChartLabels!: Label[];
     if(response.status !== 404){
       let arrTwo: any[] =[]
       this.detalleApoitment = response;
-      console.log(response[0])
+
      this.idPatient = this.detalleApoitment.patient_id.id;
-      console.log(this.idPatient)
+
 
       this.detalleCita = {
 

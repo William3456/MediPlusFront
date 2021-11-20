@@ -113,8 +113,8 @@
       </div>
 
       <nav class="mt-2">
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+        <div class="nav nav-tabs" id="nav-tab" role="tablist" >
+          <button *ngIf="detalleApoitment.status.id == 1" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Detalles médicos</button>
            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
           type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Últimas tomas</button>
@@ -126,7 +126,7 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="col m-auto mt-2 ">
             <form [formGroup] ="agregarDetalleForm" (ngSubmit) = "agregarDetalle()">
-            <div class="row mx-auto">
+            <div class="row mx-auto" *ngIf="detalleApoitment.status.id == 1">
 
               <div class="col-4">
                 <ng-multiselect-dropdown
@@ -145,14 +145,13 @@
                   (onSelect)="onItemSelectOpera($event)"
                 ></ng-multiselect-dropdown>
               </div>
-              <div class="col-3 text-center">
+              <div class="col-3 text-center" *ngIf="detalleApoitment.status.id == 1">
                 <button type="button" class="btn btn-primary"  title="Guardar estado y detalles" type="submit">
                 Guardar estado y detalles
                 </button>
               </div>
-
             </div>
-            <div class="row mx-auto mt-3">
+            <div class="row mx-auto mt-3" *ngIf="detalleApoitment.status.id == 1">
               <div class="col-8">
                 <h6>Detalles:</h6>
                 <table class="table table-hover" id="tabla">
