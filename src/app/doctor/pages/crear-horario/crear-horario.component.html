@@ -1,7 +1,12 @@
-<div class="card col-9 m-auto">
-  <h5 class="card-header text-center">Agregar Horarios</h5>
-  <hr>
-  <h5 class="card-header text-center">{{clinica}}</h5>
+<style>
+  ::ng-deep .selected-item {
+    max-width: max-content !important;
+}
+</style>
+<div class="card m-auto">
+  <h5 class="card-header bg-secondary text-light">Agregar Horarios</h5>
+
+  <h5 class=" text-center">{{clinica}}</h5>
   <div class="card-body">
     <h6 class="card-title">Por favor Seleccione el Horario de Disponibilidad</h6>
     <div class="col">
@@ -11,14 +16,14 @@
 
           <div class="col-sm-3">
             <ng-multiselect-dropdown
-  [placeholder]="'Seleccione Dia'"
-  [settings]="dropdownSettings"
-  [data]="dropdownListDia"
-  [(ngModel)]="selectedItems"
-  (onSelect)="onItemSelectDia($event)"
-  (onSelectAll)="onSelectAllDia($event)"
-  (onDeSelect)="onDeSelectDia($event)"
-></ng-multiselect-dropdown>
+            [placeholder]="'Seleccione Dia'"
+            [settings]="dropdownSettings"
+            [data]="dropdownListDia"
+            [(ngModel)]="selectedItems"
+            (onSelect)="onItemSelectDia($event)"
+            (onSelectAll)="onSelectAllDia($event)"
+            (onDeSelect)="onDeSelectDia($event)"
+          ></ng-multiselect-dropdown>
             <!-- <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
               <div *ngIf="f.direccion.errors.required">
                 Por favor ingresa la dirección

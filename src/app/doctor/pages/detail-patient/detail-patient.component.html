@@ -1,424 +1,386 @@
-<div class="accordion"  id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="headingOne">
-      <button class="accordion-button collapsed btn btn-link fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-        Detalle de ultimas tomas realizadas
-      </button>
-    </h2>
-    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-<div class="container gb-primary">
-  <div class="row border">
-    <h5>Ultimo chequeo realizado para: {{ nombreUsuario }}</h5>
-    <div class="col">
-      <div class="card card-stats">
-        <div class="card-body ">
+<style>
+  ::ng-deep .selected-item {
+    max-width: max-content !important;
+}
+</style>
+<div class="card col m-auto">
+  <h5 class="card-header bg-secondary text-light">Visualizando detalle de cita #{{idCita}}</h5>
+  <div class="card-body">
+     <div class="row">
+        <div class="col">
+           <p class="h5 text-secondary">Paciente:</p>
+        </div>
+        <div class="col">
+           <p class="h5 text-secondary">Doctor:</p>
+        </div>
+        <div class="col">
+           <p class="h5 text-secondary">Estado:</p>
+        </div>
+        <div class="col">
+           <p class="h5 text-secondary">Fecha:</p>
+        </div>
+     </div>
+     <div class="row">
+        <div class="col">
+          <p class="h5">{{ detalleCita.paciente }}</p>
+        </div>
+        <div class="col">
+          <p class="h5">Dr. {{ detalleCita.doctor }}</p>
+        </div>
+        <div class="col">
+          <p class="h5">{{ detalleCita.estado }}</p>
+        </div>
+        <div class="col">
+          <p class="h5">{{ detalleCita.fecha }}</p>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <p class="h5 fst-italic text-secondary">Información detallada:</p>
+        </div>
+      </div>
+      <hr class="text-secondary">
+      <div class="row">
+        <div class="col ">
           <div class="row">
-              <div class="numbers">
-                <p class="card-category text-center fw-bolder">Glucosa</p>
-                <p class="card-title text-center">{{valorGlucosa}} - {{Medidaglucosa}}
-              </div>
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Número de cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ idCita }}</p>
+            </div>
           </div>
-        </div>
-        <div class="card-footer ">
-          <div class="stats">
-            <p class="card-category text-center fw-bolder">Fecha</p>
-            <hr>
-            <p class="card-title text-center">{{FechaGlucosa}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card card-stats">
-        <div class="card-body ">
           <div class="row">
-              <div class="numbers text-center">
-                <p class="card-category fw-bolder">Presion Sistólica</p>
-                <p class="card-title"> {{Vsystolic_pressure}}</p>
-              </div>
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Fecha de cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.fecha }}</p>
+            </div>
           </div>
-        </div>
-        <div class="card-footer ">
-          <div class="stats">
-            <p class="card-category text-center fw-bolder">Fecha</p>
-            <hr>
-            <p class="card-title text-center">{{FechaPresion}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card card-stats">
-        <div class="card-body ">
           <div class="row">
-              <div class="numbers text-center">
-                <p class="card-category text-center fw-bolder">Presion Diastólica</p>
-                <p class="card-title text-center">{{Vdiastolic_pressure}} </p>
-              </div>
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Hora de cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.horaIni }} - {{ detalleCita.horaFin }}</p>
+            </div>
           </div>
-        </div>
-        <div class="card-footer ">
-          <div class="stats">
-            <p class="card-category text-center fw-bolder">Fecha</p>
-            <hr>
-            <p class="card-title text-center">{{FechaPresion}}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="card card-stats">
-        <div class="card-body ">
           <div class="row">
-              <div class="numbers text-center">
-                <p class="card-category fw-bolder">Ritmo Cardiaco</p>
-                <p class="card-title">{{Vheart_rate}}</p>
-              </div>
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Justificación del paciente</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.justificacion }}</p>
+            </div>
           </div>
         </div>
-        <div class="card-footer ">
-          <div class="stats">
-            <i class="fa fa-refresh"></i>
-            <p class="card-category text-center fw-bolder">Fecha</p>
-            <hr>
-            <p class="card-title text-center">{{FechaPresion}}</p>
+        <div class="col">
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Departamento</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.departamento }}</p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row mt-4 mb-4">
-    <div class="col">
-      <div class="card">
-        <div class="card-header fw-bolder">
-          Últimas tomas de glucosa
-        </div>
-        <div class="card-body">
-          <canvas baseChart
-                  [datasets]="barChartGlucoData"
-                  [labels]="barChartLabels"
-                  [options]="barChartOptions"
-                  [legend]="barChartLegend"
-                  [chartType]="barChartType">
-                </canvas>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-
-      <div class="card">
-        <div class="card-header fw-bolder">
-          Últimas tomas de presión
-        </div>
-        <div class="card-body">
-          <canvas baseChart
-                 [datasets]="barChartDataPresion"
-                 [labels]="barChartLabels2"
-                 [options]="barChartOptions"
-
-                 [legend]="barChartLegend"
-                 [chartType]="barChartType">
-               </canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button collapsed btn btn-link fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-           Expediente del paciente.
-          </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-          <div class="accordion-body">
-
-            <div class="card col-9 m-auto">
-              <h5 class="card-header text-center">Visualizando expediente clínico</h5>
-              <div class="card-body">
-                <h6 class="card-title">Su información:</h6>
-                <div class="col">
-                  <form  [formGroup] ="recordForm" id="formRec">
-                    <div class="row g-3">
-                      <div class="col-sm-8 mx-auto">
-                        <input type="text" class="form-control" formControlName="fName" required="" readonly>
-                      </div>
-
-                      <div class="col-12">
-                        <label for="address2" class="form-label">Dirección </label>
-                        <input type="text" class="form-control" value="record.user_id.email" placeholder="Dirección completa" formControlName="direccion" [ngClass]="{'is-invalid':submitted && f.direccion.errors}" readonly>
-                        <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
-                          <div *ngIf="f.direccion.errors.required">
-                            Por favor ingresa la dirección
-                          </div>
-                          <div *ngIf="f.direccion.errors.minlength">
-                            La dirección debe tener al menos 15 caracteres
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-sm-3">
-                        <label for="firstName" class="form-label">F. nacimiento</label>
-                        <input type="date" class="form-control disabled" id="fNacimiento" formControlName="fNacimiento" (change)="calculaEdad()"  [ngClass]="{'is-invalid':submitted && f.fNacimiento.errors}" readonly>
-                        <!--<div *ngIf="submitted && f.fNacimiento.errors " class="invalid-feedback">
-                          <div *ngIf="f.fNacimiento.errors.required">
-                            * Completar
-                          </div>
-                        </div>-->
-                      </div>
-                      <div class="col-sm-1">
-                        <label for="firstName" class="form-label">Edad</label>
-                        <input type="text" name="edadActual" class="form-control" formControlName="edadActual" readonly>
-                      </div>
-                      <div class="col-sm-2">
-                        <label for="lastName" class="form-label">Credencial</label>
-                        <input type="text" name="tipoId" class="form-control" formControlName="tipoId" readonly>
-                        <!--<select class="form-select" id="creden" formControlName="tipoId" [ngClass]="{'is-invalid':submitted && f.tipoId.errors}">
-                          <option value="">Escoger...</option>
-                          <option value="1">DUI</option>
-                          <option value="2">PASAPORTE</option>
-                        </select>-->
-                      </div>
-                      <div class="col-sm-3">
-                        <label for="" class="form-label">Número de credencial</label>
-                        <input type="text" class="form-control" formControlName="numId" [ngClass]="{'is-invalid':submitted && f.numId.errors}" readonly>
-                      </div>
-                      <div class="col-sm-3">
-                        <label for="" class="form-label">Teléfono</label>
-                        <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}" readonly>
-                      </div>
-
-                      <div class="col-md-3">
-                        <label for="country" class="form-label">Peso (LB)</label>
-                        <input type="number" class="form-control" step="0.01" min="1" formControlName="peso" [ngClass]="{'is-invalid':submitted && f.peso.errors}" readonly>
-                      </div>
-
-                      <div class="col-md-3">
-                        <label for="country" class="form-label">Altura (cm)</label>
-                        <input type="number" class="form-control" step="0.01" min="1" formControlName="altura" [ngClass]="{'is-invalid':submitted && f.altura.errors}" readonly>
-                      </div>
-
-                      <div class="col-md-3">
-                        <label for="lastName" class="form-label">Género</label>
-                        <input type="text" name="genero" class="form-control" formControlName="genero" readonly>
-                        <!--<select class="form-select" id="state" formControlName="genero" [ngClass]="{'is-invalid':submitted && f.genero.errors}" >
-                          <option value="">Escoger...</option>
-                          <option value="M">Masculino</option>
-                          <option value="F">Femenino</option>
-                        </select>-->
-                      </div>
-                      <div class="col-md-3">
-                        <label for="country" class="form-label">Profesión</label>
-                        <input type="text" class="form-control" formControlName="profesion" [ngClass]="{'is-invalid':submitted && f.profesion.errors}" readonly>
-                      </div>
-                    </div>
-
-                    <hr class="my-4">
-
-                  </form>
-                </div>
-              </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Clínica</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.clinica }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Doctor asignado</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">Dr. {{ detalleCita.doctor }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-4 col-12 ">
+                <p class="text-dark">Estado de la cita:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ detalleCita.estado }}</p>
             </div>
           </div>
         </div>
       </div>
 
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button collapsed btn btn-link fw-bolder" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                 Detalle de cita programada
+      <nav class="mt-2">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+           type="button" role="tab" aria-controls="nav-home" aria-selected="true">Detalles médicos</button>
+           <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+          type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Últimas tomas</button>
+          <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact"
+           type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Expediente</button>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          <div class="col m-auto mt-2 ">
+            <form [formGroup] ="agregarDetalleForm" (ngSubmit) = "agregarDetalle()">
+            <div class="row mx-auto">
+
+              <div class="col-4">
+                <ng-multiselect-dropdown
+                [placeholder]="'Agregar detalle'"
+                [settings]="dropdownSettingsDetail "
+                [data]="dropdownListDetail"
+                (onSelect)="onItemSelectDetail($event)"
+              >
+              </ng-multiselect-dropdown>
+              </div>
+              <div class="col-4">
+                <ng-multiselect-dropdown
+                [placeholder]="'Seleccionar Estado '"
+                  [settings]="dropdownSettingsOperacion"
+                  [data]="dropdownListOpera"
+                  (onSelect)="onItemSelectOpera($event)"
+                ></ng-multiselect-dropdown>
+              </div>
+              <div class="col-3 text-center">
+                <button type="button" class="btn btn-primary"  title="Guardar estado y detalles" type="submit">
+                Guardar estado y detalles
                 </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
+              </div>
 
-                  <div class="card col m-auto">
-                    <h5 class="card-header">Visualizando detalle de cita #{{idCita}}</h5>
-                    <div class="card-body">
-                       <div class="row">
-                          <div class="col">
-                             <p class="h5 text-secondary">Paciente:</p>
-                          </div>
-                          <div class="col">
-                             <p class="h5 text-secondary">Doctor:</p>
-                          </div>
-                          <div class="col">
-                             <p class="h5 text-secondary">Estado:</p>
-                          </div>
-                          <div class="col">
-                             <p class="h5 text-secondary">Fecha:</p>
-                          </div>
-                       </div>
-                       <div class="row">
-                          <div class="col">
-                            <p class="h5">{{ detalleCita.paciente }}</p>
-                          </div>
-                          <div class="col">
-                            <p class="h5">Dr. {{ detalleCita.doctor }}</p>
-                          </div>
-                          <div class="col">
-                            <p class="h5">{{ detalleCita.estado }}</p>
-                          </div>
-                          <div class="col">
-                            <p class="h5 text-secondary">{{ detalleCita.fecha }}</p>
-                          </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                          <div class="col">
-                            <p class="h5 fst-italic text-secondary">Información detallada:</p>
-                          </div>
-                          <div class="col">
-                            <ng-multiselect-dropdown
-                            [placeholder]="'Cambiar Estado '"
-                              [settings]="dropdownSettingsOperacion"
-                              [data]="dropdownListOpera"
-                              (onSelect)="onItemSelectOpera($event)"
-                            ></ng-multiselect-dropdown>
-                          </div>
-                          <div class="col-1"></div>
-                        </div>
-                        <hr class="text-secondary">
-                        <div class="row">
-                          <div class="col ">
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Número de cita:</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">{{ idCita }}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Fecha de cita:</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">{{ detalleCita.fecha }}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Hora de cita:</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">{{ detalleCita.horaIni }} - {{ detalleCita.horaFin }}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Justificación del paciente</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">{{ detalleCita.justificacion }}</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col">
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Departamento</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">{{ detalleCita.departamento }}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Clínica</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">{{ detalleCita.clinica }}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Doctor asignado</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">Dr. {{ detalleCita.doctor }}</p>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class=" col-md-4 col-12 ">
-                                  <p class="text-dark">Estado de la cita:</p>
-                              </div>
-                              <div class=" col-md-8 col-12 ">
-                                  <p class="text-dark fw-bold">{{ detalleCita.estado }}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <nav class="mt-2">
-                          <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
-                             type="button" role="tab" aria-controls="nav-home" aria-selected="true">Detalles médicos</button>
-
-                          </div>
-                        </nav>
-                        <div class="tab-content" id="nav-tabContent">
-                          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                            <div class="col-12 m-auto mt-2">
-                              <form [formGroup] ="agregarDetalleForm" (ngSubmit) = "agregarDetalle()">
-                              <div class="row">
-
-                                <div class="col-8">
-                                  <ng-multiselect-dropdown
-                                  [placeholder]="'Agregar Receta o comentario'"
-                                  [settings]="dropdownSettingsDetail "
-                                  [data]="dropdownListDetail"
-                                  (onSelect)="onItemSelectDetail($event)"
-                                >
-                                </ng-multiselect-dropdown>
-                                </div>
-                                <div class="col">
-                                  <button type="button" class="btn btn-primary float-end"  title="Cancelar cita" type="submit">
-                                  Enviar
-                                  </button>
-                                </div>
-                                <div class="col-1"></div>
-                              </div>
-                              <table class="table table-hover" id="tabla">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Tipo detalle</th>
-                                    <th scope="row">Descripcion</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                          </form>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-
-                        </div>
-                       </div>
-                    </div>
-
-
-                </div>
+            </div>
+            <div class="row mx-auto mt-3">
+              <div class="col-8">
+                <h6>Detalles:</h6>
+                <table class="table table-hover" id="tabla">
+                  <thead class="table-dark">
+                  <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Tipo detalle</th>
+                      <th scope="row">Descripción</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
               </div>
             </div>
+        </form>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="row p-3">
+                <div class="row">
+                  <h6>Ultimo chequeo realizado para: {{ detalleCita.paciente  }}</h6>
+                  <div class="col">
+                    <div class="card card-stats">
+                      <div class="card-body ">
+                        <div class="row">
+                            <div class="numbers">
+                              <p class="card-category text-center fw-bolder">Glucosa</p>
+                              <p class="card-title text-center">{{valorGlucosa}} - {{Medidaglucosa}}
+                            </div>
+                        </div>
+                      </div>
+                      <div class="card-footer ">
+                        <div class="stats">
+                          <p class="card-category text-center fw-bolder">Fecha</p>
+                          <hr>
+                          <p class="card-title text-center">{{FechaGlucosa}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card card-stats">
+                      <div class="card-body ">
+                        <div class="row">
+                            <div class="numbers text-center">
+                              <p class="card-category fw-bolder">Presion Sistólica</p>
+                              <p class="card-title"> {{Vsystolic_pressure}}</p>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="card-footer ">
+                        <div class="stats">
+                          <p class="card-category text-center fw-bolder">Fecha</p>
+                          <hr>
+                          <p class="card-title text-center">{{FechaPresion}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card card-stats">
+                      <div class="card-body ">
+                        <div class="row">
+                            <div class="numbers text-center">
+                              <p class="card-category text-center fw-bolder">Presion Diastólica</p>
+                              <p class="card-title text-center">{{Vdiastolic_pressure}} </p>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="card-footer ">
+                        <div class="stats">
+                          <p class="card-category text-center fw-bolder">Fecha</p>
+                          <hr>
+                          <p class="card-title text-center">{{FechaPresion}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="card card-stats">
+                      <div class="card-body ">
+                        <div class="row">
+                            <div class="numbers text-center">
+                              <p class="card-category fw-bolder">Ritmo Cardiaco</p>
+                              <p class="card-title">{{Vheart_rate}}</p>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="card-footer ">
+                        <div class="stats">
+                          <i class="fa fa-refresh"></i>
+                          <p class="card-category text-center fw-bolder">Fecha</p>
+                          <hr>
+                          <p class="card-title text-center">{{FechaPresion}}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                  <div class="col">
+                    <div class="card">
+                      <div class="card-header fw-bolder">
+                        Últimas tomas de glucosa
+                      </div>
+                      <div class="card-body">
+                        <canvas baseChart
+                                [datasets]="barChartGlucoData"
+                                [labels]="barChartLabels"
+                                [options]="barChartOptions"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                              </canvas>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col">
 
+                    <div class="card">
+                      <div class="card-header fw-bolder">
+                        Últimas tomas de presión
+                      </div>
+                      <div class="card-body">
+                        <canvas baseChart
+                               [datasets]="barChartDataPresion"
+                               [labels]="barChartLabels2"
+                               [options]="barChartOptions"
 
+                               [legend]="barChartLegend"
+                               [chartType]="barChartType">
+                             </canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>
-  var update_pizza = function () {
+          </div>
+        </div>
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+          <div class="card m-auto">
+            <h5 class="card-header bg-secondary text-light">Expediente clínico</h5>
+            <div class="card-body">
+              <h6 class="card-title">Su información:</h6>
+              <div class="col">
+                <form  [formGroup] ="recordForm" id="formRec">
+                  <div class="row g-3">
+                    <div class="col-sm-8 mx-auto">
+                      <input type="text" class="form-control" formControlName="fName" required="" readonly>
+                    </div>
 
-        $('#creden').prop('disabled', 'disabled');
+                    <div class="col-12">
+                      <label for="address2" class="form-label">Dirección </label>
+                      <input type="text" class="form-control" value="record.user_id.email" placeholder="Dirección completa" formControlName="direccion" [ngClass]="{'is-invalid':submitted && f.direccion.errors}" readonly>
+                      <div *ngIf="submitted && f.direccion.errors " class="invalid-feedback">
+                        <div *ngIf="f.direccion.errors.required">
+                          Por favor ingresa la dirección
+                        </div>
+                        <div *ngIf="f.direccion.errors.minlength">
+                          La dirección debe tener al menos 15 caracteres
+                        </div>
+                      </div>
+                    </div>
 
-  };
+                    <div class="col-sm-3">
+                      <label for="firstName" class="form-label">F. nacimiento</label>
+                      <input type="date" class="form-control disabled" id="fNacimiento" formControlName="fNacimiento" (change)="calculaEdad()"  [ngClass]="{'is-invalid':submitted && f.fNacimiento.errors}" readonly>
+                      <!--<div *ngIf="submitted && f.fNacimiento.errors " class="invalid-feedback">
+                        <div *ngIf="f.fNacimiento.errors.required">
+                          * Completar
+                        </div>
+                      </div>-->
+                    </div>
+                    <div class="col-sm-1">
+                      <label for="firstName" class="form-label">Edad</label>
+                      <input type="text" name="edadActual" class="form-control" formControlName="edadActual" readonly>
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="lastName" class="form-label">Credencial</label>
+                      <input type="text" name="tipoId" class="form-control" formControlName="tipoId" readonly>
+                      <!--<select class="form-select" id="creden" formControlName="tipoId" [ngClass]="{'is-invalid':submitted && f.tipoId.errors}">
+                        <option value="">Escoger...</option>
+                        <option value="1">DUI</option>
+                        <option value="2">PASAPORTE</option>
+                      </select>-->
+                    </div>
+                    <div class="col-sm-3">
+                      <label for="" class="form-label">Número de credencial</label>
+                      <input type="text" class="form-control" formControlName="numId" [ngClass]="{'is-invalid':submitted && f.numId.errors}" readonly>
+                    </div>
+                    <div class="col-sm-3">
+                      <label for="" class="form-label">Teléfono</label>
+                      <input type="text" class="form-control" formControlName="telefono" [ngClass]="{'is-invalid':submitted && f.telefono.errors}" readonly>
+                    </div>
 
-  window.onload = update_pizza;
-</script>
+                    <div class="col-md-3">
+                      <label for="country" class="form-label">Peso (LB)</label>
+                      <input type="number" class="form-control" step="0.01" min="1" formControlName="peso" [ngClass]="{'is-invalid':submitted && f.peso.errors}" readonly>
+                    </div>
+
+                    <div class="col-md-3">
+                      <label for="country" class="form-label">Altura (cm)</label>
+                      <input type="number" class="form-control" step="0.01" min="1" formControlName="altura" [ngClass]="{'is-invalid':submitted && f.altura.errors}" readonly>
+                    </div>
+
+                    <div class="col-md-3">
+                      <label for="lastName" class="form-label">Género</label>
+                      <input type="text" name="genero" class="form-control" formControlName="genero" readonly>
+                      <!--<select class="form-select" id="state" formControlName="genero" [ngClass]="{'is-invalid':submitted && f.genero.errors}" >
+                        <option value="">Escoger...</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                      </select>-->
+                    </div>
+                    <div class="col-md-3">
+                      <label for="country" class="form-label">Profesión</label>
+                      <input type="text" class="form-control" formControlName="profesion" [ngClass]="{'is-invalid':submitted && f.profesion.errors}" readonly>
+                    </div>
+                  </div>
+
+                  <hr class="my-4">
+
+                </form>
+              </div>
+            </div>
+        </div>
+
+      </div>
+     </div>
+  </div>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

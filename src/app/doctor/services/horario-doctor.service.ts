@@ -88,7 +88,7 @@ export class HorarioDoctorService {
   }
 
   crearDetalle(detalle: detalleExpeInterface): Observable<any>{
-    return this.http.post<any>(this.urlEndPoint + 'detalle/crear/', detalle,{ headers: this.httpHeaders }).pipe(
+    return this.http.post<any>(this.urlEndPoint + 'detalle/crear', detalle,{ headers: this.httpHeaders }).pipe(
       catchError( e =>{
         this.toastr.error('Error interno, intente más tarde', 'Error');
 
