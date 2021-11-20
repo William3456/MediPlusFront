@@ -189,13 +189,16 @@ this.getDays();
       this.toastr.error('Seleccione hora inicio', 'Error');
     }else if(this.vhoraFin == 0){
       this.toastr.error('Seleccione hora fin', 'Error');
-    } else if(this.vrango == 0){
+    }else if(this.vrango == 0){
       this.toastr.error('Ingrese un rango', 'Error');
     }else{
       errors = false
     }
 
     if(errors){
+      return;
+    }
+
     if(this.doctorData.id != null && this.horaInicio != [] && this.dia != [] && this.valRango != 0){
     this.submitted = true;
     const invalidControl = this.el.nativeElement.querySelector('.is-invalid');
@@ -205,7 +208,6 @@ this.getDays();
     }
 
     for(let i = 0;i<days.length;i++){
-
     const horario = {
 
       doctor_id:{
@@ -240,11 +242,10 @@ this.getDays();
 
 }else{
   this.toastr.error('Error', 'Completar valores');
-}}else{
-
+}
 }
 
-  }
+
 
   getDays(){
     this.horarioDocService.getClinicSchedule().subscribe((response)=>{
@@ -373,12 +374,14 @@ itera ++;
     if(parseInt(this.horaInicio.split(':')[0]) == parseInt(this.horaFin.split(':')[0])){
       this.toastr.error('Error', 'Hora Inicio y Hora Fin son iguales');
       this.selectHoraFin = false;
+      this.vhoraFin =0;
     }else if(parseInt(this.horaInicio.split(':')[0]) > parseInt(this.horaFin.split(':')[0])){
       this.selectHoraFin = false;
+      this.vhoraFin =0;
       this.toastr.error('Error', 'Hora Fin es menor ');
     }else{
       this.selectHoraFin = true;
-      this.horaFin =1;
+      this.vhoraFin =1;
     }
 
 
