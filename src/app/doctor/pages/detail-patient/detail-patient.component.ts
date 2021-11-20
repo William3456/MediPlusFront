@@ -201,7 +201,6 @@ public barChartLabels!: Label[];
         doctorEmail: this.detalleApoitment.doctor_id?.user_id?.email,
         doctorNumReg: this.detalleApoitment.doctor_id?.num_reg_doc,
       }
-
       this.agregarDetalleForm = this.formBuilder.group({
         justificacion : ['', [ Validators.required, Validators.minLength(10)]],
       });
@@ -437,7 +436,7 @@ crearDetalle(){
         id: 1
       }
   }
-  console.log(detalleData)
+  //console.log(detalleData)
   this.horarioDoctor.crearDetalle(detalleData).subscribe((response)=>{
     if(insert== false){
       insert = true;
