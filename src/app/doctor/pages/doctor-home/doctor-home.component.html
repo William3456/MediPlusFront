@@ -19,6 +19,7 @@
             <th>Fecha</th>
             <th>Hora</th>
             <th>Comentario</th>
+            <th>Estado</th>
             <th>Ver detalles</th>
           </tr>
         </thead>
@@ -30,6 +31,10 @@
             <td>{{cita.appointment_date}}</td>
             <td>{{cita.appointment_time}}</td>
             <td>{{cita.justification}}</td>
+            <td [ngClass]="{ 'text-primary': cita.status.id == 1,
+            'text-danger': cita.status.id == 3,
+            'text-success': cita.status.id == 5 }">
+            {{ cita.status.description }}</td>
             <td>  <h5 class="card-title"><a  href="doctor/detail/patient/{{cita.id}}" class="btn btn-link p-0">Ver detalle</a></h5></td>
           </tr>
         </tbody>

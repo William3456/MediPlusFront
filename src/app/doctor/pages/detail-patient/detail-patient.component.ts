@@ -181,9 +181,9 @@ public barChartLabels!: Label[];
     if(response.status !== 404){
       let arrTwo: any[] =[]
       this.detalleApoitment = response;
-      console.log(response[0])
+
      this.idPatient = this.detalleApoitment.patient_id.id;
-      console.log(this.idPatient)
+
 
       this.detalleCita = {
 
@@ -274,7 +274,7 @@ this.dropdownListDetail.push(dataSel);
     var fila = '<tr  id="fila' + cont + '">' +
         '<th scope="row">' + cont + '</th>' +
         '<td>'+deta[this.conta].item_text +'</td>' +
-        '<td><textarea style="height: 75px" id="descripcion'+this.conta+'" class="form-control-lg" required  [ngClass]="{f.justificacion.errors}" ></textarea></td>' +
+        '<td><textarea style="height: 50px;" id="descripcion'+this.conta+'" class="form-control" required  [ngClass]="{f.justificacion.errors}" ></textarea></td>' +
         '</tr>';
     $('#tabla').append(fila);
     cont++;
@@ -392,26 +392,29 @@ getRecord(){
 
 agregarDetalle(){
   if(this.selectOpera==true){
-  this.formu();
-  this.crearDetalle();
+    this.formu();
+    if(this.justifi.length == 0){
+      this.toastr.error('Error', 'Se debe agregar al menos un detalle');
+      return;
+    }
+    this.crearDetalle();
 
-  this.horarioDoctor.updateStatusCita(this.idCita,this.operacion).subscribe((response)=>{
-if(response.Status !== 404){
-  this.appointment = response
-  if(response.status === 200){
+    this.horarioDoctor.updateStatusCita(this.idCita,this.operacion).subscribe((response)=>{
+      if(response.Status !== 404){
+        this.appointment = response
+        if(response.status === 200){
 
-    this.toastr.success('Datos acualizados correctamente', 'Operación exitosa');
-    this.router.navigate(['/home']);
+          this.toastr.success('Datos acualizados correctamente', 'Operación exitosa');
+          this.router.navigate(['/home']);
 
+        }else{
+          this.toastr.error('Error', 'Error al guardar los datos');
+        }
+      }
+    })
   }else{
-    this.toastr.error('Error', 'Error al guardar los datos');
+    this.toastr.error('Error', 'Debe cambiar el estado de la Cita');
   }
-}
-
-  })
-}else{
-  this.toastr.error('Error', 'Debe cambiar el estado de la Cita');
-}
 
 }
 

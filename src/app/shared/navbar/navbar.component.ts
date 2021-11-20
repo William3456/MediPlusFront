@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AuthService} from "../../auth/services/auth.service";
 import {Usuario} from "../../auth/dao/usuario";
 import {Router} from "@angular/router";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,9 @@ export class NavbarComponent implements OnInit {
   public isLogged = false;
   public rol: any =0;
   public tieneExpediente: boolean = false;
-  constructor(private authService: AuthService, private route: Router) {
+  @ViewChild('contenido', { static: false })
+  modal?: ElementRef<HTMLElement>;
+  constructor(private authService: AuthService, private route: Router, public modalServ: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -36,7 +39,12 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout() {
-    this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
+    localStorage.clear();
+    this.isLogged = false;
+    this.route.navigate(['/login']);
+    this.rol = 0;
+    this.modalServ.dismissAll();
+    /*this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
 
     this.authService.logout(this.usuario.email).subscribe((data) => {
       if (data.codigo == 200) {
@@ -48,7 +56,7 @@ export class NavbarComponent implements OnInit {
       } else {
         this.route.navigate(['/']);
       }
-    });
+    });*/
   }
 
 }

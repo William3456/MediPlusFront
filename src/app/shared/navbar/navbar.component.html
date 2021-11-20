@@ -69,7 +69,7 @@
 
       <ul class="navbar-nav mb-2 mb-lg-0">
         <li class="nav-item" *ngIf="isLogged; else login">
-          <a class="nav-link" (click)="onLogout()" href="javascript:void(0)">Cerrar sesión</a>
+          <a class="nav-link"  href="javascript:void(0)" (click)="modalServ.open(contenido)">Cerrar sesión</a>
         </li>
         <ng-template  #login>
           <li class="nav-item">
@@ -80,3 +80,16 @@
     </div>
   </div>
 </nav>
+<ng-template #contenido let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title">Cerrar sesión</h4>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" (click)="modal.close()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+      ¿En realidad desea cerrar la sesión?
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="modal.close()">Cancelar</button>
+      <a  class="btn btn-danger" (click)="onLogout()">Sí, cerrar sesión</a>
+  </div>
+</ng-template>
