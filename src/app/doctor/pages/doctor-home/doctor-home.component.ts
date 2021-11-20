@@ -27,7 +27,7 @@ export class DoctorHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.dateDay);
+
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
     if (localStorage.getItem('usuario') == undefined) {
       this.router.navigate(['login']);
@@ -47,7 +47,7 @@ export class DoctorHomeComponent implements OnInit {
         if(response.status !== 404){
          this.horario = true
          this.appoitment = response;
-         console.log(this.appoitment);
+
          let itera = 0;
 
 
@@ -61,7 +61,7 @@ export class DoctorHomeComponent implements OnInit {
            }
 
          }
-          //console.log(this.usuario.id);
+
         }
         this.dtTrigger.next();
       });

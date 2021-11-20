@@ -7,7 +7,7 @@ import { Usuario } from 'src/app/auth/dao/usuario';
 import { DoctorService } from '../../services/doctor.service';
 import { diaInterface, DoctorInterface } from '../../dao/Doctor';
 import { HorarioDoctorService } from '../../services/horario-doctor.service';
-import { Status } from '../../dao/CitasDoctor';
+import { Status, clinic_id } from '../../dao/CitasDoctor';
 
 @Component({
   selector: 'app-crear-horario',
@@ -80,7 +80,7 @@ vdia: number = 0;
       this.doctorservice.doctoreByEmail(this.usuario.email).subscribe((response)=>{
         if(response.status !== 404){
 
-            console.log("trae doctor");
+        //    console.log("trae doctor");
           this.doctorData = response;
           this.clinica =this.doctorData.clinic_id.description
 
@@ -252,17 +252,21 @@ this.getDays();
       if(response.Status !== 400){
 
         this.clinicDiasData = response;
+     //   console.log(this.clinicDiasData);
+        console.log(this.doctorData.clinic_id.id);
         this.dropdownListDia = [];
+
         let dataSel = {};
 
         for(let i = 0;i<this.clinicDiasData.length;i++){
-          dataSel =
-  { item_id: this.clinicDiasData[i].day_id.id, item_text: this.clinicDiasData[i].day_id.description};
+          if(this.clinicDiasData[i].clinic_id.id == this.doctorData.clinic_id.id){
+          dataSel = { item_id: this.clinicDiasData[i].day_id.id, item_text: this.clinicDiasData[i].day_id.description};
   this.dropdownListDia.push(dataSel);
+
         }
-
-
-      }})
+        }
+      }
+    })
   }
   getHoras(day: any){
     this.horarioDocService.getClinicSchedule().subscribe((response)=>{
