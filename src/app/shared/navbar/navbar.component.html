@@ -17,13 +17,16 @@
               Toma de glucosa</a>
           </li>
           <li class="nav-item" *ngIf="tieneExpediente">
+            <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['/patient/ver-glucosa']">
+              Hist. glucosa</a>
+          </li>
+          <li class="nav-item" *ngIf="tieneExpediente">
             <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['/patient/pressure/new']">
               Toma de presión</a>
           </li>
-
           <li class="nav-item" *ngIf="tieneExpediente">
-            <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['/patient/verRecord']">
-              Mi expediente</a>
+            <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['/patient/ver-presion']">
+              Hist. presión</a>
           </li>
           <li class="nav-item" *ngIf="tieneExpediente">
             <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['patient/appointment/new']">
@@ -35,13 +38,15 @@
               Mis citas
             </a>
           </li>
-
+          <li class="nav-item" *ngIf="tieneExpediente">
+            <a class="nav-link" routerLinkActive='active'  aria-current="page" [routerLink] = "['/patient/verRecord']">
+              Mi expediente</a>
+          </li>
         <li class="nav-item" *ngIf="!isLogged">
           <a class="nav-link" routerLinkActive='active' aria-current="page" [routerLink]="['/register']">Crear una cuenta</a>
         </li>
 
       </ul>
-      <!-- SIN EXPEDIENTE -->
       <!--- PARA DOCTORES -->
       <ng-template  #doctor>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isLogged">

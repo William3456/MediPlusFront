@@ -24,22 +24,23 @@ export class NavbarComponent implements OnInit {
       }else{
         this.isLogged = true;
         this.rol = this.usuario.user_type;
+
         if(this.usuario.expediente === 1){
           this.tieneExpediente = true;
         }else{
           this.tieneExpediente= false;
         }
-        //console.log(this.rol);
+
       }
     });
   }
 
   onLogout() {
     this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
-    console.log(this.usuario);
+
     this.authService.logout(this.usuario.email).subscribe((data) => {
       if (data.codigo == 200) {
-        console.log(data);
+
         localStorage.clear();
         this.isLogged = false;
         this.route.navigate(['/login']);

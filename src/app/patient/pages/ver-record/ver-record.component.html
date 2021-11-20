@@ -1,5 +1,5 @@
-<div class="card col-9 m-auto">
-  <h5 class="card-header text-center">Visualizando expediente clínico</h5>
+<div class="card m-auto">
+  <h5 class="card-header bg-secondary text-light">Visualizando expediente clínico</h5>
   <div class="card-body">
     <h6 class="card-title">Su información:</h6>
     <div class="col">
@@ -77,10 +77,6 @@
             <input type="text" class="form-control" formControlName="profesion" [ngClass]="{'is-invalid':submitted && f.profesion.errors}" readonly>
           </div>
         </div>
-
-        <hr class="my-4">
-
-        <button class="w-100 btn btn-secondary btn-lg disabled" type="submit">Enviar mi información</button>
       </form>
     </div>
   </div>

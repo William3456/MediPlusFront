@@ -17,7 +17,7 @@ export class RecordService {
 
   crearExpediente(expediente: RecordInterface): Observable<any>{
 
-    return this.http.post<any>(this.urlEndPoint + "expediente/crear/", expediente,{ headers: this.httpHeaders }).pipe(
+    return this.http.post<any>(this.urlEndPoint + "expediente/crear", expediente,{ headers: this.httpHeaders }).pipe(
       catchError(e => {
         console.error(e);
         this.toastr.error('Error interno, intente más tarde', 'Error');
