@@ -1,37 +1,40 @@
 
-<div *ngIf="!horario" class="alert alert-warning" role="alert">
- <h5> Por favor Agregar un Horario de atencion a pacientes.!!</h5>
-</div>
-
-<div  class="card col m-auto">
-  <h5 *ngIf="horario" class="card-header">Citas de pacientes agendadas</h5>
+<div class="card col m-auto">
+  <h5 class="card-header bg-secondary text-light">Mis citas</h5>
   <div class="card-body">
-<div class="col mt-3">
-    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-      <thead>
-        <tr>
-          <th>N°</th>
-          <th>Nombre Paciente</th>
-          <th>Nombre Clinica</th>
-          <th>Fecha</th>
-          <th>Hora</th>
-          <th>Comentario</th>
-          <th>Ver detalles</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let cita of citasData; let i = index  ">
-          <td>{{ i + 1 }}</td>
-          <td>{{cita.patient_id.name}}</td>
-          <td>{{cita.doctor_id.clinic_id.description}}</td>
-          <td>{{cita.appointment_date}}</td>
-          <td>{{cita.appointment_time}}</td>
-          <td>{{cita.justification}}</td>
-          <td>  <h5 class="card-title"><a  href="doctor/detail/patient/{{cita.id}}" class="btn btn-link p-0">Ver detalle</a></h5></td>
-        </tr>
-      </tbody>
-    </table>
-   </div>
+
+    <div class="card-title">
+      <div *ngIf="!horario" class="alert alert-info" role="alert">
+        <p class="mb-0">Para empezar, debe Agregar un horario de atencion a pacientes.</p>
+       </div>
+    </div>
+
+    <div class="col mt-3" >
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th>N°</th>
+            <th>Nombre Paciente</th>
+            <th>Nombre Clinica</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Comentario</th>
+            <th>Ver detalles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cita of citasData; let i = index  ">
+            <td>{{ i + 1 }}</td>
+            <td>{{cita.patient_id.name}}</td>
+            <td>{{cita.doctor_id.clinic_id.description}}</td>
+            <td>{{cita.appointment_date}}</td>
+            <td>{{cita.appointment_time}}</td>
+            <td>{{cita.justification}}</td>
+            <td>  <h5 class="card-title"><a  href="doctor/detail/patient/{{cita.id}}" class="btn btn-link p-0">Ver detalle</a></h5></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 

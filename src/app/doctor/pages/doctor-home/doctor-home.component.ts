@@ -49,7 +49,7 @@ export class DoctorHomeComponent implements OnInit {
          this.appoitment = response;
          let itera = 0;
 
-         this.dtTrigger.next();
+
          for(let i = 0;i<this.appoitment.length;i++){
 
            if(this.usuario.id == this.appoitment[i].doctor_id.user_id.id && this.appoitment[i].status.id == 1){
@@ -62,6 +62,7 @@ export class DoctorHomeComponent implements OnInit {
          }
           //console.log(this.usuario.id);
         }
+        this.dtTrigger.next();
       });
 
     }
