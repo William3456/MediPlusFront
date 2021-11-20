@@ -328,7 +328,11 @@ itera ++;
   }
   onSelectAllDia(items: any) {
     this.dias = items
-    this.getHorasAll(this.dias);
+
+    for(let i=0;i<items.length;i++){
+      this.dia[i] = items[i].item_id
+    }
+    this.getHorasAll(this.dia);
     this.selectDay = true;
     this.vdia = 1;
 
@@ -411,7 +415,7 @@ for(let h =0;h<day.length;h++){
 
 for(let i = 0; i<this.clinicScheduleData.length;i++){
 
-if(day[h].item_id == this.clinicScheduleData[i].day_id.id){
+if(day[h] == this.clinicScheduleData[i].day_id.id){
   this.dropdownListHora = [];
 
 var horaInicio = this.clinicScheduleData[i].start_time;
