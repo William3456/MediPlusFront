@@ -53,7 +53,7 @@ export class DetailPatientComponent implements OnInit {
   Vdiastolic_pressure: string = "N/A";
   Vheart_rate: string = "N/A";
 
-
+  arrDetallDesc: any[] = [];
 
   valor = '';
   detalle: Array<string> = [];
@@ -145,7 +145,12 @@ public barChartLabels!: Label[];
 
 
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.usuario = JSON.parse(<string>localStorage.getItem('usuario'));
+    if (localStorage.getItem('usuario') == undefined) {
+      this.router.navigate(['login']);
+      return;
+    }
 
     this.dropdownListOpera = [
       { item_id: 5, item_text: 'Realizada' },
@@ -177,12 +182,19 @@ public barChartLabels!: Label[];
     };
 
 
-  this.citaService.obtenerCitasPorId(this.idCita).subscribe((response: any)=>{
+    let response = await this.citaService.obtenerCitasPorId(this.idCita).toPromise()
     if(response.status !== 404){
+
       let arrTwo: any[] =[]
       this.detalleApoitment = response;
       console.log(this.detalleApoitment)
 
+      if(this.detalleApoitment.doctor_id.user_id.id != this.usuario.id){
+        console.log(this.detalleApoitment);
+        console.log(this.usuario.id)
+        this.toastr.error('Sólo puede visualizar sus citas', 'Error');
+        this.router.navigate(['/doctor/home']);
+      }
      this.idPatient = this.detalleApoitment.patient_id.id;
 
 
@@ -206,10 +218,13 @@ public barChartLabels!: Label[];
         justificacion : ['', [ Validators.required, Validators.minLength(10)]],
       });
 
+      if(this.detalleApoitment.status.id === 5){
+        this.getDetallesMedicos();
+      }
       this.getDatos();
 
     }
-  })
+
 
 
 
@@ -223,9 +238,8 @@ public barChartLabels!: Label[];
 
       for(let i = 0;i<this.recordDetailData.length;i++){
         dataSel =
-{ item_id: this.recordDetailData[i].id, item_text: this.recordDetailData[i].description};
-this.dropdownListDetail.push(dataSel);
-
+      { item_id: this.recordDetailData[i].id, item_text: this.recordDetailData[i].description};
+      this.dropdownListDetail.push(dataSel);
     }
   }
   })
@@ -246,6 +260,29 @@ this.dropdownListDetail.push(dataSel);
     });
 
     //this.router.navigate(['/patient/record/new']);
+
+  }
+  async getDetallesMedicos(){
+    let arrTwo: any[] = [];
+    let obDetallDesc: {} = {};
+    let citaDetail = await this.citaService.obtenerDetalleCita(this.idCita).toPromise();
+
+      if(citaDetail.status !== 404){
+        this.detallesDoctor = citaDetail;
+        if(citaDetail.id !== null){
+          for (let i = 0; i < this.detallesDoctor.length; i++) {
+            arrTwo.push(this.detallesDoctor[i].detailType_id?.description);
+
+            obDetallDesc = {
+              [String(this.detallesDoctor[i].detailType_id?.description)] : this.detallesDoctor[i].description
+            }
+            this.arrDetallDesc.push(obDetallDesc);
+          }
+          this.detalles = arrTwo.filter(function(ele , pos){
+            return  arrTwo.indexOf(ele) == pos;
+          });
+        }
+      }
 
   }
   onItemSelectDetail(item: any) {
