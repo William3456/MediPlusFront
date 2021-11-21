@@ -151,15 +151,20 @@ this.getDays();
 
   obtenerHorarios(){
     this.horarioDocService.getHorarioDoctor().subscribe((response: any)=>{
+
+
       if(response.status !== 404){
 
         this.horarioDoc = response;
+       // console.log(this.doctorData);
+      //  console.log(this.doctorData);
+
        for(let i = 0; i<this.horarioDoc.length;i++){
-        if(this.horaInicio === this.horarioDoc[i].start_time && this.dia[i] === this.horarioDoc[i].day_id.id){
+        if(this.horaInicio === this.horarioDoc[i].start_time && this.dia[i] === this.horarioDoc[i].day_id.id && this.horarioDoc.doctor_id.id === this.doctorData.id){
           this.toastr.error('Error', 'Horario ya existe ');
           this.selectHoraFin = false;
           break;
-        }else if(this.horaFin === this.horarioDoc[i].finish_time && this.dia[i] === this.horarioDoc[i].day_id.id){
+        }else if(this.horaFin === this.horarioDoc[i].finish_time && this.dia[i] === this.horarioDoc[i].day_id.id && this.horarioDoc.doctor_id.id === this.doctorData.id){
           this.toastr.error('Error', 'Horario ya existe ');
           this.selectHoraFin = false;
           break;

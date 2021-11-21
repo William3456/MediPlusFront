@@ -181,6 +181,7 @@ public barChartLabels!: Label[];
     if(response.status !== 404){
       let arrTwo: any[] =[]
       this.detalleApoitment = response;
+      console.log(this.detalleApoitment)
 
      this.idPatient = this.detalleApoitment.patient_id.id;
 
