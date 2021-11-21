@@ -114,7 +114,7 @@
 
       <nav class="mt-2">
         <div class="nav nav-tabs" id="nav-tab" role="tablist" >
-          <button *ngIf="detalleApoitment.status.id == 1" class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
+          <button  class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
            type="button" role="tab" aria-controls="nav-home" aria-selected="true">Detalles médicos</button>
            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
           type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Últimas tomas</button>
@@ -126,7 +126,7 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="col m-auto mt-2 ">
             <form [formGroup] ="agregarDetalleForm" (ngSubmit) = "agregarDetalle()">
-            <div class="row mx-auto" *ngIf="detalleApoitment.status.id == 1">
+            <div class="row mx-auto" *ngIf="detalleApoitment.status.id == 1 else verDetalleMedico">
 
               <div class="col-4">
                 <ng-multiselect-dropdown
@@ -383,3 +383,29 @@
      </div>
   </div>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <ng-template #verDetalleMedico>
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="col-8 m-auto mt-2">
+        <div class="accordion accordion-flush border" id="accordionFlushExample">
+          <div class="accordion-item" *ngFor="let detalleTipo of detalles; let i = index ">
+            <h2 class="accordion-header " id="flush-headingOne{{i}}">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapseOne'+i" aria-expanded="false" [attr.aria-controls]="'flush-collapseOne'+i">
+                {{ detalleTipo }}&nbsp;
+              </button>
+            </h2>
+            <div id="flush-collapseOne{{i}}" class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-headingOne'+i" [attr.data-bs-parent]="'#accordionFlushExample' + i">
+              <div class="accordion-body">
+                <ol class="list-group fw-bold">
+                  <div  *ngFor="let details of arrDetallDesc; let j = index">
+                    <li class="list-group-item list-group-numbered" *ngIf="arrDetallDesc[j][detalleTipo] != null">
+                      {{ arrDetallDesc[j][detalleTipo] }}
+                    </li>
+                </div>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
