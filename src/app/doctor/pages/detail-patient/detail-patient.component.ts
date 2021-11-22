@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -19,6 +19,10 @@ import { CitaInterface } from 'src/app/patient/dao/cita';
 import { Status } from '../../../patient/dao/detalleExpediente';
 import { HorarioDoctorService } from '../../services/horario-doctor.service';
 import { Description } from '../../dao/CitasDoctor';
+import { convertCompilerOptionsFromJson } from 'typescript';
+import { Subject } from 'rxjs';
+import { addDeta } from '../../dao/addDetalle';
+
 
 
 @Component({
@@ -28,19 +32,25 @@ import { Description } from '../../dao/CitasDoctor';
 })
 export class DetailPatientComponent implements OnInit {
 
+  @ViewChild("myButton") myButton: ElementRef | undefined;
+
   constructor(private route: ActivatedRoute,private doctorService: DoctorService,private glucosService: GlucosaService, private presionService: PressureService,private formBuilder: FormBuilder,
     private recordService: RecordService, private el: ElementRef, private toastr: ToastrService,
     public datepipe: DatePipe,
      public modal: NgbModal,
     private router: Router,
     private citaService: CitaService,
-    private horarioDoctor: HorarioDoctorService) { }
+    private horarioDoctor: HorarioDoctorService,
+    private elementRef:ElementRef, private renderer:Renderer2) { }
   idPatient: any;
 
   //----------
 
   nombreUsuario: string = "";
  // usuario: Usuario = new Usuario();
+
+ dtOptions: DataTables.Settings = {};
+ dtTrigger: Subject<any> = new Subject<any>();
 
  appointment: any;
   glucosa: any;
@@ -59,6 +69,12 @@ export class DetailPatientComponent implements OnInit {
   detalle: Array<string> = [];
   detalleid: Array<string> = [];
   justifi: Array<string>=[];
+
+  itemsDetalle: Array<any>=[];
+
+  selectDetail = false;
+
+  addDeta: addDeta[] = [];
   user: any;
   iduser: any;
   fech: string[] = [];
@@ -75,6 +91,15 @@ descricionOK = false;
  usuario: Usuario = new Usuario();
  detalleCita: any = {};
  detallesDoctor: detalleExpInterface[] = [];
+
+ descripcionDetalle: any;
+ idDetalle: any;
+
+ //arreglo
+ detaid: Array<any> = [];
+ descripciondeta: Array<any> = [];
+ comentariodeta: Array<any> = [];
+
 
  detallesCita: CitaInterface[] = [];
 
@@ -151,6 +176,13 @@ public barChartLabels!: Label[];
       this.router.navigate(['login']);
       return;
     }
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.11.3/i18n/es-mx.json'
+      },
+    //  order:  [[ 7, "asc" ]]
+    };
 
     this.dropdownListOpera = [
       { item_id: 5, item_text: 'Realizada' },
@@ -187,7 +219,6 @@ public barChartLabels!: Label[];
 
       let arrTwo: any[] =[]
       this.detalleApoitment = response;
-      console.log(this.detalleApoitment)
 
       if(this.detalleApoitment.doctor_id.user_id.id != this.usuario.id){
         console.log(this.detalleApoitment);
@@ -286,42 +317,28 @@ public barChartLabels!: Label[];
 
   }
   onItemSelectDetail(item: any) {
-
-    this.detalle.push(item);
-    this.detalleid.push(item.item_id);
-    this.agregar(this.detalle);
-   // this.selectDay = true;
-
-
+    this.descripcionDetalle = item.item_text;
+    this.idDetalle = item.item_id;
+     this.selectDetail = true;
    }
 
+   onDeSelectDetail(item: any){
+    this.selectDetail = false;
+
+  }
    onItemSelectOpera(item:any){
     this.operacion = item.item_id;
     this.selectOpera = true;
 
    }
 
-   agregar(deta: any) {
 
-    var nFilas = $("#tabla tr").length;
-    if (nFilas == 0) {
-        nFilas = 1;
-    }
-    let cont = nFilas;
-    var fila = '<tr  id="fila' + cont + '">' +
-        '<th scope="row">' + cont + '</th>' +
-        '<td>'+deta[this.conta].item_text +'</td>' +
-        '<td><textarea style="height: 50px;" id="descripcion'+this.conta+'" class="form-control" required  [ngClass]="{f.justificacion.errors}" ></textarea></td>' +
-        '</tr>';
-    $('#tabla').append(fila);
-    cont++;
-    this.conta++;
-}
 
- getDatos(){
+
+ getDatos(): void{
     this.doctorService.getPatienById(this.idPatient).subscribe((response: any)=>{
       if(response.status !== 404){
-        //console.log(this.usuario.id);
+      console.log(this.usuario.id);
       this.user = response;
 
       this.getRecord();
@@ -331,6 +348,8 @@ public barChartLabels!: Label[];
       }
     })
   }
+
+
 
 
   getTomas(){
@@ -427,14 +446,70 @@ getRecord(){
   });
 }
 
+addDetalle(){
+  let evals = "";
+
+
+  evals = (<HTMLInputElement>document.getElementById('descripcion')).value;
+
+  if(!this.selectDetail){
+    this.toastr.error('Error', 'Debe seleccionar tipo de detalle');
+    this.descricionOK = false;
+  }else if(evals == ""){
+    this.toastr.error('Error', 'Debe agregar una descripcion');
+    this.descricionOK = false;
+  }
+  else{
+
+  const deta = {
+    itera: this.addDeta.length,
+    id: this.idDetalle,
+    Descripcion: this.descripcionDetalle,
+    comentario:  evals
+
+  }
+
+  this.itemsDetalle.push(deta)
+
+  this.addDeta = this.itemsDetalle;
+
+  (<HTMLInputElement>document.getElementById('descripcion')).value = "";
+
+
+  }
+
+}
+
+getElemet(e: any){
+
+
+ // console.log(this.myButton?.nativeElement.)
+ let arrTwo2: any[] = [];
+ let idd: any;
+
+
+
+idd = this.addDeta[e].itera;
+
+arrTwo2 = this.addDeta;
+    this.addDeta = arrTwo2.filter(function(n){
+     return n.itera !== idd;
+
+    })
+    this.itemsDetalle = this.addDeta;
+
+}
+
+
 agregarDetalle(){
   if(this.selectOpera==true){
-    this.formu();
-    if(this.justifi.length == 0){
+    if(this.addDeta.length == 0){
       this.toastr.error('Error', 'Se debe agregar al menos un detalle');
       return;
     }
+
     this.crearDetalle();
+
 
     this.horarioDoctor.updateStatusCita(this.idCita,this.operacion).subscribe((response)=>{
       if(response.Status !== 404){
@@ -453,19 +528,20 @@ agregarDetalle(){
     this.toastr.error('Error', 'Debe cambiar el estado de la Cita');
   }
 
+
 }
 
 crearDetalle(){
 
-  if(this.descricionOK==true){
 
-  let insert = false;
-  for(let i =0; i<this.detalle.length;i++){
+
+
+  for(let i =0; i<this.addDeta.length;i++){
 
   const detalleData = {
-      description: this.justifi[i],
+     description: this.addDeta[i].comentario,
       detailType_id: {
-        id:  parseInt(this.detalleid[i])
+        id:  parseInt(this.addDeta[i].id)
       },
       appointment_id: {
         id: parseInt(this.idCita)
@@ -473,36 +549,19 @@ crearDetalle(){
       status: {
         id: 1
       }
-  }
-  //console.log(detalleData)
-  this.horarioDoctor.crearDetalle(detalleData).subscribe((response)=>{
-    if(insert== false){
-      insert = true;
-   //   this.toastr.success('Datos guardados correctamente', 'Operación exitosa');
     }
+  console.log(detalleData)
+
+  this.horarioDoctor.crearDetalle(detalleData).subscribe((response)=>{
+
+
   })
-}
-  }else{
 
-  }
 }
 
-formu(){
-  this.justifi =[];
-  this.descricionOK = true;
-let val
-  for(let i =0; i<this.conta;i++){
-    val = (<HTMLInputElement>document.getElementById('descripcion'+i+'')).value;//((document.getElementById("descripcion0") as HTMLInputElement).value);//document.getElementById("description0").value;
+}
 
-  //this.justifi[i] = this.agregarDetalleForm.value.description0;
-  if(val == ""){
-    this.toastr.error('Error', 'Debe agregar una descripcion');
-    this.descricionOK = false;
-  }else{
-  this.justifi[i] =  val;
-  }
-}
-}
+
   calculaEdad(){
     let date = new Date();
     let fnaci = this.recordForm.value.fNacimiento;
@@ -538,5 +597,7 @@ let val
     });
   }
 
-
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
 }
