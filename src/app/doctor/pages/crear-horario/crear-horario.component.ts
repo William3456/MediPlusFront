@@ -7,7 +7,7 @@ import { Usuario } from 'src/app/auth/dao/usuario';
 import { DoctorService } from '../../services/doctor.service';
 import { diaInterface, DoctorInterface } from '../../dao/Doctor';
 import { HorarioDoctorService } from '../../services/horario-doctor.service';
-import { Status, clinic_id } from '../../dao/CitasDoctor';
+import { Status, clinic_id, doctor_id } from '../../dao/CitasDoctor';
 
 @Component({
   selector: 'app-crear-horario',
@@ -28,6 +28,8 @@ export class CrearHorarioComponent implements OnInit {
   clinicDiasData: any;
 
 doctorData: any;
+
+DaysofDoctor: any;
 
 selectDay: boolean = false;
 selectHoraIni: boolean = false;
@@ -51,6 +53,7 @@ vdia: number = 0;
   dropdownListRango: any;
   dropdownSettings = {};
   dia: Array<string> = [];
+
   dias: any;
   horaInicio: any = 0;
   horaFin: any=0;
@@ -147,30 +150,115 @@ this.getDays();
   this.guardarHorarioDocs(this.dia);
   }
 
+getHorariosD(){
+  this.horarioDocService.getHorarioDoctor().subscribe((response: any)=>{
+    if(response.status !== 404){
+      this.horarioDoc = response;
+      this.DaysofDoctor = [];
 
+      for(let i=0;i<this.horarioDoc.length;i++){
+        if(this.horarioDoc[i].doctor_id.id == this.doctorData.id){
+        this.DaysofDoctor[i] = this.horarioDoc[i];
+      }
+    }
+   //   console.log(this.DaysofDoctor);
+    }
+  })
+}
 
   obtenerHorarios(){
+  let  ohor: Array<any> = [];
+  ohor= [];
+  let hocli: Array<any> =[];
+    var horaIni = 0;
+    var horaInic = 0;
+      var horaF = 0;
+      var horaFc = 0;
+      var Hini =0;
+      var Hfin =0;
+      let valiIni = true;
+      let ValiFin = true;
+      let valiRan= true;
+      Hini = parseInt(this.horaInicio.split(':')[0]);
+      Hfin = parseInt(this.horaFin.split(':')[0]);
+
     this.horarioDocService.getHorarioDoctor().subscribe((response: any)=>{
 
 
       if(response.status !== 404){
 
         this.horarioDoc = response;
-       // console.log(this.doctorData);
-      //  console.log(this.doctorData);
+       console.log(this.clinicScheduleData);
+       for(let j=0;j<this.horarioDoc.length;j++){
+        for(let i=0;i<this.dia.length;i++){
+          if(this.dia[i] == this.horarioDoc[j].day_id.id && this.horarioDoc[j].doctor_id.id === this.doctorData.id){
+            ohor.push(this.horarioDoc[j]);
+          }
+        }
+      }
+        for(let i=0;i<ohor.length;i++){
+       var    horaInici = ohor[i].start_time;
+       var    horaFi = ohor[i].finish_time;
+       horaIni = parseInt(horaInici.split(':')[0]);
+       horaF = parseInt(horaFi.split(':')[0]);
+          for(let j=horaIni;j<=horaF;j++){
+            if(Hini==j){
+valiIni = false;
+            }
+            if(Hfin==j){
+              ValiFin = false;
+            }
+          }
+        }
 
+
+        for(let i=0;i<this.clinicScheduleData.length;i++){
+          if(this.clinicScheduleData[i].clinic_id.id==this.doctorData.clinic_id.id){
+          for(let h=0;h<this.dia.length;h++){
+            if(this.dia[h]==this.clinicScheduleData[i].day_id.id){
+          var    horaI = this.clinicScheduleData[i].start_time;
+          var    horF = this.clinicScheduleData[i].finish_time;
+          horaInic = parseInt(horaI.split(':')[0]);
+          horaFc = parseInt(horF.split(':')[0]);
+
+               if(Hini>horaFc){
+               valiRan = false;
+               }
+               if(Hfin>horaFc){
+                 valiRan = false;
+               }
+
+           }
+          }
+          }
+        }
+
+        if(!valiIni){
+          this.toastr.error('Error', 'Horario ya existe ');
+          this.vhoraini = 0;
+          this.vhoraFin = 0;
+        }else if(!ValiFin){
+          this.toastr.error('Error', 'Horario ya existe ');
+          this.vhoraFin = 0;
+          this.vhoraFin = 0;
+        }else if(!valiRan){
+          this.toastr.error('Error', 'Horario mayor al Rango');
+          this.vhoraFin = 0;
+          this.vhoraFin = 0;
+        }
+/*
        for(let i = 0; i<this.horarioDoc.length;i++){
-        if(this.horaInicio === this.horarioDoc[i].start_time && this.dia[i] === this.horarioDoc[i].day_id.id && this.horarioDoc.doctor_id.id === this.doctorData.id){
+        if(this.horaInicio === this.horarioDoc[i].start_time && this.dia[i] === this.horarioDoc[i].day_id.id && this.horarioDoc[i].doctor_id.id === this.doctorData.id){
           this.toastr.error('Error', 'Horario ya existe ');
-          this.selectHoraFin = false;
+          this.vhoraini = 0;
           break;
-        }else if(this.horaFin === this.horarioDoc[i].finish_time && this.dia[i] === this.horarioDoc[i].day_id.id && this.horarioDoc.doctor_id.id === this.doctorData.id){
+        }else if(this.horaFin === this.horarioDoc[i].finish_time && this.dia[i] === this.horarioDoc[i].day_id.id && this.horarioDoc[i].doctor_id.id === this.doctorData.id){
           this.toastr.error('Error', 'Horario ya existe ');
-          this.selectHoraFin = false;
+          this.vhoraFin = 0;
           break;
         }
        }
-
+*/
 
 
       }
@@ -178,11 +266,6 @@ this.getDays();
 
   }
 
-  agregarDetalle(){
-
-
-
-  }
 
   guardarHorarioDocs(days: any){
 
@@ -256,9 +339,11 @@ this.getDays();
     this.horarioDocService.getClinicSchedule().subscribe((response)=>{
       if(response.Status !== 400){
 
+        this.getHorariosD();
+
         this.clinicDiasData = response;
-     //   console.log(this.clinicDiasData);
-        console.log(this.doctorData.clinic_id.id);
+      //  console.log(this.clinicDiasData);
+     //   console.log(this.doctorData.clinic_id.id);
         this.dropdownListDia = [];
 
         let dataSel = {};
@@ -331,8 +416,9 @@ itera ++;
    this.dia.push(item.item_id);
     this.getHoras(this.dia);
     this.selectDay = true;
-    console.log(this.dia)
+  //  console.log(this.dia)
     this.vdia = 1;
+    this.vhoraFin = 0;
 
   }
   onSelectAllDia(items: any) {
@@ -344,6 +430,7 @@ itera ++;
     this.getHorasAll(this.dia);
     this.selectDay = true;
     this.vdia = 1;
+    this.vhoraFin = 0;
 
   }
 
@@ -356,8 +443,10 @@ itera ++;
      return n !== item.item_id;
 
     })
+    if(this.dia.length==0){
     this.vdia = 0;
-
+  }
+    this.vhoraFin = 0;
   }
   onDeSelectHIni(item: any){
     this.selectHoraIni = false;
