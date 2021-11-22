@@ -221,8 +221,7 @@ public barChartLabels!: Label[];
       this.detalleApoitment = response;
 
       if(this.detalleApoitment.doctor_id.user_id.id != this.usuario.id){
-        console.log(this.detalleApoitment);
-        console.log(this.usuario.id)
+
         this.toastr.error('Sólo puede visualizar sus citas', 'Error');
         this.router.navigate(['/doctor/home']);
       }
@@ -313,6 +312,8 @@ public barChartLabels!: Label[];
             return  arrTwo.indexOf(ele) == pos;
           });
         }
+        console.log(this.detalles)
+        console.log(this.arrDetallDesc)
       }
 
   }
@@ -338,7 +339,7 @@ public barChartLabels!: Label[];
  getDatos(): void{
     this.doctorService.getPatienById(this.idPatient).subscribe((response: any)=>{
       if(response.status !== 404){
-      console.log(this.usuario.id);
+    //  console.log(this.usuario.id);
       this.user = response;
 
       this.getRecord();
@@ -550,7 +551,7 @@ crearDetalle(){
         id: 1
       }
     }
-  console.log(detalleData)
+
 
   this.horarioDoctor.crearDetalle(detalleData).subscribe((response)=>{
 

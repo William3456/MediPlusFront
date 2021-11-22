@@ -126,7 +126,7 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="col m-auto mt-2 ">
             <form [formGroup] ="agregarDetalleForm" (ngSubmit) = "agregarDetalle()">
-            <div class="row mx-auto" *ngIf="detalleApoitment.status.id == 1 else verDetalleMedico">
+            <div class="row mx-auto" *ngIf="detalleApoitment.status.id == 1">
 
               <div class="col-4">
                 <ng-multiselect-dropdown
