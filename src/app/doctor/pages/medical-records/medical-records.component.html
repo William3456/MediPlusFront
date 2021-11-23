@@ -1,0 +1,114 @@
+<div class="card col m-auto">
+  <h5 class="card-header bg-secondary text-light">Historial médico</h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="row">
+            <div class=" col-md-2 col-12">
+                <p class="text-dark">Paciente:</p>
+            </div>
+            <div class=" col-md-9 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.nombre }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-2 col-12 ">
+                <p class="text-dark">Direccion:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.direccion }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-2 col-12 ">
+                <p class="text-dark">Teléfono:</p>
+            </div>
+            <div class=" col-md-8 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.telefono }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="row">
+            <div class=" col-md-2 col-12">
+                <p class="text-dark">Edad:</p>
+            </div>
+            <div class=" col-md-3 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.edad }}</p>
+            </div>
+            <div class=" col-md-2 col-12">
+              <p class="text-dark">Profesión:</p>
+            </div>
+            <div class=" col-md-3 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.profesion }}</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-2 col-12">
+              <p class="text-dark">Peso:</p>
+            </div>
+            <div class=" col-md-3 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.peso }} (lb)</p>
+            </div>
+            <div class=" col-md-2 col-12">
+              <p class="text-dark">Altura:</p>
+            </div>
+            <div class=" col-md-3 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.altura }} (cm)</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-2 col-12">
+              <p class="text-dark">Credencial:</p>
+            </div>
+            <div class=" col-md-3 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.credencialId }}</p>
+            </div>
+            <div class=" col-md-2 col-12">
+              <p class="text-dark">Número:</p>
+            </div>
+            <div class=" col-md-3 col-12 ">
+                <p class="text-dark fw-bold">{{ datosPacienteGen.credencialNum }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="hayHistorial else noHistory">
+      <div class="col"  *ngFor="let observacion of observacionesCitas; let i = index">
+        <h6 class="card-header bg-dark text-light p-1 ">{{ observacion }}</h6>
+        <div class="card-body mb-0">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr >
+                <th scope="col" class="text-center" >N° Cita</th>
+                <th scope="col" >Descripción</th>
+                <th scope="col" class="text-center">Fecha cita</th>
+                <th scope="col" class="text-center">Doctor</th>
+                <th scope="col" class="text-center">Clinica</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr *ngFor="let det of observacionesDetalle; let j = index" >
+                <td *ngIf="det[observacion] != null" class="text-center fw-bold">#{{ observacionesGen[j].appointment_id.id }}</td>
+                <td *ngIf="det[observacion] != null">{{ det[observacion] }}</td>
+                <td *ngIf="det[observacion] != null" class="text-center ">{{ observacionesGen[j].appointment_id.appointment_date }}</td>
+                <td *ngIf="det[observacion] != null" class="text-center ">{{ observacionesGen[j].appointment_id.doctor_id.user_id.name }}</td>
+                <td *ngIf="det[observacion] != null" class="text-center ">{{ observacionesGen[j].appointment_id.doctor_id.clinic_id.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noHistory>
+  <div  class="alert alert-info col-8 mx-auto mt-2" role="alert">
+    <p class="mb-0">No se encontró historial médico, para obtener uno, primero realice una cita médica.</p>
+   </div>
+</ng-template>

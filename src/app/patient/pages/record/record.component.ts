@@ -144,7 +144,7 @@ export class RecordComponent implements OnInit {
     //console.log(expediente);
 
     this.recordService.crearExpediente(expediente).subscribe((response) =>{
-      console.log(response);
+
       if(response.status === 200){
         this.toastr.success('Expediente creado correctamente', 'Operación exitosa');
         this.router.navigate(['/home']);
