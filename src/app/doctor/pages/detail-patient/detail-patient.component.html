@@ -147,8 +147,24 @@
                 </button>
               </div>
             </div>
+            <div class="row mx-auto mt-3" *ngIf="detalleApoitment.status.id == 1 else verDetalleMedico">
+              <div class="col-4">
+                <ng-multiselect-dropdown
+                [placeholder]="'Seleccionar Estado '"
+                  [settings]="dropdownSettingsOperacion"
+                  [data]="dropdownListOpera"
+                  (onSelect)="onItemSelectOpera($event)"
+                ></ng-multiselect-dropdown>
+              </div>
+              <div class="col-3 text-center" *ngIf="detalleApoitment.status.id == 1">
+                <button myButton type="button" class="btn btn-primary"  title="Guardar estado y detalles" type="submit">
+                Guardar estado y detalles
+                </button>
+              </div>
+            </div>
+
             <div class="row mx-auto mt-3" *ngIf="detalleApoitment.status.id == 1">
-              <div class="col-8">
+              <div class="col">
                 <h6>Detalles:</h6>
 
                 <table class="table table-hover" *ngIf="addDeta?.length != 0">
@@ -175,21 +191,7 @@
               </div>
 
             </div>
-            <div class="row mx-auto" *ngIf="detalleApoitment.status.id == 1 else verDetalleMedico">
-              <div class="col-4">
-                <ng-multiselect-dropdown
-                [placeholder]="'Seleccionar Estado '"
-                  [settings]="dropdownSettingsOperacion"
-                  [data]="dropdownListOpera"
-                  (onSelect)="onItemSelectOpera($event)"
-                ></ng-multiselect-dropdown>
-              </div>
-              <div class="col-3 text-center" *ngIf="detalleApoitment.status.id == 1">
-                <button myButton type="button" class="btn btn-primary"  title="Guardar estado y detalles" type="submit">
-                Guardar estado y detalles
-                </button>
-              </div>
-            </div>
+
         </form>
             </div>
           </div>
