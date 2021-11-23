@@ -12,7 +12,6 @@ import { VerHorariosComponent } from './pages/ver-horarios/ver-horarios.componen
 import { MedicalRecordsComponent } from './pages/medical-records/medical-records.component';
 import { AppRoutingModule } from '../app-routing.module';
 
-
 @NgModule({
   declarations: [DoctorHomeComponent, CrearHorarioComponent, VerPerfilComponent, DetailPatientComponent,VerHorariosComponent, MedicalRecordsComponent],
   imports: [
@@ -22,7 +21,9 @@ import { AppRoutingModule } from '../app-routing.module';
     NgMultiSelectDropDownModule.forRoot(),
     ChartsModule,
     DataTablesModule,
-    AppRoutingModule,
+    AppRoutingModule
+
+
   ],
   exports: [
     DoctorHomeComponent,

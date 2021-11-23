@@ -1,4 +1,10 @@
-<div class="card col m-auto">
+<p align="right">
+  <button myButton type="button" class="btn btn-primary "  (click)="ExportReport()">
+  Generar Reporte</button>
+ </p>
+
+<div class="Container" id="element_to_export">
+<div class="card col m-auto t-4" >
   <h5 class="card-header bg-secondary text-light">Historial médico</h5>
   <div class="card-body">
     <div class="row">
@@ -106,9 +112,10 @@
     </div>
   </div>
 </div>
-
+</div>
 <ng-template #noHistory>
   <div  class="alert alert-info col-8 mx-auto mt-2" role="alert">
     <p class="mb-0">No se encontró historial médico, para obtener uno, primero realice una cita médica.</p>
    </div>
 </ng-template>
+<script src="html2pdf.bundle.min.js"></script>
