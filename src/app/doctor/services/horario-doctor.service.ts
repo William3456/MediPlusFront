@@ -69,6 +69,7 @@ export class HorarioDoctorService {
 }
 */
   horarioDispByFechaDoc(idDoctor: number, fecha: any){
+    console.log(this.urlEndPoint+"horariosCita/"+idDoctor + '/'+fecha);
     return this.http.get<any>(this.urlEndPoint+"horariosCita/"+idDoctor + '/'+fecha).pipe(
       catchError(e => {
         console.error(e);
