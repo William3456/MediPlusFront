@@ -27,6 +27,7 @@ export class MedicalRecordsComponent implements OnInit {
   datosPacienteGen: any = {}
   hayHistorial: Boolean = false;
   record: RecordInterface = new RecordInterface();
+  fechaActual: Date = new Date();
 
   constructor(private route: ActivatedRoute, public modalServ: NgbModal,
     private formBuilder: FormBuilder, private el: ElementRef,private toastr: ToastrService, private router: Router,

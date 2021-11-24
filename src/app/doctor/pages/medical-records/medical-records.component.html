@@ -1,17 +1,27 @@
-<p align="right">
+<p align="right" *ngIf="hayHistorial">
   <button myButton type="button" class="btn btn-primary "  (click)="ExportReport()">
   Generar Reporte</button>
  </p>
 
 <div class="Container" id="element_to_export">
 <div class="card col m-auto t-4" >
-  <h5 class="card-header bg-secondary text-light">Historial médico</h5>
-  <div class="card-body">
+
+  <div class="card-body border">
+    <div class="row  mb-3">
+      <div class="col">
+        <img width="175"
+        src="assets/img/logo_medi.jpg">
+      </div>
+      <div class="col">
+        <h5 class="text-end">Historial médico hasta la fecha: {{fechaActual | date:'dd-MM-yyyy'}}</h5>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-6">
         <div class="row">
           <div class="row">
-            <div class=" col-md-2 col-12">
+            <div class=" col-md-3 col-12">
                 <p class="text-dark">Paciente:</p>
             </div>
             <div class=" col-md-9 col-12 ">
@@ -19,7 +29,7 @@
             </div>
           </div>
           <div class="row">
-            <div class=" col-md-2 col-12 ">
+            <div class=" col-md-3 col-12 ">
                 <p class="text-dark">Direccion:</p>
             </div>
             <div class=" col-md-8 col-12 ">
@@ -27,7 +37,7 @@
             </div>
           </div>
           <div class="row">
-            <div class=" col-md-2 col-12 ">
+            <div class=" col-md-3 col-12 ">
                 <p class="text-dark">Teléfono:</p>
             </div>
             <div class=" col-md-8 col-12 ">
@@ -46,7 +56,7 @@
                 <p class="text-dark fw-bold">{{ datosPacienteGen.edad }}</p>
             </div>
             <div class=" col-md-2 col-12">
-              <p class="text-dark">Profesión:</p>
+              <p class="text-dark">Prof.:</p>
             </div>
             <div class=" col-md-3 col-12 ">
                 <p class="text-dark fw-bold">{{ datosPacienteGen.profesion }}</p>
@@ -68,7 +78,7 @@
           </div>
           <div class="row">
             <div class=" col-md-2 col-12">
-              <p class="text-dark">Credencial:</p>
+              <p class="text-dark">Creden.:</p>
             </div>
             <div class=" col-md-3 col-12 ">
                 <p class="text-dark fw-bold">{{ datosPacienteGen.credencialId }}</p>
@@ -85,7 +95,7 @@
     </div>
     <div *ngIf="hayHistorial else noHistory">
       <div class="col"  *ngFor="let observacion of observacionesCitas; let i = index">
-        <h6 class="card-header bg-dark text-light p-1 ">{{ observacion }}</h6>
+        <h6 class="card-header bg-dark text-light p-1 fas fa-edit">{{ observacion }}</h6>
         <div class="card-body mb-0">
           <table class="table table-bordered mb-0">
             <thead>

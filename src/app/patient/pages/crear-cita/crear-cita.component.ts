@@ -242,7 +242,6 @@ export class CrearCitaComponent implements OnInit {
               Swal.close();
               clearInterval(this.intervalo);
             }
-            console.log("entra")
           }, 10);
 
           for (let i = 0; i < this.horario.length; i++) {
@@ -250,7 +249,14 @@ export class CrearCitaComponent implements OnInit {
             let horaFin = this.horario[i].finish_time;
             rangoCita = this.horario[i].rango_cita;
 
+
             intervalos = this.sacaIntervalos(horaInicio, horaFin, rangoCita);
+
+            let arrReceso = this.sacaIntervalos(response[0].clinic_schedule[0].receso_inicio,
+              response[0].clinic_schedule[0].receso_fin, rangoCita);
+
+            let valorQuitar = arrReceso.length - 1;
+            arrReceso.splice(valorQuitar);
 
             for (let j = 0; j < intervalos.length - 1; j++) {
 
@@ -260,14 +266,17 @@ export class CrearCitaComponent implements OnInit {
 
               if (res.status === 404){
                 this.cita = res;
-                rangoInicial = intervalos[j].substring(0,5)
-                rangoFinal = intervalos[j+1].substring(0,5);
+                let existeInArray = arrReceso.includes(intervalos[j]);
 
-                dataSel = {
-                  item_id:  j +'-'+this.horario[i].id + '-'+rangoInicial + ':00-' + rangoFinal+':00',
-                  item_text: rangoInicial + ' - ' + rangoFinal,
-                };
-                this.dropdownListHor.push(dataSel);
+                if(!existeInArray){
+                  rangoInicial = intervalos[j].substring(0,5)
+                  rangoFinal = intervalos[j+1].substring(0,5);
+                  dataSel = {
+                    item_id:  j +'-'+this.horario[i].id + '-'+rangoInicial + ':00-' + rangoFinal+':00',
+                    item_text: rangoInicial + ' - ' + rangoFinal,
+                  };
+                  this.dropdownListHor.push(dataSel);
+                }
               }
             }
           }
@@ -401,13 +410,15 @@ export class CrearCitaComponent implements OnInit {
     do {
       startDate = new Date(startDate.getTime() + offset);
       if (startDate <= endDate){
+
         if(cont == 0)
           a.push(horaIni);
 
         valor = ("0" + (startDate.getHours())).slice(-2) + ':' +
          ("0" + (startDate.getMinutes())).slice(-2) + ":" +
          ("0" + (startDate.getSeconds())).slice(-2);
-        a.push(valor)
+
+        a.push(valor);
       }
       cont++;
     } while(startDate < endDate);
