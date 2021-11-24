@@ -398,7 +398,6 @@ for(let j = horaIni; j<horaF;j++){
     }else{
       dataSel ={ item_id: itera, item_text: j+':00:00' };
     }
-
   this.dropdownListHora.push(dataSel);
 itera ++;
   }
