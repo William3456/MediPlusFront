@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {NavbarComponent} from "./shared/navbar/navbar.component";
@@ -16,6 +15,7 @@ import { DoctorModule } from './doctor/doctor.module';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgMultiSelectDropDownModule.forRoot(),
     DataTablesModule,
     NgbModule
+
 
   ],
   providers: [

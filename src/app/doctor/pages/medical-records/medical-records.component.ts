@@ -10,6 +10,7 @@ import {Location} from '@angular/common';
 import { RecordService } from 'src/app/patient/services/record.service.service';
 import { RecordInterface } from 'src/app/patient/dao/record';
 
+import * as html2pdf from 'html2pdf.js';
 @Component({
   selector: 'app-medical-records',
   templateUrl: './medical-records.component.html',
@@ -26,6 +27,7 @@ export class MedicalRecordsComponent implements OnInit {
   datosPacienteGen: any = {}
   hayHistorial: Boolean = false;
   record: RecordInterface = new RecordInterface();
+  fechaActual: Date = new Date();
 
   constructor(private route: ActivatedRoute, public modalServ: NgbModal,
     private formBuilder: FormBuilder, private el: ElementRef,private toastr: ToastrService, private router: Router,
@@ -151,5 +153,23 @@ export class MedicalRecordsComponent implements OnInit {
 
     return ageyear;
   }
+
+  ExportReport(){
+    const options ={
+      filename: 'DetalleExpediente.pdf',
+      image: {type: 'jpeg'},
+      html2canvas: {},
+      jsPDF: {orientation: 'landscape'}
+    };
+
+
+    var element = document.getElementById('element_to_export');
+    html2pdf()
+    .from(element)
+    .set(options)
+    .save();
+
+  }
+
 }
 
